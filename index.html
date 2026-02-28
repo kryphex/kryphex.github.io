@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -26,13 +30,18 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 60px;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(5px);
+      background: rgba(0,0,0,0.85);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      backdrop-filter: blur(6px);
+      z-index: 1000;
     }
 
     header h1 {
       letter-spacing: 4px;
       color: #00ffcc;
+      margin: 0;
     }
 
     nav a {
@@ -40,70 +49,79 @@
       margin-left: 25px;
       text-decoration: none;
       font-weight: bold;
+      transition: 0.3s;
     }
 
-    .hero {
+    nav a:hover {
+      color: #00ffcc;
+    }
+
+    section {
+      padding: 140px 60px;
       text-align: center;
-      padding: 180px 20px 120px 20px;
     }
 
-    .hero h2 {
+    h2 {
       font-size: 55px;
       margin-bottom: 20px;
     }
 
-    .hero p {
-      font-size: 22px;
-      color: #00ffcc;
-    }
-
-    .section {
-      padding: 100px 60px;
-      text-align: center;
-    }
-
-    .section h3 {
-      font-size: 40px;
+    h3 {
+      font-size: 38px;
       margin-bottom: 40px;
       color: #00ffcc;
     }
 
-    .service-box {
+    p {
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 14px 30px;
+      background: #00ffcc;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+
+    .card {
       border: 1px solid #00ffcc;
       padding: 25px;
-      margin: 20px auto;
+      margin: 25px auto;
       max-width: 600px;
       border-radius: 8px;
       background: rgba(0,0,0,0.6);
+      transform: translateY(40px);
+      opacity: 0;
+      transition: all 0.6s ease;
     }
 
-    .contact-box {
-      max-width: 500px;
-      margin: auto;
+    .card.show {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     input, textarea {
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
+      margin-top: 12px;
       background: black;
       border: 1px solid #00ffcc;
       color: white;
     }
 
-    button {
-      margin-top: 15px;
-      padding: 12px 25px;
-      background: #00ffcc;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
     footer {
-      text-align: center;
       padding: 30px;
-      background: black;
+      text-align: center;
       color: gray;
     }
   </style>
@@ -113,57 +131,56 @@
 <canvas id="matrix"></canvas>
 
 <header>
-  <h1>KRYPHEX</h1>
+  <h1>KRY P H E X</h1>
   <nav>
-    <a href="#">Home</a>
+    <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<section class="hero">
+<section id="home">
   <h2>Elite Cybersecurity & Digital Defense</h2>
-  <p>Securing Enterprises. Protecting Infrastructure. Defending the Future.</p>
+  <p>Protecting digital infrastructure with advanced penetration testing, threat intelligence, and zero-trust architecture.</p>
+  <button class="btn" onclick="document.getElementById('contact').scrollIntoView()">Request Security Audit</button>
 </section>
 
-<section class="section" id="about">
+<section id="about">
   <h3>About Kryphex</h3>
   <p>
-    Kryphex is a next-generation cybersecurity firm focused on penetration testing,
-    threat intelligence, cloud defense, and zero-trust architecture.
-    We operate with military-grade security standards to protect global enterprises.
+    Kryphex is a next-generation cybersecurity firm built to defend modern enterprises
+    against evolving digital threats. We combine ethical hacking, AI-driven monitoring,
+    and enterprise-grade security frameworks to protect mission-critical systems.
   </p>
 </section>
 
-<section class="section" id="services">
-  <h3>Our Services</h3>
+<section id="services">
+  <h3>Core Services</h3>
 
-  <div class="service-box">
+  <div class="card">
     <h4>Penetration Testing</h4>
-    <p>Advanced vulnerability testing to eliminate security gaps.</p>
+    <p>Simulated cyber-attacks to uncover vulnerabilities before attackers do.</p>
   </div>
 
-  <div class="service-box">
-    <h4>Threat Intelligence & Monitoring</h4>
-    <p>24/7 real-time detection and rapid incident response.</p>
+  <div class="card">
+    <h4>Threat Detection & Monitoring</h4>
+    <p>24/7 monitoring with rapid incident response and forensic analysis.</p>
   </div>
 
-  <div class="service-box">
+  <div class="card">
     <h4>Cloud & Infrastructure Security</h4>
-    <p>Secure multi-cloud environments and implement zero-trust frameworks.</p>
+    <p>Zero-trust frameworks and hardened cloud architecture implementation.</p>
   </div>
-
 </section>
 
-<section class="section" id="contact">
-  <h3>Contact Us</h3>
-  <div class="contact-box">
-    <input type="text" placeholder="Your Name">
-    <input type="email" placeholder="Your Email">
-    <textarea rows="5" placeholder="Your Message"></textarea>
-    <button>Send Message</button>
-  </div>
+<section id="contact">
+  <h3>Contact Kryphex</h3>
+  <p>Ready to secure your organization? Reach out.</p>
+  <input type="text" placeholder="Your Name">
+  <input type="email" placeholder="Your Email">
+  <textarea rows="5" placeholder="Your Message"></textarea>
+  <button class="btn">Send Message</button>
 </section>
 
 <footer>
@@ -171,6 +188,7 @@
 </footer>
 
 <script>
+  // MATRIX BACKGROUND
   const canvas = document.getElementById("matrix");
   const ctx = canvas.getContext("2d");
 
@@ -180,10 +198,9 @@
   const letters = "01";
   const fontSize = 14;
   const columns = canvas.width / fontSize;
-
   const drops = [];
-  for(let x = 0; x < columns; x++)
-    drops[x] = 1;
+
+  for(let x = 0; x < columns; x++) drops[x] = 1;
 
   function draw() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
@@ -204,6 +221,17 @@
   }
 
   setInterval(draw, 33);
+
+  // SCROLL ANIMATION
+  const cards = document.querySelectorAll('.card');
+  window.addEventListener('scroll', () => {
+    cards.forEach(card => {
+      const position = card.getBoundingClientRect().top;
+      if(position < window.innerHeight - 100) {
+        card.classList.add('show');
+      }
+    });
+  });
 </script>
 
 </body>
