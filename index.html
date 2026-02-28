@@ -25,16 +25,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 80px;
+      padding: 20px 120px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       z-index: 1000;
     }
 
-    header h1 {
-      margin: 0;
-      letter-spacing: 2px;
-      color: #0a1f44;
-    }
+header h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 22px;
+  color: #0a1f44;
+  letter-spacing: 0.5px;
+}
 
     nav a {
       text-decoration: none;
@@ -49,8 +51,18 @@
     }
 
     section {
-      padding: 140px 80px;
-      text-align: center;
+  padding: 120px 80px;
+}
+
+section h3 {
+  text-align: center;
+}
+
+section > p {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+}
     }
 
     .hero {
@@ -73,15 +85,20 @@
     }
 
     .btn {
-      margin-top: 30px;
-      padding: 14px 32px;
-      background: #0056ff;
-      border: none;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 4px;
-    }
+  margin-top: 30px;
+  padding: 14px 36px;
+  background: #0056ff;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #003bb5;
+}
 
     h3 {
       font-size: 36px;
@@ -90,14 +107,19 @@
     }
 
     .card {
-      background: white;
-      padding: 30px;
-      margin: 20px auto;
-      max-width: 700px;
-      border-radius: 6px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-      text-align: left;
-    }
+  background: white;
+  padding: 35px;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+}
 
     footer {
       background: #0a1f44;
@@ -128,19 +150,59 @@
   transform: translateY(-6px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }    
+
+    .container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  nav {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: white;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  nav a {
+    padding: 15px;
+    display: block;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+    
   </style>
 </head>
 <body>
 
 <header>
   <h1>KRYPHEX</h1>
- <nav>
-  <a href="#about">About</a>
-  <a href="services.html">Services</a>
-  <a href="#industries">Industries</a>
-  <a href="insights.html">Insights</a>
-  <a href="#contact">Contact</a>
-</nav>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <nav id="nav-links">
+    <a href="#about">About</a>
+    <a href="services.html">Services</a>
+    <a href="#industries">Industries</a>
+    <a href="insights.html">Insights</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -155,6 +217,7 @@
 </section>
 
 <section id="about">
+  <div class="container">
   <h3>About Kryphex</h3>
   <div class="card">
     Kryphex is an independent cybersecurity initiative focused on enterprise
@@ -162,9 +225,11 @@
     Built on modern security frameworks, Kryphex operates with a defense-first mindset
     to protect mission-critical systems.
   </div>
+    </div>
 </section>
 
 <section id="services">
+  <div class="container">
   <h3>Core Services</h3>
   <div class="card">
     <strong>Penetration Testing</strong><br><br>
@@ -178,16 +243,20 @@
     <strong>Cloud & Infrastructure Security</strong><br><br>
     Zero-trust implementation and hardened architecture design.
   </div>
+    </div>
 </section>
 
 <section id="industries">
+  <div class="container">
   <h3>Industries We Protect</h3>
   <div class="card">
     Financial Services • Healthcare • Technology • Startups • SaaS Platforms
   </div>
+    </div>
 </section>
 
 <section id="authority">
+  <div class="container">
   <h3>Security Principles</h3>
 
   <div class="card">
@@ -204,9 +273,11 @@
     <strong>Continuous Improvement</strong><br><br>
     Security posture evolves with emerging threats and technology changes.
   </div>
+    </div>
 </section>
   
 <section id="contact">
+  <div class="container">
   <h3>Contact Kryphex</h3>
   <div class="card">
     <input type="text" placeholder="Name">
@@ -214,11 +285,23 @@
     <textarea rows="5" placeholder="Message"></textarea>
     <button class="btn">Submit Inquiry</button>
   </div>
+    </div>
 </section>
 
 <footer>
   © 2026 Kryphex. Enterprise Cybersecurity Solutions.
 </footer>
 
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  if (nav.style.display === "flex") {
+    nav.style.display = "none";
+  } else {
+    nav.style.display = "flex";
+  }
+}
+</script>
+  
 </body>
 </html>
