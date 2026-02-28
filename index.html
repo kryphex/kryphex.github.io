@@ -4,115 +4,207 @@
   <title>Kryphex | Global Cybersecurity</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f1a;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
       color: white;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
     header {
-      padding: 20px 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0f1626;
+      padding: 20px 60px;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
     }
 
     header h1 {
-      margin: 0;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
+      color: #00ffcc;
     }
 
     nav a {
-      color: #00f0ff;
+      color: white;
+      margin-left: 25px;
       text-decoration: none;
-      margin-left: 20px;
       font-weight: bold;
     }
 
     .hero {
       text-align: center;
-      padding: 120px 20px;
+      padding: 180px 20px 120px 20px;
     }
 
     .hero h2 {
-      font-size: 50px;
+      font-size: 55px;
       margin-bottom: 20px;
     }
 
     .hero p {
-      font-size: 20px;
-      color: #00f0ff;
+      font-size: 22px;
+      color: #00ffcc;
     }
 
-    .services {
-      padding: 80px 50px;
-      background: #0f1626;
+    .section {
+      padding: 100px 60px;
       text-align: center;
     }
 
-    .services h3 {
-      font-size: 35px;
+    .section h3 {
+      font-size: 40px;
       margin-bottom: 40px;
+      color: #00ffcc;
     }
 
     .service-box {
+      border: 1px solid #00ffcc;
+      padding: 25px;
       margin: 20px auto;
-      max-width: 500px;
-      padding: 20px;
-      border: 1px solid #00f0ff;
+      max-width: 600px;
       border-radius: 8px;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .contact-box {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: black;
+      border: 1px solid #00ffcc;
+      color: white;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background: #00ffcc;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background: #0b0f1a;
-      color: #777;
+      padding: 30px;
+      background: black;
+      color: gray;
     }
   </style>
 </head>
 <body>
 
+<canvas id="matrix"></canvas>
+
 <header>
   <h1>KRYPHEX</h1>
   <nav>
     <a href="#">Home</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
   </nav>
 </header>
 
 <section class="hero">
-  <h2>Global Cybersecurity & Digital Defense</h2>
-  <p>Securing Enterprises. Protecting Data. Defending the Future.</p>
+  <h2>Elite Cybersecurity & Digital Defense</h2>
+  <p>Securing Enterprises. Protecting Infrastructure. Defending the Future.</p>
 </section>
 
-<section class="services">
+<section class="section" id="about">
+  <h3>About Kryphex</h3>
+  <p>
+    Kryphex is a next-generation cybersecurity firm focused on penetration testing,
+    threat intelligence, cloud defense, and zero-trust architecture.
+    We operate with military-grade security standards to protect global enterprises.
+  </p>
+</section>
+
+<section class="section" id="services">
   <h3>Our Services</h3>
 
   <div class="service-box">
     <h4>Penetration Testing</h4>
-    <p>Advanced security testing to identify vulnerabilities before attackers do.</p>
+    <p>Advanced vulnerability testing to eliminate security gaps.</p>
   </div>
 
   <div class="service-box">
-    <h4>Threat Monitoring</h4>
-    <p>24/7 real-time monitoring and incident response.</p>
+    <h4>Threat Intelligence & Monitoring</h4>
+    <p>24/7 real-time detection and rapid incident response.</p>
   </div>
 
   <div class="service-box">
-    <h4>Cloud Security</h4>
-    <p>Secure infrastructure and zero-trust architecture implementation.</p>
+    <h4>Cloud & Infrastructure Security</h4>
+    <p>Secure multi-cloud environments and implement zero-trust frameworks.</p>
   </div>
 
+</section>
+
+<section class="section" id="contact">
+  <h3>Contact Us</h3>
+  <div class="contact-box">
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Your Email">
+    <textarea rows="5" placeholder="Your Message"></textarea>
+    <button>Send Message</button>
+  </div>
 </section>
 
 <footer>
   © 2026 Kryphex. All Rights Reserved.
 </footer>
+
+<script>
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  const letters = "01";
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+
+  const drops = [];
+  for(let x = 0; x < columns; x++)
+    drops[x] = 1;
+
+  function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ffcc";
+    ctx.font = fontSize + "px monospace";
+
+    for(let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random()*letters.length)];
+      ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+
+      if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+        drops[i] = 0;
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw, 33);
+</script>
 
 </body>
 </html>
