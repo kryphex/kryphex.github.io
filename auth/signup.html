@@ -186,8 +186,10 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
 });
 
 async function oauthLogin(provider) {
+  if (provider !== "google") return;
+
   await supabaseClient.auth.signInWithOAuth({
-    provider: provider,
+    provider: "google",
     options: {
       redirectTo: "https://kryphex.github.io/home.html"
     }
