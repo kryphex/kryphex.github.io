@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Scan History</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function loadHistory() {
+  const { data: userData } = await supabaseClient.auth.getUser();
+  const user = userData.user;
+
+  if (!user) {
+    window.location.href = "../auth/login.html";
+    return;
+  }
+
+  const { data: logs } = await supabaseClient
+    .from("scan_logs")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  const container = document.getElementById("historyContainer");
+
+  if (!logs || logs.length === 0) {
+    container.innerHTML = "<p>No scans yet.</p>";
+    return;
+  }
+
+  logs.forEach(log => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <strong>Target:</strong> ${log.target}<br>
+      <strong>Date:</strong> ${new Date(log.created_at).toLocaleString()}<br><br>
+      <pre>${log.result}</pre>
+    `;
+    container.appendChild(div);
+  });
+}
+
+loadHistory();
+</script>
+
+<section class="hero">
+  <h2>Your Scan History</h2>
+</section>
+
+<section>
+  <div class="container" id="historyContainer"></div>
+</section>
+
+</body>
+</html>
