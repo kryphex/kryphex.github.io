@@ -4,200 +4,59 @@
   <title>Kryphex | Enterprise Cybersecurity</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
-<body>
+<body class="landing-body">
 
-<header>
-  <h1>
-  <a href="index.html" style="display:flex; align-items:center;">
-    <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
-  </a>
-</h1>
+<!-- HEADER -->
 
-  <nav id="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="services.html">Services</a>
-    <a href="insights.html">Insights</a>
-    <a href="about.html">About</a>
-    <a href="tools/">Tools</a>
-    <a href="case-studies.html">Case Studies</a>
-    <a href="consultation.html">Consultation</a>
+<header class="landing-header">
 
-    <div id="authArea"></div>
-  </nav>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <div class="center-logo">
+    <a href="index.html">
+      <img src="logo.svg" alt="Kryphex Logo">
+    </a>
+  </div>
+
 </header>
 
-<section class="hero">
-  <h2>Enterprise Cybersecurity Architecture.</h2>
+<nav id="mobileMenu" class="mobile-menu">
+  <a href="services.html">Services</a>
+  <a href="insights.html">Insights</a>
+  <a href="about.html">About</a>
+  <a href="consultation.html">Consultation</a>
+  <a href="tools/">Platform</a>
+</nav>
+
+<!-- HERO -->
+
+<section class="cinematic-hero">
+
+  <h1>Enterprise Cybersecurity Architecture</h1>
+
   <p>
-    Kryphex delivers structured penetration testing,
-    threat intelligence modeling, and zero-trust infrastructure
-    for organizations operating at scale.
+    Zero-trust infrastructure. Threat intelligence modeling.
+    Advanced penetration testing for mission-critical systems.
   </p>
 
-  <button class="btn" onclick="location.href='consultation.html'">
-    Request Consultation
+  <button class="enter-btn" onclick="openAuth()">
+    Enter Platform
   </button>
+
 </section>
 
-<!-- ================= FOOTER ================= -->
-
-<footer>
-  <div class="footer-container">
-    <div class="footer-column">
-      <h4>Kryphex</h4>
-      <p>
-        Enterprise-focused cybersecurity consultancy delivering
-        structured risk mitigation and zero-trust architecture.
-      </p>
-    </div>
-
-    <div class="footer-column">
-      <h4>Contact</h4>
-      <p>Email: contact.kryphex@gmail.com</p>
-      <p>Business Inquiries: +91 8866553925</p>
-      <p>Region: Global Operations</p>
-    </div>
-
-    <div class="footer-column">
-      <h4>Quick Links</h4>
-      <p><a href="services.html">Services</a></p>
-      <p><a href="consultation.html">Consultation</a></p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 Kryphex. Enterprise Cybersecurity Solutions.
-  </div>
-</footer>
-
-<!-- ================= AUTH MODAL ================= -->
-
-<div id="authModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-
-    <div id="loginForm">
-      <h3>Login</h3>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <button class="btn" onclick="modalLogin()">Login</button>
-      <p onclick="showSignup()" style="cursor:pointer;">Create account</p>
-      <p id="loginMessage"></p>
-    </div>
-
-    <div id="signupForm" style="display:none;">
-      <h3>Sign Up</h3>
-      <input type="email" id="signupEmail" placeholder="Email">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <button class="btn" onclick="modalSignup()">Sign Up</button>
-      <p onclick="showLogin()" style="cursor:pointer;">Already have account?</p>
-      <p id="signupMessage"></p>
-    </div>
-  </div>
-</div>
-
-<!-- ================= SCRIPTS ================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-const modal = document.getElementById("authModal");
-const authArea = document.getElementById("authArea");
-
 function toggleMenu() {
-  const nav = document.getElementById("nav-links");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+  const menu = document.getElementById("mobileMenu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
-function closeModal() {
-  modal.style.display = "none";
+function openAuth() {
+  window.location.href = "auth/login.html";
 }
-
-function showSignup() {
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "block";
-}
-
-function showLogin() {
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("loginForm").style.display = "block";
-}
-
-async function modalSignup() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  const { error } = await supabaseClient.auth.signUp({
-    email,
-    password
-  });
-
-  document.getElementById("signupMessage").innerText =
-    error ? error.message : "Check your email to confirm.";
-}
-
-async function modalLogin() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
-  } else {
-    closeModal();
-    updateNavbar();
-  }
-}
-
-async function updateNavbar() {
-  const { data } = await supabaseClient.auth.getUser();
-
-  if (data.user) {
-    authArea.innerHTML = `
-      <a href="tools/console.html">Console</a>
-      <a href="#" id="logoutBtn">Logout</a>
-    `;
-
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await supabaseClient.auth.signOut();
-      location.reload();
-    });
-
-  } else {
-    authArea.innerHTML = `
-      <a href="#" id="loginNav">Login</a>
-      <a href="#" id="signupNav" class="btn-nav">Sign Up</a>
-    `;
-
-    document.getElementById("loginNav").onclick = () => {
-      modal.style.display = "block";
-      showLogin();
-    };
-
-    document.getElementById("signupNav").onclick = () => {
-      modal.style.display = "block";
-      showSignup();
-    };
-  }
-}
-
-updateNavbar();
 </script>
 
 </body>
