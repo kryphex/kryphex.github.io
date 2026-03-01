@@ -277,9 +277,18 @@ async function updateNavbar() {
 
   if (!data.user) {
     authArea.innerHTML = `
-      <a href="auth/login.html">Login</a>
-      <a href="auth/signup.html" class="btn-nav">Sign Up</a>
-    `;
+  <div class="user-nav">
+    <div class="user-top">
+      <img src="${avatar}" class="nav-avatar">
+      <span class="nav-name">${displayName}</span>
+    </div>
+
+    <div class="user-links">
+      <a href="tools/console.html">Console</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    </div>
+  </div>
+`;
     return;
   }
 
