@@ -19,6 +19,16 @@ body {
   color: #1a1a1a;
 }
 
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.google-btn img {
+  height: 18px;
+}
+
 /* ===== CINEMATIC LANDING ===== */
 
 .landing-body {
