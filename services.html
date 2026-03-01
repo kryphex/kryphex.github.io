@@ -44,35 +44,6 @@
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const supabaseClient = supabase.createClient(
-"https://xvtnnszvfbirixppbdtl.supabase.co",
-"sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function updateNavbar() {
-  const { data } = await supabaseClient.auth.getUser();
-  const authArea = document.getElementById("authArea");
-
-  if (data.user) {
-    authArea.innerHTML = `
-      <a href="tools/console.html">Console</a>
-      <a href="#" id="logoutBtn">Logout</a>
-    `;
-    document.getElementById("logoutBtn").onclick = async () => {
-      await supabaseClient.auth.signOut();
-      location.reload();
-    };
-  } else {
-    authArea.innerHTML = `
-      <a href="auth/login.html">Login</a>
-      <a href="auth/signup.html">Sign Up</a>
-    `;
-  }
-}
-updateNavbar();
-</script>
 
 </body>
 </html>
