@@ -271,41 +271,51 @@ async function modalLogin() {
 }
 
 async function updateNavbar() {
+
   const { data } = await supabaseClient.auth.getUser();
+  const authArea = document.getElementById("authArea");
 
-  if (data.user) {
-
+  if (!data.user) {
     authArea.innerHTML = `
-      <div class="auth-links">
-        <a href="tools/console.html">Console</a>
-        <a href="#" id="logoutBtn">Logout</a>
-      </div>
+      <a href="auth/login.html">Login</a>
+      <a href="auth/signup.html" class="btn-nav">Sign Up</a>
     `;
-
-    // Attach logout AFTER injection
-    document.getElementById("logoutBtn").addEventListener("click", async function (e) {
-      e.preventDefault();
-      await supabaseClient.auth.signOut();
-      window.location.href = "index.html"; // public landing
-    });
-
-  } else {
-
-    authArea.innerHTML = `
-      <a href="#" id="loginNav">Login</a>
-      <a href="#" id="signupNav" class="btn-nav">Sign Up</a>
-    `;
-
-    document.getElementById("loginNav").onclick = () => {
-      modal.style.display = "block";
-      showLogin();
-    };
-
-    document.getElementById("signupNav").onclick = () => {
-      modal.style.display = "block";
-      showSignup();
-    };
+    return;
   }
+
+  const user = data.user;
+
+  // Get profile if exists
+  const { data: profile } = await supabaseClient
+    .from("profiles")
+    .select("full_name")
+    .eq("id", user.id)
+    .single();
+
+  const displayName =
+    profile?.full_name ||
+    user.user_metadata?.full_name ||
+    user.user_metadata?.name ||
+    user.email;
+
+  const avatar =
+    user.user_metadata?.avatar_url ||
+    "https://ui-avatars.com/api/?name=" + encodeURIComponent(displayName);
+
+  authArea.innerHTML = `
+    <div class="user-nav">
+      <img src="${avatar}" class="nav-avatar">
+      <span class="nav-name">${displayName}</span>
+      <a href="tools/console.html">Console</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    </div>
+  `;
+
+  document.getElementById("logoutBtn").addEventListener("click", async function (e) {
+    e.preventDefault();
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+  });
 }
 
 updateNavbar();
