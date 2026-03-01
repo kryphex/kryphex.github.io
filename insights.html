@@ -1,145 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <head>
   <title>Kryphex | Security Insights</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #ffffff;
-      color: #1a1a1a;
-    }
 
-    header {
-      background: #0a1f44;
-      color: white;
-      padding: 20px 60px;
-    }
-
-    section {
-      padding: 80px 60px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    article {
-      margin-bottom: 50px;
-    }
-
-    h2 {
-      color: #0a1f44;
-    }
-
-    .back {
-      text-decoration: none;
-      color: #0056ff;
-      font-weight: bold;
-    }
-  </style>
-</head>
 <body>
 
-<header>
+<!-- ================= HEADER ================= -->
 
-  <h1>Security Insights</h1>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vosfh2qvb3");
-</script>
+<header>
+  <h1 class="logo">
+    <a href="index.html">
+      <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+    </a>
+  </h1>
+
+  <nav id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html" class="active">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools/">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+  </nav>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
-<section>
+<!-- ================= HERO ================= -->
 
- <article>
-  <h2>Zero-Trust Architecture: Why Traditional Perimeter Security Is Obsolete</h2>
-
+<section class="hero">
+  <h2>Security Insights</h2>
   <p>
-    Traditional cybersecurity models relied heavily on perimeter-based defense,
-    assuming that threats originate outside the network boundary. However, the
-    rapid adoption of cloud infrastructure, remote work, and distributed systems
-    has fundamentally reshaped the threat landscape.
+    Research, threat intelligence, and modern cybersecurity strategy.
   </p>
-
-  <p>
-    Zero-trust architecture operates on a simple principle: never trust,
-    always verify. Instead of granting implicit trust based on network location,
-    every access request must be continuously authenticated, authorized,
-    and validated.
-  </p>
-
-  <p>
-    Core components of zero-trust implementation include:
-  </p>
-
-  <ul>
-    <li>Strict identity and access management (IAM)</li>
-    <li>Least-privilege enforcement</li>
-    <li>Continuous monitoring and behavioral analysis</li>
-    <li>Micro-segmentation of network resources</li>
-  </ul>
-
-  <p>
-    By eliminating implicit trust, organizations significantly reduce lateral
-    movement opportunities for attackers and strengthen their defensive posture
-    against both internal and external threats.
-  </p>
-
-  <p>
-    As modern infrastructure becomes increasingly decentralized, zero-trust
-    is no longer optional — it is foundational to resilient cybersecurity strategy.
-  </p>
-</article>
-
-  <a class="back" href="index.html">← Back to Homepage</a>
-
 </section>
+
+<!-- ================= ARTICLE ================= -->
+
+<section>
+  <div class="container">
+
+    <article class="card">
+
+      <h3>Zero-Trust Architecture: Why Traditional Perimeter Security Is Obsolete</h3>
+
+      <p>
+        Traditional cybersecurity models relied heavily on perimeter-based defense,
+        assuming that threats originate outside the network boundary. However, the
+        rapid adoption of cloud infrastructure, remote work, and distributed systems
+        has fundamentally reshaped the threat landscape.
+      </p>
+
+      <p>
+        Zero-trust architecture operates on a simple principle: never trust,
+        always verify. Instead of granting implicit trust based on network location,
+        every access request must be continuously authenticated, authorized,
+        and validated.
+      </p>
+
+      <p><strong>Core components of zero-trust implementation include:</strong></p>
+
+      <ul>
+        <li>Strict identity and access management (IAM)</li>
+        <li>Least-privilege enforcement</li>
+        <li>Continuous monitoring and behavioral analysis</li>
+        <li>Micro-segmentation of network resources</li>
+      </ul>
+
+      <p>
+        By eliminating implicit trust, organizations significantly reduce lateral
+        movement opportunities for attackers and strengthen their defensive posture
+        against both internal and external threats.
+      </p>
+
+      <p>
+        As modern infrastructure becomes increasingly decentralized, zero-trust
+        is no longer optional — it is foundational to resilient cybersecurity strategy.
+      </p>
+
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
   <div class="footer-container">
 
-    <!-- Company -->
     <div class="footer-column">
       <h4>Kryphex</h4>
       <p>
         Enterprise-focused cybersecurity consultancy delivering
-        structured risk mitigation, penetration testing, and
-        zero-trust architecture implementation.
+        structured risk mitigation and zero-trust architecture.
       </p>
     </div>
 
-    <!-- Contact -->
     <div class="footer-column">
       <h4>Contact</h4>
-      <p>Email: contact@kryphex.com</p>
+      <p>Email: contact.kryphex@gmail.com</p>
       <p>Business Inquiries: +91 8866553925</p>
       <p>Global Operations</p>
     </div>
 
-    <!-- Navigation -->
     <div class="footer-column">
       <h4>Quick Links</h4>
       <p><a href="services.html">Services</a></p>
       <p><a href="case-studies.html">Case Studies</a></p>
       <p><a href="insights.html">Insights</a></p>
       <p><a href="consultation.html">Consultation</a></p>
-      <p><a href="booking.html">Schedule</a></p>
-    </div>
-
-    <!-- Legal -->
-    <div class="footer-column">
-      <h4>Legal</h4>
-      <p><a href="refund-policy.html">Refund Policy</a></p>
-      <p><a href="terms.html">Terms & Conditions</a></p>
-      <p><a href="privacy-policy.html">Privacy Policy</a></p>
     </div>
 
   </div>
@@ -151,11 +126,11 @@
 </footer>
 
 <script>
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
 }
 </script>
 
-  
 </body>
 </html>
