@@ -22,3 +22,57 @@ async function login() {
   }
 }
 </script></html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="hero">
+  <h2>Kryphex Security Console</h2>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+
+      <button class="btn" onclick="login()">Login</button>
+
+      <p id="loginMessage"></p>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    document.getElementById("loginMessage").innerText = error.message;
+  } else {
+    window.location.href = "../tools/console.html";
+  }
+}
+</script>
+
+</body>
+</html>
