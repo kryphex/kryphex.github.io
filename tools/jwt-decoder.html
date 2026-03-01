@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | JWT Decoder</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+<div class="sidebar">
+  <h2>Kryphex Tools</h2>
+  <a href="dashboard.html">Dashboard</a>
+</div>
+
+<div class="dashboard-content">
+  <h2>JWT Decoder</h2>
+
+  <textarea id="jwtInput" placeholder="Paste JWT here"></textarea>
+  <button class="btn" onclick="decodeJWT()">Decode</button>
+
+  <pre id="jwtOutput"></pre>
+</div>
+
+</div>
+
+<script>
+function decodeJWT() {
+  const token = document.getElementById("jwtInput").value;
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    document.getElementById("jwtOutput").innerText =
+      JSON.stringify(decoded, null, 2);
+  } catch {
+    document.getElementById("jwtOutput").innerText = "Invalid JWT";
+  }
+}
+</script>
+
+</body>
+</html>
