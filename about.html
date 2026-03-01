@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | About</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Kryphex</h1>
+
+  <nav id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html" class="active">About</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero">
+  <h2>About Kryphex</h2>
+  <p>
+    Engineering resilient digital infrastructures through structured,
+    defense-first cybersecurity strategy.
+  </p>
+</section>
+
+<section>
+  <div class="container">
+
+    <h3>Our Mission</h3>
+    <div class="card">
+      Kryphex exists to protect critical digital systems from evolving
+      threat landscapes through proactive security architecture and
+      structured risk mitigation.
+    </div>
+
+    <h3>Our Approach</h3>
+    <div class="card">
+      We operate on a zero-trust foundation, prioritizing identity validation,
+      least-privilege enforcement, and continuous monitoring across all
+      infrastructure layers.
+    </div>
+
+    <h3>Methodology</h3>
+    <div class="card">
+      Every engagement follows a structured lifecycle:
+      <br><br>
+      Assessment → Threat Modeling → Risk Prioritization →
+      Remediation Strategy → Continuous Improvement
+    </div>
+
+    <h3>Why Kryphex</h3>
+    <div class="card">
+      Unlike reactive security models, Kryphex focuses on proactive
+      infrastructure design, vulnerability prevention, and long-term
+      resilience planning.
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+</footer>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+</script>
+
+</body>
+</html
