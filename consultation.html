@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Request Consultation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Kryphex</h1>
+
+  <nav id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="consultation.html" class="active">Consultation</a>
+  </nav>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero">
+  <h2>Request Enterprise Consultation</h2>
+  <p>
+    Connect with our security specialists to assess infrastructure risks,
+    compliance posture, and threat exposure.
+  </p>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+
+      <form class="contact-form">
+
+        <div class="form-row">
+          <input type="text" placeholder="Full Name" required>
+          <input type="email" placeholder="Work Email" required>
+        </div>
+
+        <div class="form-row">
+          <input type="text" placeholder="Company Name">
+          <input type="text" placeholder="Industry">
+        </div>
+
+        <select style="width:100%; padding:12px; border-radius:4px; border:1px solid #ccc;">
+          <option>Select Service Interest</option>
+          <option>Penetration Testing</option>
+          <option>Cloud Security</option>
+          <option>Threat Detection</option>
+          <option>Security Architecture</option>
+        </select>
+
+        <textarea rows="6" placeholder="Briefly describe your security objectives"></textarea>
+
+        <button class="btn" type="submit">
+          Schedule Consultation
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+</footer>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+</script>
+
+</body>
+</html>
