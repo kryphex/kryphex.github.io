@@ -96,6 +96,31 @@ nav a:hover { color: #0056ff; }
   opacity: 0.9;
 }
 
+.metrics {
+  background: white;
+  padding: 60px 0;
+  border-bottom: 1px solid #e6ebf2;
+}
+
+.metrics {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  gap: 20px;
+}
+
+.metrics h4 {
+  margin: 0;
+  font-size: 22px;
+  color: #0a1f44;
+}
+
+.metrics p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
 /* ===== SECTIONS ===== */
 
 section {
