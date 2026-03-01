@@ -15,6 +15,43 @@ nav a.active::after {
   background: #0056ff;
 }
 
+/* Tools Dashboard Layout */
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #0a1f44;
+  color: white;
+  padding: 30px 20px;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.sidebar a {
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.sidebar a:hover {
+  color: #ffffff;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 60px;
+  background: #f5f7fa;
+}
+
 .dark-toggle {
   background: none;
   border: none;
