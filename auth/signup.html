@@ -139,6 +139,7 @@
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
 <div id="strengthText" style="font-size:12px;margin-bottom:15px;"></div>
+<script>
 const passwordInput = document.getElementById("password");
 const strengthText = document.getElementById("strengthText");
 
@@ -156,7 +157,7 @@ passwordInput.addEventListener("input", function() {
     strengthText.style.color = "orange";
   }
 });
-
+</script>
   <button class="primary-btn" id="signupBtn">Create Account</button>
 
   <div class="divider">or continue with</div>
