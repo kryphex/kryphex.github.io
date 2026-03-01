@@ -59,6 +59,33 @@ body {
   display: block;
 }
 
+/* ===== HEADER USER TOP RIGHT ===== */
+
+.user-top-area {
+  position: absolute;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* ===== USER NAV ===== */
 
 .user-nav {
