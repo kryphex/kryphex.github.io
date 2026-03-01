@@ -27,6 +27,18 @@ body {
   overflow: hidden;
 }
 
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.auth-links a {
+  margin-bottom: 15px;
+}
+
 /* Animated Gradient Background */
 
 .cinematic-hero {
