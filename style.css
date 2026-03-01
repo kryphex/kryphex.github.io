@@ -167,10 +167,15 @@ section h3 {
   padding: 35px;
   margin: 20px auto;
   max-width: 900px;
-  border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0,0,0,0.08);
+}
 /* Alternating background */
 
 .alt-bg { background: #f0f4f9; }
