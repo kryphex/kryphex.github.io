@@ -138,6 +138,24 @@
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
+<div id="strengthText" style="font-size:12px;margin-bottom:15px;"></div>
+const passwordInput = document.getElementById("password");
+const strengthText = document.getElementById("strengthText");
+
+passwordInput.addEventListener("input", function() {
+  const val = passwordInput.value;
+
+  if (val.length < 6) {
+    strengthText.innerText = "Weak";
+    strengthText.style.color = "red";
+  } else if (val.match(/[A-Z]/) && val.match(/[0-9]/)) {
+    strengthText.innerText = "Strong";
+    strengthText.style.color = "green";
+  } else {
+    strengthText.innerText = "Medium";
+    strengthText.style.color = "orange";
+  }
+});
 
   <button class="primary-btn" id="signupBtn">Create Account</button>
 
