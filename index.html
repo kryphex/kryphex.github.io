@@ -7,15 +7,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
-  <style>
-    html { scroll-behavior: smooth; }
+ <style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f5f7fa;
-      color: #1a1a1a;
-    }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+
+/* ===== HEADER ===== */
 
 header {
   position: fixed;
@@ -30,7 +36,7 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  padding: 20px 16px;   /* controls distance from edge */
+  padding: 20px 24px;
 }
 
 header h1 {
@@ -42,64 +48,51 @@ header h1 {
 
 nav {
   display: flex;
-  gap: 14px;
-  flex-wrap: nowrap;
+  gap: 20px;
+  align-items: center;
 }
 
 nav a {
   text-decoration: none;
   color: #333;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   white-space: nowrap;
 }
- 
-    nav a:hover {
-      color: #0056ff;
-    }
 
-    section {
-  padding: 120px 80px;
+nav a:hover {
+  color: #0056ff;
 }
 
-section h3 {
-  text-align: center;
-}
+/* ===== HERO ===== */
 
-section > p {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 40px auto;
-}
-    
-
-   .hero {
+.hero {
   background: linear-gradient(135deg, #0a1f44, #003366);
   color: white;
   padding: 200px 20px;
   margin-top: 80px;
-     
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
   text-align: center;
 }
-    
-    .hero h2 {
-      font-size: 50px;
-      margin-bottom: 20px;
-    }
 
-    .hero p {
-      font-size: 20px;
-      max-width: 800px;
-      margin: auto;
-      opacity: 0.9;
-    }
+.hero h2 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
 
-    .btn {
+.hero p {
+  font-size: 20px;
+  max-width: 800px;
+  margin: auto;
+  opacity: 0.9;
+}
+
+.btn {
   margin-top: 30px;
   padding: 14px 36px;
   background: #0056ff;
@@ -115,13 +108,25 @@ section > p {
   background: #003bb5;
 }
 
-    h3 {
-      font-size: 36px;
-      margin-bottom: 40px;
-      color: #0a1f44;
-    }
+/* ===== SECTIONS ===== */
 
-    .card {
+section {
+  padding: 120px 80px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+section h3 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #0a1f44;
+}
+
+.card {
   background: white;
   padding: 35px;
   margin: 20px auto;
@@ -136,33 +141,16 @@ section > p {
   box-shadow: 0 12px 35px rgba(0,0,0,0.08);
 }
 
-    footer {
-      background: #0a1f44;
-      color: white;
-      text-align: center;
-      padding: 40px;
-    }
+/* ===== FOOTER ===== */
 
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    @media(max-width: 1000px) {
-      header { padding: 20px; }
-      section { padding: 120px 20px; }
-      .hero { padding-top: 160px; padding-bottom: 160px; }
-    }
-
-  
-
-    .container {
-  max-width: 1100px;
-  margin: auto;
+footer {
+  background: #0a1f44;
+  color: white;
+  text-align: center;
+  padding: 40px;
 }
+
+/* ===== MOBILE ===== */
 
 .menu-toggle {
   display: none;
@@ -171,6 +159,7 @@ section > p {
 }
 
 @media (max-width: 1000px) {
+
   nav {
     position: absolute;
     top: 70px;
@@ -186,16 +175,23 @@ section > p {
   nav a {
     padding: 15px;
     display: block;
-    margin: 0;
     border-bottom: 1px solid #eee;
   }
 
   .menu-toggle {
     display: block;
   }
+
+  section {
+    padding: 120px 20px;
+  }
+
+  .hero {
+    padding-top: 160px;
+    padding-bottom: 160px;
+  }
 }
-    
-  </style>
+</style>
 </head>
 <body>
 
@@ -212,7 +208,7 @@ section > p {
 
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
-
+  
 <section class="hero">
   <h2>Enterprise-Grade Cybersecurity Solutions</h2>
   <p>
