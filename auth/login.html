@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
 <section class="hero">
@@ -23,9 +24,16 @@
 
       <p id="loginMessage" style="margin-top:10px;color:red;"></p>
 
+      <p style="margin-top:15px;font-size:14px;">
+        Don’t have an account?
+        <a href="signup.html">Create Account</a>
+      </p>
+
     </div>
   </div>
 </section>
+
+<!-- ================= SUPABASE ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -35,13 +43,16 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-// If already logged in → go to landing page
-supabaseClient.auth.getUser().then(({ data }) => {
+// If already logged in → go to internal home
+async function checkSession() {
+  const { data } = await supabaseClient.auth.getUser();
   if (data.user) {
-    window.location.href = "../index.html";
+    window.location.href = "../home.html";
   }
-});
+}
+checkSession();
 
+// Login
 document.getElementById("loginBtn").addEventListener("click", async function () {
 
   const email = document.getElementById("loginEmail").value;
@@ -55,34 +66,9 @@ document.getElementById("loginBtn").addEventListener("click", async function () 
   if (error) {
     document.getElementById("loginMessage").innerText = error.message;
   } else {
-    window.location.href = "../index.html";
+    window.location.href = "../home.html";
   }
 });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
-  } else {
-    window.location.href = "../home.html";   // 🔥 IMPORTANT CHANGE
-  }
-}
 </script>
 
 </body>
