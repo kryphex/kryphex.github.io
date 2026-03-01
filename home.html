@@ -275,14 +275,11 @@ async function updateNavbar() {
 
   if (data.user) {
     authArea.innerHTML = `
-      <a href="tools/console.html">Console</a>
-      <a href="#" id="logoutBtn">Logout</a>
-    `;
-
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await supabaseClient.auth.signOut();
-      location.reload();
-    });
+  <div class="auth-links">
+    <a href="tools/console.html">Console</a>
+    <a href="#" id="logoutBtn">Logout</a>
+  </div>
+`;
 
   } else {
     authArea.innerHTML = `
