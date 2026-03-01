@@ -127,48 +127,11 @@
 <div class="secondary">
   <a href="#" onclick="resetPassword()">Forgot password?</a>
 </div>
-async function resetPassword() {
-  const email = document.getElementById("email").value;
 
-  if (!email) {
-    alert("Enter your email first.");
-    return;
-  }
-
-  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: "https://kryphex.github.io/auth/reset.html"
-  });
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert("Password reset email sent.");
-  }
-}
 <button class="oauth-btn" onclick="magicLogin()">
   Send Magic Link
 </button>
-async function magicLogin() {
-  const email = document.getElementById("email").value;
 
-  if (!email) {
-    alert("Enter your email.");
-    return;
-  }
-
-  const { error } = await supabaseClient.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: "https://kryphex.github.io/home.html"
-    }
-  });
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert("Magic link sent to your email.");
-  }
-}
   <div class="divider">or continue with</div>
 
   <!-- GOOGLE BUTTON -->
@@ -229,6 +192,55 @@ async function googleLogin() {
   });
 }
 </script>
+
+<script>
+async function magicLogin() {
+  const email = document.getElementById("email").value;
+
+  if (!email) {
+    alert("Enter your email.");
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: "https://kryphex.github.io/home.html"
+    }
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Magic link sent to your email.");
+  }
+}
+
+</script>
+
+<script>
+
+async function resetPassword() {
+  const email = document.getElementById("email").value;
+
+  if (!email) {
+    alert("Enter your email first.");
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://kryphex.github.io/auth/reset.html"
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Password reset email sent.");
+  }
+}
+
+</script>
+
 
 </body>
 </html>
