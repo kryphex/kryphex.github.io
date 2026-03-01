@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Sign Up</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="hero">
+  <h2>Create Kryphex Account</h2>
+  <p>Access internal security console and advanced tools.</p>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
+
+      <button class="btn" onclick="signup()">Create Account</button>
+
+      <p id="signupMessage"></p>
+
+      <p style="margin-top:15px;">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function signup() {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if (!email || !password) {
+    document.getElementById("signupMessage").innerText =
+      "Please fill all fields.";
+    return;
+  }
+
+  localStorage.setItem("kryphexUser", email);
+  localStorage.setItem("kryphexPass", password);
+
+  document.getElementById("signupMessage").innerText =
+    "Account created successfully.";
+
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 1500);
+}
+</script>
+
+</body>
+</html>
