@@ -1,39 +1,127 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kryphex | Login</title>
+  <title>Kryphex | Sign In</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 380px;
+      padding: 40px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .logo {
+      margin-bottom: 30px;
+    }
+
+    .logo img {
+      height: 34px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #0056ff;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .secondary {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .secondary a {
+      color: #0056ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .error {
+      margin-top: 12px;
+      color: red;
+      font-size: 13px;
+    }
+
+  </style>
 </head>
 
 <body>
 
-<section class="hero">
-  <h2>Kryphex Security Portal</h2>
-</section>
+<div class="auth-container">
 
-<section>
-  <div class="container">
-    <div class="card">
-
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-
-      <button class="btn" id="loginBtn">Login</button>
-
-      <p id="loginMessage" style="margin-top:10px;color:red;"></p>
-
-      <p style="margin-top:15px;font-size:14px;">
-        Don’t have an account?
-        <a href="signup.html">Create Account</a>
-      </p>
-
-    </div>
+  <div class="logo">
+    <a href="../index.html">
+      <img src="../logo.svg" alt="Kryphex">
+    </a>
   </div>
-</section>
 
-<!-- ================= SUPABASE ================= -->
+  <h1>Sign in to Kryphex</h1>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button id="loginBtn">Sign In</button>
+
+  <div class="secondary">
+    Don’t have an account?
+    <a href="signup.html">Create one</a>
+  </div>
+
+  <div id="errorMsg" class="error"></div>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -43,20 +131,17 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-// If already logged in → go to internal home
-async function checkSession() {
-  const { data } = await supabaseClient.auth.getUser();
+// Auto redirect if logged in
+supabaseClient.auth.getUser().then(({ data }) => {
   if (data.user) {
     window.location.href = "../home.html";
   }
-}
-checkSession();
+});
 
-// Login
-document.getElementById("loginBtn").addEventListener("click", async function () {
+document.getElementById("loginBtn").addEventListener("click", async () => {
 
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
   const { error } = await supabaseClient.auth.signInWithPassword({
     email,
@@ -64,10 +149,11 @@ document.getElementById("loginBtn").addEventListener("click", async function () 
   });
 
   if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
+    document.getElementById("errorMsg").innerText = error.message;
   } else {
     window.location.href = "../home.html";
   }
+
 });
 </script>
 
