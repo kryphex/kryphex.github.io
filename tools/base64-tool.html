@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Base64 Tool</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header><h1>Kryphex</h1></header>
+
+<section class="hero">
+  <h2>Base64 Encoder / Decoder</h2>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <textarea id="inputText" placeholder="Enter text"></textarea>
+
+      <div style="margin-top:15px;">
+        <button class="btn" onclick="encode()">Encode</button>
+        <button class="btn-outline" onclick="decode()">Decode</button>
+      </div>
+
+      <p id="outputText" style="margin-top:20px;"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+function encode() {
+  const input = document.getElementById("inputText").value;
+  document.getElementById("outputText").innerText = btoa(input);
+}
+
+function decode() {
+  const input = document.getElementById("inputText").value;
+  try {
+    document.getElementById("outputText").innerText = atob(input);
+  } catch {
+    document.getElementById("outputText").innerText = "Invalid Base64 string";
+  }
+}
+</script>
+
+</body>
+</html>
