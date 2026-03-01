@@ -274,14 +274,23 @@ async function updateNavbar() {
   const { data } = await supabaseClient.auth.getUser();
 
   if (data.user) {
+
     authArea.innerHTML = `
-  <div class="auth-links">
-    <a href="tools/console.html">Console</a>
-    <a href="#" id="logoutBtn">Logout</a>
-  </div>
-`;
+      <div class="auth-links">
+        <a href="tools/console.html">Console</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
+    `;
+
+    // Attach logout AFTER injection
+    document.getElementById("logoutBtn").addEventListener("click", async function (e) {
+      e.preventDefault();
+      await supabaseClient.auth.signOut();
+      window.location.href = "index.html"; // public landing
+    });
 
   } else {
+
     authArea.innerHTML = `
       <a href="#" id="loginNav">Login</a>
       <a href="#" id="signupNav" class="btn-nav">Sign Up</a>
