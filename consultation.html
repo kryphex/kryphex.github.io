@@ -148,8 +148,6 @@ function toggleMenu() {
   const nav = document.getElementById("nav-links");
   nav.style.display = nav.style.display === "flex" ? "none" : "flex";
 }
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -161,13 +159,13 @@ const supabaseClient = supabase.createClient(
 async function submitConsultation() {
 
   const { data: userData } = await supabaseClient.auth.getUser();
-  const user = userData.user;
 
-  if (!user) {
-    alert("Please login first.");
-    window.location.href = "../auth/login.html";
+  if (!userData || !userData.user) {
+    alert("You must be logged in first.");
     return;
   }
+
+  const user = userData.user;
 
   const fullName = document.getElementById("fullName").value;
   const company = document.getElementById("company").value;
@@ -182,12 +180,13 @@ async function submitConsultation() {
         full_name: fullName,
         company: company,
         service: service,
-        message: message
+        message: message,
+        status: "Pending"
       }
     ]);
 
   if (error) {
-    alert(error.message);
+    alert("Error: " + error.message);
   } else {
     alert("Consultation submitted successfully.");
   }
