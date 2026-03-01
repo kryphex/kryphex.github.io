@@ -46,10 +46,23 @@
     Advanced penetration testing for mission-critical systems.
   </p>
 
-<a href="/auth/login.html" class="enter-btn">
+<button class="enter-btn" onclick="openAuth()">
   Enter Platform
-</a>
+</button>
+
 </section>
+
+<script>
+async function openAuth() {
+  const { data } = await supabaseClient.auth.getUser();
+
+  if (data.user) {
+    window.location.href = "tools/console.html";
+  } else {
+    window.location.href = "auth/login.html";
+  }
+}
+</script>
 
 <script>
 function toggleMenu(el) {
