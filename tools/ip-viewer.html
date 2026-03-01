@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Public IP Viewer</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header><h1>Kryphex</h1></header>
+
+<section class="hero">
+  <h2>Public IP Viewer</h2>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <button class="btn" onclick="getIP()">Check My Public IP</button>
+      <p id="ipResult" style="margin-top:20px;"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+async function getIP() {
+  const response = await fetch("https://api.ipify.org?format=json");
+  const data = await response.json();
+  document.getElementById("ipResult").innerText = data.ip;
+}
+</script>
+
+</body>
+</html>
