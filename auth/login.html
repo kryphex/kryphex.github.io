@@ -1,28 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email: email,
-    password: password,
-  });
-
-  if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
-  } else {
-    window.location.href = "../tools/console.html";
-  }
-}
-</script></html>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,47 +9,25 @@ async function login() {
 <body>
 
 <section class="hero">
-  <h2>Kryphex Security Console</h2>
+  <h2>Kryphex Security Portal</h2>
 </section>
 
 <section>
   <div class="container">
     <div class="card">
+
       <input type="email" id="loginEmail" placeholder="Email" required>
       <input type="password" id="loginPassword" placeholder="Password" required>
 
-      <button class="btn" onclick="login()">Login</button>
+      <button class="btn" id="loginBtn">Login</button>
 
-      <p id="loginMessage"></p>
+      <p id="loginMessage" style="margin-top:10px;color:red;"></p>
+
     </div>
   </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
-  } else {
-    window.location.href = "../tools/console.html";
-  }
-}
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const supabaseClient = supabase.createClient(
@@ -82,21 +35,29 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-async function login() {
+// If already logged in → go to landing page
+supabaseClient.auth.getUser().then(({ data }) => {
+  if (data.user) {
+    window.location.href = "../index.html";
+  }
+});
+
+document.getElementById("loginBtn").addEventListener("click", async function () {
+
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
   const { error } = await supabaseClient.auth.signInWithPassword({
     email,
-    password,
+    password
   });
 
   if (error) {
     document.getElementById("loginMessage").innerText = error.message;
   } else {
-    window.location.href = "../tools/console.html";
+    window.location.href = "../index.html";
   }
-}
+});
 </script>
 
 </body>
