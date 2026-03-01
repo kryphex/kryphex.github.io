@@ -18,17 +18,21 @@
     }
 
     header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      background: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 120px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      z-index: 1000;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 0;   /* remove horizontal padding */
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
 
 header h1 {
   margin: 0;
@@ -195,17 +199,19 @@ section > p {
 <body>
 
 <header>
-  <h1>KRYPHEX</h1>
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>Kryphex</h1>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-  <nav id="nav-links">
-    <a href="#about">About</a>
-    <a href="services.html">Services</a>
-    <a href="#industries">Industries</a>
-    <a href="insights.html">Insights</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <nav id="nav-links">
+      <a href="#about">About</a>
+      <a href="services.html">Services</a>
+      <a href="#industries">Industries</a>
+      <a href="insights.html">Insights</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <section class="hero">
