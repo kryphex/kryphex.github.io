@@ -108,8 +108,8 @@ nav a:hover { color: #0056ff; }
 }
 
 .hero h2 {
-  font-size: 50px;
-  margin-bottom: 20px;
+  font-size: 54px;
+  font-weight: 700;
 }
 
 .hero p {
