@@ -23,3 +23,58 @@ async function signup() {
   }
 }
 </script>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Sign Up</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="hero">
+  <h2>Create Kryphex Account</h2>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+
+      <button class="btn" onclick="signup()">Create Account</button>
+
+      <p id="signupMessage"></p>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function signup() {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) {
+    document.getElementById("signupMessage").innerText = error.message;
+  } else {
+    document.getElementById("signupMessage").innerText =
+      "Signup successful. Check your email.";
+  }
+}
+</script>
+
+</body>
+</html>
