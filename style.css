@@ -242,3 +242,58 @@ footer {
 
   .form-row { flex-direction: column; }
 }
+
+/* ================= PROFESSIONAL FOOTER ================= */
+
+footer {
+  background: #0a1f44;
+  color: #ffffff;
+  padding: 60px 80px 30px 80px;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-column h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.footer-column p,
+.footer-column a {
+  font-size: 14px;
+  color: #cbd5e1;
+  text-decoration: none;
+  line-height: 1.8;
+}
+
+.footer-column a:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: #94a3b8;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+  }
+}
