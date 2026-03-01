@@ -124,16 +124,22 @@
   </div>
 
   <div class="center-logo">
-    <a href="index.html">
-      <img src="logo.svg" alt="Kryphex Logo" style="height:32px;">
+    <a href="home.html">
+      <img src="logo.svg" alt="Kryphex Logo">
     </a>
   </div>
 
-  <!-- ADD THIS -->
-  <div id="userTopArea" class="user-top-area"></div>
+  <!-- RIGHT SIDE -->
+  <div class="header-right">
+    <div id="notificationBell" class="notification-bell">
+      🔔
+      <span class="notif-dot"></span>
+    </div>
+
+    <div id="userDropdown" class="user-dropdown"></div>
+  </div>
 
 </header>
-
 <nav id="nav-links" class="slide-menu">
   <a href="index.html" class="active">Home</a>
   <a href="services.html">Services</a>
@@ -277,15 +283,13 @@ async function modalLogin() {
 async function updateNavbar() {
 
   const { data } = await supabaseClient.auth.getUser();
-  const authArea = document.getElementById("authArea");
-  const userTopArea = document.getElementById("userTopArea");
+  const dropdown = document.getElementById("userDropdown");
 
   if (!data.user) {
-    authArea.innerHTML = `
+    dropdown.innerHTML = `
       <a href="auth/login.html">Login</a>
-      <a href="auth/signup.html">Sign Up</a>
+      <a href="auth/signup.html" class="btn-nav">Sign Up</a>
     `;
-    userTopArea.innerHTML = "";
     return;
   }
 
@@ -293,39 +297,44 @@ async function updateNavbar() {
 
   const { data: profile } = await supabaseClient
     .from("profiles")
-    .select("full_name")
+    .select("full_name, role")
     .eq("id", user.id)
     .single();
 
-  const displayName =
+  const name =
     profile?.full_name ||
-    user.user_metadata?.full_name ||
     user.user_metadata?.name ||
     user.email;
 
+  const role = profile?.role || "User";
+
   const avatar =
     user.user_metadata?.avatar_url ||
-    "https://ui-avatars.com/api/?name=" + encodeURIComponent(displayName);
+    "https://ui-avatars.com/api/?name=" + encodeURIComponent(name);
 
-  // Top right avatar + name
-  userTopArea.innerHTML = `
-    <div class="header-user">
+  dropdown.innerHTML = `
+    <div class="dropdown-trigger" onclick="toggleDropdown()">
       <img src="${avatar}" class="nav-avatar">
-      <span class="nav-name">${displayName}</span>
+      <span class="nav-name">${name}</span>
+      <span class="role-badge">${role}</span>
+    </div>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="tools/console.html">Console</a>
+      <a href="tools/my-consultations.html">My Requests</a>
+      <a href="#" id="logoutBtn">Logout</a>
     </div>
   `;
 
-  // Nav links
-  authArea.innerHTML = `
-    <a href="tools/console.html">Console</a>
-    <a href="#" id="logoutBtn">Logout</a>
-  `;
-
-  document.getElementById("logoutBtn").addEventListener("click", async function (e) {
+  document.getElementById("logoutBtn").addEventListener("click", async (e) => {
     e.preventDefault();
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
   });
+}
+
+function toggleDropdown() {
+  document.getElementById("dropdownMenu").classList.toggle("open");
 }
 updateNavbar();
 </script>
