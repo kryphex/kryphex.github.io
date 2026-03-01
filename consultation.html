@@ -36,33 +36,41 @@
   <div class="container">
     <div class="card">
 
-      <form class="contact-form" action="thank-you.html">
+      <form class="contact-form" 
+      action="https://formsubmit.co/info@kryphex.github.io" 
+      method="POST">
 
-        <div class="form-row">
-          <input type="text" placeholder="Full Name" required>
-          <input type="email" placeholder="Work Email" required>
-        </div>
+  <input type="hidden" name="_subject" value="New Kryphex Consultation Request">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" value="https://kryphex.github.io/thank-you.html">
 
-        <div class="form-row">
-          <input type="text" placeholder="Company Name">
-          <input type="text" placeholder="Industry">
-        </div>
+  <div class="form-row">
+    <input type="text" name="Full Name" placeholder="Full Name" required>
+    <input type="email" name="Work Email" placeholder="Work Email" required>
+  </div>
 
-        <select style="width:100%; padding:12px; border-radius:4px; border:1px solid #ccc;">
-          <option>Select Service Interest</option>
-          <option>Penetration Testing</option>
-          <option>Cloud Security</option>
-          <option>Threat Detection</option>
-          <option>Security Architecture</option>
-        </select>
+  <div class="form-row">
+    <input type="text" name="Company Name" placeholder="Company Name">
+    <input type="text" name="Industry" placeholder="Industry">
+  </div>
 
-        <textarea rows="6" placeholder="Briefly describe your security objectives"></textarea>
+  <select name="Service Interest" 
+          style="width:100%; padding:12px; border-radius:4px; border:1px solid #ccc;">
+    <option value="">Select Service Interest</option>
+    <option>Penetration Testing</option>
+    <option>Cloud Security</option>
+    <option>Threat Detection</option>
+    <option>Security Architecture</option>
+  </select>
 
-        <button class="btn" type="submit">
-          Schedule Consultation
-        </button>
+  <textarea name="Security Objectives" rows="6" 
+            placeholder="Briefly describe your security objectives"></textarea>
 
-      </form>
+  <button class="btn" type="submit">
+    Schedule Consultation
+  </button>
+
+</form>
 
     </div>
   </div>
