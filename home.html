@@ -234,56 +234,16 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-const modal = document.getElementById("authModal");
-const authArea = document.getElementById("authArea");
-
-function toggleMenu(el) {
-  el.classList.toggle("active");
-  document.getElementById("nav-links").classList.toggle("open");
-}
-
-function closeModal() {
-  modal.style.display = "none";
-}
-
-function showSignup() {
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "block";
-}
-
-function showLogin() {
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("loginForm").style.display = "block";
-}
-
-async function modalSignup() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  const { error } = await supabaseClient.auth.signUp({ email, password });
-
-  document.getElementById("signupMessage").innerText =
-    error ? error.message : "Check your email to confirm.";
-}
-
-async function modalLogin() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
-  } else {
-    closeModal();
-    updateNavbar();
-  }
-}
+document.addEventListener("DOMContentLoaded", async function () {
+  await updateNavbar();
+});
 
 async function updateNavbar() {
 
   const { data } = await supabaseClient.auth.getUser();
   const dropdown = document.getElementById("userDropdown");
+
+  if (!dropdown) return;
 
   if (!data.user) {
     dropdown.innerHTML = `
@@ -295,49 +255,53 @@ async function updateNavbar() {
 
   const user = data.user;
 
-  const { data: profile } = await supabaseClient
-    .from("profiles")
-    .select("full_name, role")
-    .eq("id", user.id)
-    .single();
-
   const name =
-    profile?.full_name ||
+    user.user_metadata?.full_name ||
     user.user_metadata?.name ||
     user.email;
-
-  const role = profile?.role || "User";
 
   const avatar =
     user.user_metadata?.avatar_url ||
     "https://ui-avatars.com/api/?name=" + encodeURIComponent(name);
 
   dropdown.innerHTML = `
-    <div class="dropdown-trigger" onclick="toggleDropdown()">
-      <img src="${avatar}" class="nav-avatar">
-      <span class="nav-name">${name}</span>
-      <span class="role-badge">${role}</span>
-    </div>
+    <div class="dropdown-wrapper">
+      <div class="dropdown-trigger" id="avatarTrigger">
+        <img src="${avatar}" class="nav-avatar">
+        <span class="nav-name">${name}</span>
+      </div>
 
-    <div class="dropdown-menu" id="dropdownMenu">
-      <a href="tools/console.html">Console</a>
-      <a href="tools/my-consultations.html">My Requests</a>
-      <a href="#" id="logoutBtn">Logout</a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="tools/console.html">Console</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
     </div>
   `;
 
-  document.getElementById("logoutBtn").addEventListener("click", async (e) => {
+  // Attach dropdown toggle
+  document.getElementById("avatarTrigger").addEventListener("click", function () {
+    document.getElementById("dropdownMenu").classList.toggle("open");
+  });
+
+  // Attach logout
+  document.getElementById("logoutBtn").addEventListener("click", async function (e) {
     e.preventDefault();
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
   });
-}
 
-function toggleDropdown() {
-  document.getElementById("dropdownMenu").classList.toggle("open");
+  // Close dropdown when clicking outside
+  document.addEventListener("click", function (e) {
+    const menu = document.getElementById("dropdownMenu");
+    const trigger = document.getElementById("avatarTrigger");
+
+    if (!trigger.contains(e.target)) {
+      menu.classList.remove("open");
+    }
+  });
 }
-updateNavbar();
 </script>
+
 
 </body>
 </html>
