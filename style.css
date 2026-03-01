@@ -59,6 +59,21 @@ nav a.active::after {
   color: #555;
 }
 
+.btn-outline {
+  margin-left: 15px;
+  padding: 14px 36px;
+  border: 2px solid #0056FF;
+  background: transparent;
+  color: #0056FF;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0a1f44 0%, #0f2b66 50%, #003366 100%);
+}
+
 /* Impact Section */
 
 .impact-section {
