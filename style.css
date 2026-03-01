@@ -51,6 +51,37 @@ nav a.active::after {
   color: #555;
 }
 
+/* Impact Section */
+
+.impact-section {
+  padding: 120px 80px;
+  background: #ffffff;
+}
+
+.impact-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.impact-item {
+  flex: 1;
+  min-width: 220px;
+}
+
+.impact-number {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0056ff;
+  margin-bottom: 10px;
+}
+
+.impact-item p {
+  font-size: 14px;
+  color: #555;
+}
 
 /* ===== GLOBAL ===== */
 
