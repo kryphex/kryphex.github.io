@@ -744,19 +744,38 @@ body.dark-mode footer {
   margin-top: 40px;
 }
 
-/* User area */
+/* ===== USER NAV FIXED STACK LAYOUT ===== */
 
-.user-area {
+.user-nav {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;   /* STACK */
+  align-items: flex-end;    /* align right side */
+  gap: 6px;
 }
 
-.logout-btn {
-  padding: 8px 14px;
-  background: #0056ff;
-  border: none;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
+.user-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-links a {
+  font-size: 14px;
 }
