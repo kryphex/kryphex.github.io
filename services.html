@@ -1,74 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kryphex | Services</title>
+  <title>Kryphex | Enterprise Services</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f7fa;
-      color: #1a1a1a;
-      line-height: 1.6;
-    }
-
-    header {
-      background: #0a1f44;
-      color: white;
-      padding: 20px 60px;
-    }
-
-    h1 { margin: 0; }
-
-    section {
-      padding: 80px 60px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h2 {
-      color: #0a1f44;
-      margin-top: 40px;
-    }
-
-    .back {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #0056ff;
-      font-weight: bold;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>Kryphex Services</h1>
+  <h1>Kryphex</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
 </header>
 
-<section>
-  <h2>Penetration Testing</h2>
+<section class="hero">
+  <h2>Enterprise Security Services</h2>
   <p>
-    Comprehensive black-box and white-box testing designed to uncover
-    exploitable vulnerabilities across applications and infrastructure.
+    Comprehensive cybersecurity solutions engineered for scalable,
+    high-risk digital environments.
   </p>
-
-  <h2>Threat Intelligence</h2>
-  <p>
-    Continuous monitoring, log analysis, and behavioral detection
-    mechanisms to identify advanced persistent threats.
-  </p>
-
-  <h2>Cloud Security Architecture</h2>
-  <p>
-    Hardened infrastructure design using zero-trust principles and
-    least-privilege access controls.
-  </p>
-
-  <a class="back" href="index.html">← Back to Homepage</a>
 </section>
+
+<section>
+  <div class="container">
+
+    <h3>1. Penetration Testing</h3>
+    <div class="card">
+      Web application testing, API security audits, red-team simulations,
+      and structured vulnerability reporting aligned with OWASP standards.
+    </div>
+
+    <h3>2. Cloud & Infrastructure Security</h3>
+    <div class="card">
+      IAM audits, zero-trust deployment, configuration hardening,
+      and secure architecture design for modern cloud ecosystems.
+    </div>
+
+    <h3>3. Threat Detection & Monitoring</h3>
+    <div class="card">
+      Proactive monitoring frameworks, anomaly detection modeling,
+      and structured incident response planning.
+    </div>
+
+    <h3>4. Security Architecture Consulting</h3>
+    <div class="card">
+      Risk assessment, infrastructure design review, and enterprise
+      security roadmap development.
+    </div>
+
+  </div>
+</section>
+
+<section style="background:#f0f4f9;">
+  <div class="container">
+    <h3>Engagement Model</h3>
+    <div class="card">
+      Every engagement follows a structured lifecycle:
+      <br><br>
+      Assessment → Risk Prioritization → Remediation Strategy → Continuous Monitoring
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="text-align:center;">
+    <h3>Secure Your Infrastructure</h3>
+    <button class="btn" onclick="location.href='index.html#contact'">
+      Request Enterprise Consultation
+    </button>
+  </div>
+</section>
+
+<a class="back" href="index.html">← Back to Homepage</a>
+</section>
+  
+<footer>
+  © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+</footer>
 
 </body>
 </html>
