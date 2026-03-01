@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Kryphex | Enterprise Cybersecurity</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  
 <body>
+
+<!-- ================= HEADER ================= -->
 
 <header>
   <h1>Kryphex</h1>
 
   <nav id="nav-links">
-    <a href="index.html" class="nav-home active">Home</a>
-    <a href="services.html" class="nav-services">Services</a>
-    <a href="insights.html" class="nav-insights">Insights</a>
+    <a href="index.html" class="active">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
     <a href="case-studies.html">Case Studies</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="consultation.html">Consultation</a>
   </nav>
 
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
-  
+<!-- ================= HERO ================= -->
 
 <section class="hero">
   <h2>Enterprise-Grade Cybersecurity Solutions</h2>
@@ -36,96 +42,113 @@
     Enterprise-focused cybersecurity solutions built on zero-trust principles,
     structured threat modeling, and modern security architecture.
   </p>
+
   <button class="btn" onclick="location.href='consultation.html'">
-  Request Consultation
-</button>
+    Request Consultation
+  </button>
 </section>
 
-  <section id="metrics">
+<!-- ================= METRICS STRIP ================= -->
+
+<section id="metrics">
   <div class="container metrics">
-    <div>
-      <h4>Enterprise-Grade</h4>
-      <p>Security Architecture</p>
-    </div>
+
     <div>
       <h4>Zero-Trust</h4>
-      <p>Implementation Model</p>
+      <p>Architecture Implementation</p>
     </div>
-    <div>
-      <h4>24/7</h4>
-      <p>Threat Monitoring Framework</p>
-    </div>
+
     <div>
       <h4>OWASP-Aligned</h4>
       <p>Testing Methodology</p>
     </div>
+
+    <div>
+      <h4>24/7</h4>
+      <p>Threat Monitoring Model</p>
+    </div>
+
+    <div>
+      <h4>Enterprise</h4>
+      <p>Infrastructure Hardening</p>
+    </div>
+
   </div>
 </section>
+
+<!-- ================= ABOUT ================= -->
 
 <section id="about">
   <div class="container">
     <h3>About Kryphex</h3>
+
     <div class="card">
       Kryphex is an independent cybersecurity initiative focused on enterprise
       penetration testing, infrastructure hardening, and digital risk mitigation.
       Built on modern security frameworks, Kryphex operates with a defense-first mindset
       to protect mission-critical systems.
     </div>
+
   </div>
 </section>
 
-<section id="services">
+<!-- ================= SERVICES ================= -->
+
+<section id="services" class="alt-bg">
   <div class="container">
     <h3>Core Services</h3>
-    <div class="card"><strong>Penetration Testing</strong><br><br>
-      Structured vulnerability assessment and red-team simulations.</div>
-    <div class="card"><strong>Threat Detection & Monitoring</strong><br><br>
-      Continuous monitoring and structured incident response workflows.</div>
-    <div class="card"><strong>Cloud & Infrastructure Security</strong><br><br>
-      Zero-trust implementation and hardened architecture design.</div>
+
+    <div class="card">
+      <strong>Penetration Testing</strong><br><br>
+      Structured vulnerability assessment and red-team simulations aligned with industry standards.
+    </div>
+
+    <div class="card">
+      <strong>Cloud & Infrastructure Security</strong><br><br>
+      Zero-trust implementation and hardened architecture design for scalable environments.
+    </div>
+
+    <div class="card">
+      <strong>Threat Detection & Monitoring</strong><br><br>
+      Continuous monitoring frameworks and structured incident response modeling.
+    </div>
+
   </div>
 </section>
+
+<!-- ================= INDUSTRIES ================= -->
 
 <section id="industries">
   <div class="container">
     <h3>Industries We Protect</h3>
+
     <div class="card">
-      Financial Services • Healthcare • Technology • Startups • SaaS Platforms
+      Financial Services • Healthcare • Technology • SaaS Platforms • Startups
     </div>
+
   </div>
 </section>
 
-<section id="authority">
-  <div class="container">
-    <h3>Security Principles</h3>
-    <div class="card"><strong>Defense-First Mindset</strong><br><br>
-      Every architecture decision is evaluated from a security perspective first.</div>
-    <div class="card"><strong>Zero-Trust Implementation</strong><br><br>
-      Strict identity validation and least-privilege access enforcement.</div>
-    <div class="card"><strong>Continuous Improvement</strong><br><br>
-      Security posture evolves with emerging threats and technology changes.</div>
+<!-- ================= CONTACT CTA ================= -->
+
+<section class="alt-bg">
+  <div class="container" style="text-align:center;">
+    <h3>Secure Your Infrastructure Today</h3>
+
+    <button class="btn" onclick="location.href='consultation.html'">
+      Schedule Enterprise Consultation
+    </button>
+
   </div>
 </section>
 
-<section id="contact">
-  <div class="container">
-    <h3>Contact Kryphex</h3>
-    <div class="card">
-      <form class="contact-form">
-        <div class="form-row">
-          <input type="text" placeholder="Name">
-          <input type="email" placeholder="Email">
-        </div>
-        <textarea rows="5" placeholder="Message"></textarea>
-        <button class="btn" type="submit">Submit Inquiry</button>
-      </form>
-    </div>
-  </div>
-</section>
+<!-- ================= FOOTER ================= -->
 
 <footer>
   © 2026 Kryphex. Enterprise Cybersecurity Solutions.
 </footer>
+
+<!-- ================= MOBILE TOGGLE SCRIPT ================= -->
 
 <script>
 function toggleMenu() {
