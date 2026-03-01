@@ -7,21 +7,6 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-supabaseClient.auth.getUser().then(({ data }) => {
-  if (!data.user) {
-    window.location.href = "../auth/login.html";
-  }
-});
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -31,16 +16,18 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-supabaseClient.auth.getUser().then(({ data }) => {
+// Protect page
+async function checkAuth() {
+  const { data } = await supabaseClient.auth.getUser();
   if (!data.user) {
     window.location.href = "../auth/login.html";
   }
-});
-</script>
+}
 
-<script>
+checkAuth();
+
+// Load consultations
 async function loadConsultations() {
-
   const { data: userData } = await supabaseClient.auth.getUser();
   const user = userData.user;
 
@@ -58,6 +45,8 @@ async function loadConsultations() {
     return;
   }
 
+  container.innerHTML = "";
+
   data.forEach(item => {
     const div = document.createElement("div");
     div.className = "card";
@@ -71,14 +60,20 @@ async function loadConsultations() {
   });
 }
 
-loadConsultations();
+document.addEventListener("DOMContentLoaded", loadConsultations);
+
+// Logout
+async function logout() {
+  await supabaseClient.auth.signOut();
+  window.location.href = "../index.html";
+}
 </script>
 
 <div class="dashboard">
 
   <div class="sidebar">
     <h2>Kryphex Console</h2>
-    <a href="dashboard.html">Toolkit</a>
+    <a href="#">Dashboard</a>
     <a href="../admin/dashboard.html">Admin Panel</a>
     <a href="#">Threat Feed</a>
     <a href="#">Monitoring</a>
@@ -87,8 +82,11 @@ loadConsultations();
   </div>
 
   <div class="dashboard-content">
-      <h2>My Consultation Requests</h2>
-  <div id="consultList"></div>
+    <h2>My Consultation Requests</h2>
+    <div id="consultList"></div>
+
+    <hr style="margin:40px 0;">
+
     <h2>Enterprise Security Console</h2>
     <p>System Status: Operational</p>
     <p>Threat Intelligence: Active</p>
@@ -96,13 +94,6 @@ loadConsultations();
   </div>
 
 </div>
-
-<script>
-async function logout() {
-  await supabaseClient.auth.signOut();
-  window.location.href = "../auth/login.html";
-}
-</script>
 
 </body>
 </html>
