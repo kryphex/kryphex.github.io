@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Case Studies</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Kryphex</h1>
+
+  <nav id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="case-studies.html" class="active">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+  </nav>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero">
+  <h2>Enterprise Case Studies</h2>
+  <p>
+    Structured cybersecurity engagements delivering measurable
+    risk reduction and infrastructure resilience.
+  </p>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="card">
+      <h3>Financial Services Security Hardening</h3>
+      <p><strong>Challenge:</strong> High-risk API exposure and weak IAM enforcement.</p>
+      <p><strong>Approach:</strong> Conducted penetration testing, role-based access review, and zero-trust segmentation design.</p>
+      <p><strong>Outcome:</strong> Reduced exploitable attack surface by 62% and improved compliance posture.</p>
+    </div>
+
+    <div class="card">
+      <h3>SaaS Infrastructure Cloud Audit</h3>
+      <p><strong>Challenge:</strong> Misconfigured storage policies and over-privileged service accounts.</p>
+      <p><strong>Approach:</strong> Performed cloud configuration audit and remediation roadmap implementation.</p>
+      <p><strong>Outcome:</strong> Eliminated public exposure risks and implemented least-privilege enforcement.</p>
+    </div>
+
+    <div class="card">
+      <h3>Healthcare Data Protection Framework</h3>
+      <p><strong>Challenge:</strong> Sensitive patient data vulnerability and incomplete monitoring logs.</p>
+      <p><strong>Approach:</strong> Designed centralized monitoring architecture and encryption enforcement policy.</p>
+      <p><strong>Outcome:</strong> Strengthened breach detection capability and ensured regulatory alignment.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="alt-bg">
+  <div class="container" style="text-align:center;">
+    <h3>Ready to Strengthen Your Security Posture?</h3>
+    <button class="btn" onclick="location.href='consultation.html'">
+      Schedule Enterprise Consultation
+    </button>
+  </div>
+</section>
+
+<footer>
+  © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+</footer>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+</script>
+
+</body>
+</html>
