@@ -1,8 +1,66 @@
-/* Active Nav Link */
+/* =========================================================
+   KRY PHEX GLOBAL STYLES
+   ========================================================= */
+
+/* ================= RESET ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+
+/* =========================================================
+   HEADER & NAVIGATION
+   ========================================================= */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+nav a:hover {
+  color: #0056ff;
+}
+
+/* Active Link */
 
 nav a.active {
   color: #0056ff;
-  position: relative;
 }
 
 nav a.active::after {
@@ -15,261 +73,28 @@ nav a.active::after {
   background: #0056ff;
 }
 
-/* Tools Dashboard Layout */
-
-.dashboard {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 250px;
-  background: #0a1f44;
-  color: white;
-  padding: 30px 20px;
-}
-
-.sidebar h2 {
-  font-size: 18px;
-  margin-bottom: 25px;
-}
-
-.sidebar a {
-  display: block;
-  color: #cbd5e1;
-  text-decoration: none;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-.sidebar a:hover {
-  color: #ffffff;
-}
-
-.dashboard-content {
-  flex: 1;
-  padding: 60px;
-  background: #f5f7fa;
-}
-
-.dark-toggle {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  margin-left: 15px;
-}
-
-/* Engagement Process */
-
-.process-section {
-  padding: 120px 80px;
-}
-
-.process-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.process-step {
-  flex: 1;
-  min-width: 220px;
-  text-align: center;
-}
-
-.step-number {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0056ff;
-  margin-bottom: 15px;
-}
-
-.process-step h4 {
-  margin-bottom: 10px;
-  color: #0a1f44;
-}
-
-.process-step p {
-  font-size: 14px;
-  color: #555;
-}
-
-.btn-outline {
-  margin-left: 15px;
-  padding: 14px 36px;
-  border: 2px solid #0056FF;
-  background: transparent;
-  color: #0056FF;
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.hero {
-  background: linear-gradient(135deg, #0a1f44 0%, #0f2b66 50%, #003366 100%);
-}
-
-
-/* Modal */
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-}
-
-.modal-content {
-  background: white;
-  width: 400px;
-  padding: 40px;
-  margin: 100px auto;
-  border-radius: 8px;
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  font-size: 22px;
-  cursor: pointer;
-}
+/* Navigation Button */
 
 .btn-nav {
   background: #0056ff;
-  color: white;
+  color: #ffffff;
   padding: 8px 16px;
   border-radius: 4px;
-  text-decoration: none;
 }
 
-/* Impact Section */
-
-.impact-section {
-  padding: 120px 80px;
-  background: #ffffff;
-}
-
-.impact-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-  text-align: center;
-}
-
-.impact-item {
-  flex: 1;
-  min-width: 220px;
-}
-
-.impact-number {
-  font-size: 42px;
-  font-weight: 700;
-  color: #0056ff;
-  margin-bottom: 10px;
-}
-
-.impact-item p {
-  font-size: 14px;
-  color: #555;
-}
-
-/* ===== GLOBAL ===== */
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #f5f7fa;
-  color: #1a1a1a;
-}
-
-/* Authority Band */
-
-.authority-band {
-  background: #ffffff;
-  padding: 40px 0;
-  border-bottom: 1px solid #e6ebf2;
-}
-
-.authority-grid {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  font-weight: 600;
-  color: #0a1f44;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.authority-grid div {
-  flex: 1;
-  min-width: 200px;
-}
-
-/* ===== HEADER ===== */
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  z-index: 1000;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-}
-
-header h1 {
-  margin: 0;
-  font-weight: 700;
-  font-size: 22px;
-  color: #0a1f44;
-}
-
-nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  font-size: 15px;
-  white-space: nowrap;
-}
-
-nav a:hover { color: #0056ff; }
-
-/* ===== HERO ===== */
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
 
 .hero {
-  background: linear-gradient(135deg, #0a1f44, #003366);
-  color: white;
+  background: linear-gradient(135deg, #0a1f44 0%, #0f2b66 50%, #003366 100%);
+  color: #ffffff;
   padding: 200px 20px;
   margin-top: 80px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
 }
 
@@ -281,39 +106,16 @@ nav a:hover { color: #0056ff; }
 .hero p {
   font-size: 20px;
   max-width: 800px;
-  margin: auto;
+  margin: 20px auto;
   opacity: 0.9;
 }
 
-.metrics {
-  background: white;
-  padding: 60px 0;
-  border-bottom: 1px solid #e6ebf2;
-}
-
-.metrics {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  gap: 20px;
-}
-
-.metrics h4 {
-  margin: 0;
-  font-size: 22px;
-  color: #0a1f44;
-}
-
-.metrics p {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #666;
-}
-
-/* ===== SECTIONS ===== */
+/* =========================================================
+   SECTIONS
+   ========================================================= */
 
 section {
-  padding: 140px 80px;
+  padding: 120px 80px;
 }
 
 .container {
@@ -328,116 +130,188 @@ section h3 {
   color: #0a1f44;
 }
 
+.alt-bg {
+  background: #f0f4f9;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .card {
-  background: white;
+  background: #ffffff;
   padding: 35px;
   margin: 20px auto;
   max-width: 900px;
   border-radius: 10px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 14px 35px rgba(0,0,0,0.08);
 }
-/* Alternating background */
 
-.alt-bg { background: #f0f4f9; }
-
-/* ===== BUTTON ===== */
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 
 .btn {
-  margin-top: 30px;
+  margin-top: 25px;
   padding: 14px 36px;
   background: #0056ff;
   border: none;
-  color: white;
+  color: #ffffff;
   font-weight: 600;
-  cursor: pointer;
   border-radius: 6px;
+  cursor: pointer;
   transition: 0.3s ease;
 }
 
-.btn:hover { background: #003bb5; }
+.btn:hover {
+  background: #003bb5;
+}
 
-/* ===== CONTACT ===== */
+.btn-outline {
+  padding: 14px 36px;
+  border: 2px solid #0056ff;
+  background: transparent;
+  color: #0056ff;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   CONTACT FORM
+   ========================================================= */
 
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 700px;
-  margin: 0 auto;
-  align-items: center;
+  margin: auto;
 }
 
 .form-row {
   display: flex;
   gap: 20px;
-  width: 100%;
 }
 
-.form-row input { flex: 1; }
+.form-row input {
+  flex: 1;
+}
 
 textarea {
   width: 100%;
   resize: vertical;
 }
 
-.contact-form .btn { width: 220px; }
+/* =========================================================
+   AUTH MODAL
+   ========================================================= */
 
-/* ===== FOOTER ===== */
-
-footer {
-  background: #0a1f44;
-  color: white;
-  text-align: center;
-  padding: 40px;
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
 }
 
-/* ===== MOBILE ===== */
+.modal-content {
+  background: #ffffff;
+  width: 400px;
+  padding: 40px;
+  margin: 120px auto;
+  border-radius: 8px;
+  position: relative;
+}
 
-.menu-toggle {
-  display: none;
-  font-size: 28px;
+.close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 22px;
   cursor: pointer;
 }
 
-@media (max-width: 1000px) {
+/* =========================================================
+   DASHBOARD LAYOUT
+   ========================================================= */
 
-  nav {
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background: white;
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  }
-
-  nav a {
-    padding: 15px;
-    display: block;
-    border-bottom: 1px solid #eee;
-  }
-
-  .menu-toggle { display: block; }
-
-  section { padding: 120px 20px; }
-
-  .hero {
-    padding-top: 160px;
-    padding-bottom: 160px;
-  }
-
-  .form-row { flex-direction: column; }
+.dashboard {
+  display: flex;
+  min-height: 100vh;
 }
 
-/* ================= PROFESSIONAL FOOTER ================= */
+.sidebar {
+  width: 250px;
+  background: #0a1f44;
+  color: #ffffff;
+  padding: 30px 20px;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.sidebar a {
+  display: block;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.sidebar a:hover {
+  color: #ffffff;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 60px;
+  background: #f5f7fa;
+}
+
+/* =========================================================
+   IMPACT & PROCESS
+   ========================================================= */
+
+.impact-section {
+  padding: 120px 80px;
+  background: #ffffff;
+}
+
+.impact-grid,
+.process-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  text-align: center;
+}
+
+.impact-item,
+.process-step {
+  flex: 1;
+  min-width: 220px;
+}
+
+.impact-number,
+.step-number {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0056ff;
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 footer {
   background: #0a1f44;
@@ -462,7 +336,6 @@ footer {
 .footer-column h4 {
   margin-bottom: 15px;
   font-size: 16px;
-  letter-spacing: 0.5px;
 }
 
 .footer-column p,
@@ -470,7 +343,6 @@ footer {
   font-size: 14px;
   color: #cbd5e1;
   text-decoration: none;
-  line-height: 1.8;
 }
 
 .footer-column a:hover {
@@ -486,13 +358,9 @@ footer {
   padding-top: 20px;
 }
 
-@media (max-width: 900px) {
-  .footer-container {
-    flex-direction: column;
-  }
-}
-
-/* ================= DARK MODE ================= */
+/* =========================================================
+   DARK MODE
+   ========================================================= */
 
 body.dark-mode {
   background: #0f172a;
@@ -501,7 +369,6 @@ body.dark-mode {
 
 body.dark-mode header {
   background: #111827;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
 body.dark-mode nav a {
@@ -518,35 +385,54 @@ body.dark-mode .hero {
 
 body.dark-mode .card {
   background: #1e293b;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-}
-
-body.dark-mode .alt-bg {
-  background: #111827;
 }
 
 body.dark-mode footer {
   background: #020617;
 }
 
-body.dark-mode .impact-number {
-  color: #3b82f6;
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
 }
 
-body.dark-mode .authority-band {
-  background: #111827;
+@media (max-width: 1000px) {
+
+  nav {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #ffffff;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  nav a {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  section {
+    padding: 100px 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .footer-container {
+    flex-direction: column;
+  }
 }
-
-/* Scroll Reveal Animation */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
