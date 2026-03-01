@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | SHA-256 Generator</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header><h1>Kryphex</h1></header>
+
+<section class="hero">
+  <h2>SHA-256 Hash Generator</h2>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <input type="text" id="hashInput" placeholder="Enter text">
+      <button class="btn" onclick="generateHash()" style="margin-top:15px;">
+        Generate Hash
+      </button>
+      <p id="hashOutput" style="margin-top:20px;"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+async function generateHash() {
+  const text = document.getElementById("hashInput").value;
+  const buffer = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest("SHA-256", buffer);
+  const hashArray = Array.from(new Uint8Array(hash));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  document.getElementById("hashOutput").innerText = hashHex;
+}
+</script>
+
+</body>
+</html>
