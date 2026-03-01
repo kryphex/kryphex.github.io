@@ -134,7 +134,7 @@ body {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ================= MOBILE MENU ================= */
+/* ================= MOBILE MENU FIXED ================= */
 
 .mobile-menu {
   position: fixed;
@@ -144,6 +144,11 @@ body {
   height: 100vh;
   background: white;
   padding: 120px 40px;
+
+  display: flex;
+  flex-direction: column;   /* 🔥 IMPORTANT */
+  align-items: flex-start;  /* stack left */
+
   transition: 0.4s ease;
   box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
@@ -154,18 +159,13 @@ body {
 
 .mobile-menu a {
   display: block;
+  width: 100%;
   margin-bottom: 25px;
   text-decoration: none;
   color: #111;
   font-weight: 600;
   font-size: 16px;
-  transition: 0.3s ease;
 }
-
-.mobile-menu a:hover {
-  color: #0056ff;
-}
-
 /* =========================================================
    HEADER & NAVIGATION
    ========================================================= */
