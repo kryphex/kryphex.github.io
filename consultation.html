@@ -44,7 +44,18 @@
     <div class="card">
 
       <form class="contact-form" method="POST" action="https://api.web3forms.com/submit">
+<input type="hidden" name="from_name" value="Kryphex Security Team">
+<input type="hidden" name="replyto" value="email">
 
+<input type="hidden" name="autoresponse" value="
+Thank you for contacting Kryphex.
+
+Your security assessment request has been received.
+
+Our team will review your submission and respond within 24 business hours.
+
+— Kryphex Security Team
+">
   <input type="hidden" name="access_key" value="1d8312b5-e776-4455-9466-838d29afb905">
 
   <input type="hidden" name="subject" value="New Kryphex Consultation Request">
@@ -74,6 +85,9 @@
     Initiate Security Assessment
   </button>
 
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+        <input type="hidden" name="source" value="Kryphex Website">
+        
 </form>
 
 <p style="margin-top:20px; font-size:13px; color:#666;">
