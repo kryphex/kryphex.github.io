@@ -57,8 +57,9 @@ async function openAuth() {
   const { data } = await supabaseClient.auth.getUser();
 
   if (data.user) {
-    window.location.href = "tools/console.html";
-  } else {
+  window.location.href = "home.html";
+}
+ else {
     window.location.href = "auth/login.html";
   }
 }
