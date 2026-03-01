@@ -29,6 +29,36 @@ body {
   height: 18px;
 }
 
+/* ===== OAUTH BUTTON CLEAN FIX ===== */
+
+.oauth-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  transition: all 0.2s ease;
+}
+
+.oauth-btn:hover {
+  background: #f8f9fa;
+}
+
+.oauth-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
 /* ===== USER NAV ===== */
 
 .user-nav {
