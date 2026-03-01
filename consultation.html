@@ -22,13 +22,6 @@
   </nav>
 
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vosfh2qvb3");
-</script>
 </header>
 
 <section class="hero">
@@ -43,66 +36,44 @@
   <div class="container">
     <div class="card">
 
-      <form class="contact-form" method="POST" action="https://api.web3forms.com/submit">
-<input type="hidden" name="from_name" value="Kryphex Security Team">
-<input type="hidden" name="replyto" value="email">
+      <form onsubmit="return false;">
 
-<input type="hidden" name="autoresponse" value="
-Thank you for contacting Kryphex.
+        <div class="form-row">
+          <input id="fullName" type="text" placeholder="Full Name" required>
+          <input id="email" type="email" placeholder="Work Email" required>
+        </div>
 
-Your security assessment request has been received.
+        <div class="form-row">
+          <input id="company" type="text" placeholder="Company Name">
+          <input id="industry" type="text" placeholder="Industry">
+        </div>
 
-Our team will review your submission and respond within 24 business hours.
+        <select id="service" style="width:100%; padding:12px; border-radius:4px; border:1px solid #ccc;">
+          <option value="">Select Service Interest</option>
+          <option>Penetration Testing</option>
+          <option>Cloud Security</option>
+          <option>Threat Detection</option>
+          <option>Security Architecture</option>
+        </select>
 
-— Kryphex Security Team
-">
-  <input type="hidden" name="access_key" value="1d8312b5-e776-4455-9466-838d29afb905">
+        <textarea id="message" rows="6" placeholder="Briefly describe your security objectives"></textarea>
 
-  <input type="hidden" name="subject" value="New Kryphex Consultation Request">
-<input type="hidden" name="redirect" value="https://kryphex.github.io/booking.html">
-  <div class="form-row">
-    <input type="text" name="full_name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Work Email" required>
-  </div>
+        <button type="button" class="btn" onclick="submitConsultation()">
+          Schedule Consultation
+        </button>
 
-  <div class="form-row">
-    <input type="text" name="company" placeholder="Company Name">
-    <input type="text" name="industry" placeholder="Industry">
-  </div>
+      </form>
 
-  <select name="service_interest" style="width:100%; padding:12px; border-radius:4px; border:1px solid #ccc;">
-    <option value="">Select Service Interest</option>
-    <option>Penetration Testing</option>
-    <option>Cloud Security</option>
-    <option>Threat Detection</option>
-    <option>Security Architecture</option>
-  </select>
-
-  <textarea name="message" rows="6" placeholder="Briefly describe your security objectives"></textarea>
-
-<button type="button" onclick="submitConsultation()">
-Schedule Consultation
-</button>
-
-
-        <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
-        <input type="hidden" name="source" value="Kryphex Website">
-        
-</form>
-
-<p style="margin-top:20px; font-size:13px; color:#666;">
-All consultation requests are treated with strict confidentiality.
-No information shared will be disclosed to third parties.
-</p>
+      <p style="margin-top:20px; font-size:13px; color:#666;">
+        All consultation requests are treated with strict confidentiality.
+      </p>
 
     </div>
   </div>
 </section>
 
 <footer>
-
   <div class="footer-container">
-
     <div class="footer-column">
       <h4>Kryphex</h4>
       <p>
@@ -125,29 +96,21 @@ No information shared will be disclosed to third parties.
       <p><a href="case-studies.html">Case Studies</a></p>
       <p><a href="consultation.html">Consultation</a></p>
     </div>
-   </div>
+  </div>
 
   <div class="footer-bottom">
     © 2026 Kryphex. Enterprise Cybersecurity Solutions. All Rights Reserved.
   </div>
-
 </footer>
 
-
-<script>
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 function toggleMenu() {
   const nav = document.getElementById("nav-links");
   nav.style.display = nav.style.display === "flex" ? "none" : "flex";
 }
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
 const supabaseClient = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
@@ -186,6 +149,7 @@ async function submitConsultation() {
     alert("Error: " + error.message);
   } else {
     alert("Consultation submitted successfully.");
+    window.location.href = "tools/console.html";
   }
 }
 </script>
