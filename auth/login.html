@@ -60,5 +60,30 @@ document.getElementById("loginBtn").addEventListener("click", async function () 
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    document.getElementById("loginMessage").innerText = error.message;
+  } else {
+    window.location.href = "../home.html";   // 🔥 IMPORTANT CHANGE
+  }
+}
+</script>
+
 </body>
 </html>
