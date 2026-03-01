@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Kryphex | Security Console</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style.css">
-</head>
-
-<body>
-
-<!-- ================= HEADER ================= -->
-
-<header>
+  <header>
   <h1 class="logo">
     <a href="../index.html">
       <img src="../logo.svg" alt="Kryphex Logo" style="height:28px;">
     </a>
   </h1>
 </header>
-
-<!-- ================= SUPABASE ================= -->
+  
+<head>
+  <title>Kryphex | Security Console</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -36,12 +31,14 @@ async function checkAuth() {
     window.location.href = "../auth/login.html";
   }
 }
+
 checkAuth();
 
 // Load consultations
 async function loadConsultations() {
   const { data: userData } = await supabaseClient.auth.getUser();
   const user = userData.user;
+
   if (!user) return;
 
   const { data, error } = await supabaseClient
@@ -80,8 +77,6 @@ async function logout() {
 }
 </script>
 
-<!-- ================= DASHBOARD ================= -->
-
 <div class="dashboard">
 
   <div class="sidebar">
@@ -110,3 +105,5 @@ async function logout() {
 
 </body>
 </html>
+
+Fix it with clikable logo redirects to home page
