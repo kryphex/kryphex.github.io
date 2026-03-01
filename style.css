@@ -111,6 +111,45 @@ nav a.active::after {
   background: linear-gradient(135deg, #0a1f44 0%, #0f2b66 50%, #003366 100%);
 }
 
+
+/* Modal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background: white;
+  width: 400px;
+  padding: 40px;
+  margin: 100px auto;
+  border-radius: 8px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.btn-nav {
+  background: #0056ff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
 /* Impact Section */
 
 .impact-section {
