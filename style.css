@@ -29,6 +29,25 @@ body {
   height: 18px;
 }
 
+/* ===== USER NAV ===== */
+
+.user-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* ===== CINEMATIC LANDING ===== */
 
 .landing-body {
