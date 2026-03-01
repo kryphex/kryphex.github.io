@@ -80,6 +80,10 @@ Our team will review your submission and respond within 24 business hours.
 
   <textarea name="message" rows="6" placeholder="Briefly describe your security objectives"></textarea>
 
+<button type="button" class="btn" onclick="submitConsultation()">
+Schedule Consultation
+</button>
+
   <button class="btn" type="submit">
     Initiate Security Assessment
   </button>
@@ -143,6 +147,50 @@ function toggleDarkMode() {
 function toggleMenu() {
   const nav = document.getElementById("nav-links");
   nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function submitConsultation() {
+
+  const { data: userData } = await supabaseClient.auth.getUser();
+  const user = userData.user;
+
+  if (!user) {
+    alert("Please login first.");
+    window.location.href = "../auth/login.html";
+    return;
+  }
+
+  const fullName = document.getElementById("fullName").value;
+  const company = document.getElementById("company").value;
+  const service = document.getElementById("service").value;
+  const message = document.getElementById("message").value;
+
+  const { error } = await supabaseClient
+    .from("consultations")
+    .insert([
+      {
+        user_id: user.id,
+        full_name: fullName,
+        company: company,
+        service: service,
+        message: message
+      }
+    ]);
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Consultation submitted successfully.");
+  }
 }
 </script>
 
