@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="hero">
+  <h2>Kryphex Security Console</h2>
+  <p>Authorized access only.</p>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
+
+      <button class="btn" onclick="login()">Login</button>
+
+      <p id="loginMessage"></p>
+
+      <p style="margin-top:15px;">
+        Don't have an account?
+        <a href="signup.html">Sign Up</a>
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const storedEmail = localStorage.getItem("kryphexUser");
+  const storedPass = localStorage.getItem("kryphexPass");
+
+  if (email === storedEmail && password === storedPass) {
+    localStorage.setItem("kryphexAuth", "true");
+    window.location.href = "../tools/console.html";
+  } else {
+    document.getElementById("loginMessage").innerText =
+      "Invalid credentials.";
+  }
+}
+</script>
+
+</body>
+</html>
