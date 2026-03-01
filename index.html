@@ -4,75 +4,177 @@
   <title>Kryphex | Enterprise Cybersecurity</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <style>
+  /* ================= ABSTRACT HAMBURGER HEADER ================= */
+
+  .hamburger-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .header-abstract {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0,86,255,0.15), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(0,86,255,0.12), transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(0,86,255,0.08), transparent 50%);
+    animation: abstractMove 12s infinite alternate ease-in-out;
+    z-index: 0;
+  }
+
+  @keyframes abstractMove {
+    from { transform: scale(1) translateY(0); }
+    to { transform: scale(1.1) translateY(-10px); }
+  }
+
+  .center-logo {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hamburger {
+    position: absolute;
+    left: 25px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+  }
+
+  .hamburger span {
+    width: 26px;
+    height: 3px;
+    background: #0a1f44;
+    transition: 0.3s ease;
+  }
+
+  .slide-menu {
+    position: fixed;
+    top: 90px;
+    left: -100%;
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    z-index: 999;
+  }
+
+  .slide-menu.open {
+    left: 0;
+  }
+
+  .slide-menu a {
+    text-decoration: none;
+    color: #0a1f44;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .hero {
+    margin-top: 110px;
+  }
+  </style>
 </head>
 
-<body class="landing-body">
+<body>
 
-<!-- HEADER -->
+<header class="hamburger-header">
 
-<header class="landing-header">
+  <div class="header-abstract"></div>
 
-<div class="hamburger" onclick="toggleMenu(this)">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+  <div class="hamburger" onclick="toggleMenu(this)">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <div class="center-logo">
-    <a href="index.html">
+    <a href="home.html">
       <img src="logo.svg" alt="Kryphex Logo">
     </a>
   </div>
 
+  <div class="header-right">
+    <div id="notificationBell" class="notification-bell">
+      🔔
+      <span class="notif-dot"></span>
+    </div>
+
+    <div id="userDropdown" class="user-dropdown"></div>
+  </div>
+
 </header>
 
-<nav id="mobileMenu" class="mobile-menu">
+<nav id="nav-links" class="slide-menu">
+  <a href="index.html" class="active">Home</a>
   <a href="services.html">Services</a>
   <a href="insights.html">Insights</a>
   <a href="about.html">About</a>
+  <a href="tools/">Tools</a>
+  <a href="case-studies.html">Case Studies</a>
   <a href="consultation.html">Consultation</a>
-  <a href="tools/">Platform</a>
 </nav>
 
-<!-- HERO -->
-
-<section class="cinematic-hero">
-
-  <h1>Enterprise Cybersecurity Architecture</h1>
-
+<section class="hero">
+  <h2>Enterprise Cybersecurity Architecture.</h2>
   <p>
-    Zero-trust infrastructure. Threat intelligence modeling.
-    Advanced penetration testing for mission-critical systems.
+    Kryphex delivers structured penetration testing,
+    threat intelligence modeling, and zero-trust infrastructure
+    for organizations operating at scale.
   </p>
 
-<button class="enter-btn" onclick="openAuth()">
-  Enter Platform
-</button>
-
+  <button class="btn" onclick="location.href='consultation.html'">
+    Request Consultation
+  </button>
 </section>
 
-<script>
-async function openAuth() {
-  const { data } = await supabaseClient.auth.getUser();
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Kryphex</h4>
+      <p>
+        Enterprise-focused cybersecurity consultancy delivering
+        structured risk mitigation and zero-trust architecture.
+      </p>
+    </div>
 
-  if (data.user) {
-  window.location.href = "home.html";
-}
- else {
-    window.location.href = "auth/login.html";
-  }
-}
-</script>
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <p>Email: contact.kryphex@gmail.com</p>
+      <p>Business Inquiries: +91 8866553925</p>
+      <p>Region: Global Operations</p>
+    </div>
 
-<script>
-function toggleMenu(el) {
-  el.classList.toggle("active");
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <p><a href="services.html">Services</a></p>
+      <p><a href="consultation.html">Consultation</a></p>
+    </div>
+  </div>
 
-  const menu = document.getElementById("mobileMenu");
-  menu.classList.toggle("open");
-}
-</script>
+  <div class="footer-bottom">
+    © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -81,6 +183,78 @@ const supabaseClient = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
+
+function toggleMenu(el) {
+  el.classList.toggle("active");
+  document.getElementById("nav-links").classList.toggle("open");
+}
+
+/* ================= DROPDOWN FIX ================= */
+
+document.addEventListener("DOMContentLoaded", updateNavbar);
+
+async function updateNavbar() {
+
+  const { data } = await supabaseClient.auth.getUser();
+  const dropdown = document.getElementById("userDropdown");
+
+  if (!data.user) {
+    dropdown.innerHTML = `
+      <a href="auth/login.html">Login</a>
+      <a href="auth/signup.html" class="btn-nav">Sign Up</a>
+    `;
+    return;
+  }
+
+  const user = data.user;
+
+  const { data: profile } = await supabaseClient
+    .from("profiles")
+    .select("full_name, role")
+    .eq("id", user.id)
+    .single();
+
+  const name =
+    profile?.full_name ||
+    user.user_metadata?.name ||
+    user.email;
+
+  const role = profile?.role || "User";
+
+  const avatar =
+    user.user_metadata?.avatar_url ||
+    "https://ui-avatars.com/api/?name=" + encodeURIComponent(name);
+
+  dropdown.innerHTML = `
+    <div class="dropdown-trigger" id="avatarTrigger">
+      <img src="${avatar}" class="nav-avatar">
+      <span class="nav-name">${name}</span>
+      <span class="role-badge">${role}</span>
+    </div>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="tools/console.html">Console</a>
+      <a href="tools/my-consultations.html">My Requests</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    </div>
+  `;
+
+  document.getElementById("avatarTrigger").addEventListener("click", function(e) {
+    e.stopPropagation();
+    document.getElementById("dropdownMenu").classList.toggle("open");
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", async function(e) {
+    e.preventDefault();
+    await supabaseClient.auth.signOut();
+    window.location.reload();
+  });
+
+  document.addEventListener("click", function() {
+    const menu = document.getElementById("dropdownMenu");
+    if (menu) menu.classList.remove("open");
+  });
+}
 </script>
 
 </body>
