@@ -29,6 +29,29 @@ body {
   color: #1a1a1a;
 }
 
+/* Authority Band */
+
+.authority-band {
+  background: #ffffff;
+  padding: 40px 0;
+  border-bottom: 1px solid #e6ebf2;
+}
+
+.authority-grid {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  font-weight: 600;
+  color: #0a1f44;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.authority-grid div {
+  flex: 1;
+  min-width: 200px;
+}
+
 /* ===== HEADER ===== */
 
 header {
