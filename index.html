@@ -17,21 +17,24 @@
       color: #1a1a1a;
     }
 
-    header {
+header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 0;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 20px 0;   /* remove horizontal padding */
-
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  z-index: 1000;
 }
 
 header h1 {
@@ -39,7 +42,11 @@ header h1 {
   font-weight: 700;
   font-size: 22px;
   color: #0a1f44;
-  letter-spacing: 0.5px;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
 }
 
     nav a {
@@ -50,9 +57,7 @@ header h1 {
       transition: 0.3s;
     }
 
-    nav {
-  display: flex;
-}
+ 
     nav a:hover {
       color: #0056ff;
     }
@@ -199,10 +204,8 @@ section > p {
 <body>
 
 <header>
-  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+  <div class="header-container">
     <h1>Kryphex</h1>
-
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
     <nav id="nav-links">
       <a href="#about">About</a>
@@ -211,6 +214,8 @@ section > p {
       <a href="insights.html">Insights</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
   </div>
 </header>
 
