@@ -24,6 +24,7 @@
   
 </head>
 
+
 <body>
 
 <!-- ================= HEADER ================= -->
@@ -307,6 +308,100 @@ function revealOnScroll() {
 }
 
 window.addEventListener("scroll", revealOnScroll);
+</script>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <div id="loginForm">
+      <h3>Login</h3>
+      <input type="email" id="modalLoginEmail" placeholder="Email">
+      <input type="password" id="modalLoginPassword" placeholder="Password">
+      <button class="btn" onclick="modalLogin()">Login</button>
+      <p onclick="showSignup()" style="cursor:pointer;">Create account</p>
+      <p id="modalLoginMessage"></p>
+    </div>
+
+    <div id="signupForm" style="display:none;">
+      <h3>Sign Up</h3>
+      <input type="email" id="modalSignupEmail" placeholder="Email">
+      <input type="password" id="modalSignupPassword" placeholder="Password">
+      <button class="btn" onclick="modalSignup()">Sign Up</button>
+      <p onclick="showLogin()" style="cursor:pointer;">Already have account?</p>
+      <p id="modalSignupMessage"></p>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+const modal = document.getElementById("authModal");
+
+document.getElementById("loginBtn").onclick = () => {
+  modal.style.display = "block";
+  showLogin();
+};
+
+document.getElementById("signupBtn").onclick = () => {
+  modal.style.display = "block";
+  showSignup();
+};
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+function showSignup() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "block";
+}
+
+function showLogin() {
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginForm").style.display = "block";
+}
+
+async function modalSignup() {
+  const email = document.getElementById("modalSignupEmail").value;
+  const password = document.getElementById("modalSignupPassword").value;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: "https://kryphex.github.io/auth/login.html"
+    }
+  });
+
+  document.getElementById("modalSignupMessage").innerText =
+    error ? error.message : "Check your email.";
+}
+
+async function modalLogin() {
+  const email = document.getElementById("modalLoginEmail").value;
+  const password = document.getElementById("modalLoginPassword").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    document.getElementById("modalLoginMessage").innerText = error.message;
+  } else {
+    window.location.href = "/tools/console.html";
+  }
+}
 </script>
 
 </body>
