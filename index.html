@@ -188,6 +188,33 @@ footer {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
 
+  /* Contact form layout */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.contact-form .btn {
+  width: 220px;
+}
+  
   nav a {
     padding: 15px;
     display: block;
@@ -297,15 +324,22 @@ footer {
 </section>
   
 <section id="contact">
+  <div class="container">
+    <h3>Contact Kryphex</h3>
 
-  <h3>Contact Kryphex</h3>
-  <div class="card">
-    <input type="text" placeholder="Name">
-    <input type="email" placeholder="Email">
-    <textarea rows="5" placeholder="Message"></textarea>
-    <button class="btn">Submit Inquiry</button>
+    <div class="card">
+      <form class="contact-form">
+        <div class="form-row">
+          <input type="text" placeholder="Name">
+          <input type="email" placeholder="Email">
+        </div>
+
+        <textarea rows="5" placeholder="Message"></textarea>
+
+        <button class="btn" type="submit">Submit Inquiry</button>
+      </form>
+    </div>
   </div>
-    
 </section>
 
 <footer>
