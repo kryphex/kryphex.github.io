@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Internal Security Console</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<script>
+if (localStorage.getItem("kryphexAuth") !== "true") {
+  window.location.href = "../auth/login.html";
+}
+</script>
+
+<div class="dashboard">
+
+  <div class="sidebar">
+    <h2>Kryphex Console</h2>
+    <a href="dashboard.html">Toolkit</a>
+    <a href="pro-tools.html">Pro Tools</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <div class="dashboard-content">
+    <h2>Enterprise Security Console</h2>
+    <p>System Status: Operational</p>
+    <p>Threat Intelligence Feed: Active</p>
+    <p>Monitoring: Enabled</p>
+  </div>
+
+</div>
+
+<script>
+function logout() {
+  localStorage.removeItem("kryphexAuth");
+  window.location.href = "../auth/login.html";
+}
+</script>
+
+</body>
+</html>
