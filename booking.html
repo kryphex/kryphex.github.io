@@ -1,6 +1,96 @@
-<div class="calendly-inline-widget" 
-     data-url="https://calendly.com/contact-kryphex/30min"
-     style="min-width:320px;height:700px;">
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Schedule Consultation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Kryphex</h1>
+
+  <nav id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+    <a href="booking.html" class="active">Schedule</a>
+  </nav>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero">
+  <h2>Schedule Enterprise Security Consultation</h2>
+  <p>
+    Select a time slot that works for you. A secure meeting link will be
+    generated automatically upon confirmation.
+  </p>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card" style="padding:0; overflow:hidden;">
+
+      <!-- Calendly Embed -->
+      <div class="calendly-inline-widget"
+           data-url="https://calendly.com/contact-kryphex/30min"
+           style="min-width:320px;height:750px;">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+
+  <div class="footer-container">
+
+    <div class="footer-column">
+      <h4>Kryphex</h4>
+      <p>
+        Enterprise-focused cybersecurity consultancy delivering
+        structured risk mitigation and zero-trust architecture.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <p>Email: contact.kryphex@gmail.com</p>
+      <p>Business Inquiries: +91 8866553925</p>
+      <p>Region: Global Operations</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <p><a href="services.html">Services</a></p>
+      <p><a href="insights.html">Insights</a></p>
+      <p><a href="case-studies.html">Case Studies</a></p>
+      <p><a href="consultation.html">Consultation</a></p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Kryphex. Enterprise Cybersecurity Solutions. All Rights Reserved.
+  </div>
+
+</footer>
 
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+</script>
+
+</body>
+</html>
