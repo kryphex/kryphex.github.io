@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kryphex | Sign In</title>
+  <title>Kryphex | Login</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,45 +13,40 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #f5f5f7;
+      background: linear-gradient(135deg, #f5f7fa, #e6ecff);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
-    .auth-container {
+    .auth-box {
       width: 100%;
-      max-width: 380px;
-      padding: 40px;
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      max-width: 420px;
+      padding: 45px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.1);
       text-align: center;
     }
 
-    .logo {
-      margin-bottom: 30px;
-    }
-
-    .logo img {
-      height: 34px;
+    .auth-box img {
+      height: 36px;
+      margin-bottom: 25px;
     }
 
     h1 {
       font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     input {
       width: 100%;
       padding: 14px;
       margin-bottom: 16px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid #ddd;
       font-size: 14px;
-      transition: 0.2s;
     }
 
     input:focus {
@@ -59,27 +54,46 @@
       outline: none;
     }
 
-    button {
+    .primary-btn {
       width: 100%;
       padding: 14px;
       background: #000;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 14px;
-      font-weight: 500;
       cursor: pointer;
-      transition: 0.2s;
+      margin-bottom: 20px;
     }
 
-    button:hover {
-      opacity: 0.85;
+    .divider {
+      margin: 20px 0;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .oauth-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      margin-bottom: 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .oauth-btn img {
+      height: 18px;
     }
 
     .secondary {
       margin-top: 20px;
       font-size: 13px;
-      color: #555;
     }
 
     .secondary a {
@@ -89,34 +103,39 @@
     }
 
     .error {
-      margin-top: 12px;
+      margin-top: 10px;
       color: red;
       font-size: 13px;
     }
-
   </style>
 </head>
 
 <body>
 
-<div class="auth-container">
+<div class="auth-box">
 
-  <div class="logo">
-    <a href="../index.html">
-      <img src="../logo.svg" alt="Kryphex">
-    </a>
-  </div>
+  <a href="../index.html">
+    <img src="../logo.svg" alt="Kryphex">
+  </a>
 
   <h1>Sign in to Kryphex</h1>
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
 
-  <button id="loginBtn">Sign In</button>
+  <button class="primary-btn" id="loginBtn">Login</button>
+
+  <div class="divider">or continue with</div>
+
+  <!-- GOOGLE BUTTON -->
+  <button class="oauth-btn" onclick="googleLogin()">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+    Continue with Google
+  </button>
 
   <div class="secondary">
-    Don’t have an account?
-    <a href="signup.html">Create one</a>
+    Don't have an account?
+    <a href="signup.html">Create account</a>
   </div>
 
   <div id="errorMsg" class="error"></div>
@@ -131,13 +150,14 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-// Auto redirect if logged in
+// If already logged in → go to home
 supabaseClient.auth.getUser().then(({ data }) => {
   if (data.user) {
     window.location.href = "../home.html";
   }
 });
 
+// Email Login
 document.getElementById("loginBtn").addEventListener("click", async () => {
 
   const email = document.getElementById("email").value;
@@ -153,8 +173,17 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   } else {
     window.location.href = "../home.html";
   }
-
 });
+
+// Google Login
+async function googleLogin() {
+  await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: "https://kryphex.github.io/home.html"
+    }
+  });
+}
 </script>
 
 </body>
