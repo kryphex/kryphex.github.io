@@ -1,110 +1,197 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function signup() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  const { error } = await supabaseClient.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: "https://kryphex.github.io/auth/login.html"
-    }
-  });
-
-  if (error) {
-    document.getElementById("signupMessage").innerText = error.message;
-  } else {
-    document.getElementById("signupMessage").innerText =
-      "Check your email to confirm.";
-  }
-}
-</script>
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kryphex | Sign Up</title>
+  <title>Kryphex | Create Account</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #e6ecff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .bg-blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,86,255,0.2), transparent 60%);
+      bottom: -200px;
+      left: -200px;
+      animation: float 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0px); }
+      to { transform: translateY(40px); }
+    }
+
+    .auth-container {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      padding: 45px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .logo img {
+      height: 36px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #0056ff;
+      outline: none;
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 14px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      margin: 20px 0;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .oauth-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .secondary {
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .secondary a {
+      color: #0056ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .error {
+      margin-top: 10px;
+      color: red;
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
 
-<section class="hero">
-  <h2>Create Kryphex Account</h2>
-</section>
+<div class="bg-blob"></div>
 
-<section>
-  <div class="container">
-    <div class="card">
-      <input type="email" id="signupEmail" placeholder="Email" required>
-      <input type="password" id="signupPassword" placeholder="Password" required>
+<div class="auth-container">
 
-      <button class="btn" onclick="signup()">Create Account</button>
-
-      <p id="signupMessage"></p>
-    </div>
+  <div class="logo">
+    <a href="../index.html">
+      <img src="../logo.svg" alt="Kryphex">
+    </a>
   </div>
-</section>
+
+  <h1>Create your Kryphex account</h1>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button class="primary-btn" id="signupBtn">Create Account</button>
+
+  <div class="divider">or continue with</div>
+
+  <button class="oauth-btn" onclick="oauthLogin('google')">
+    Continue with Google
+  </button>
+
+  <button class="oauth-btn" onclick="oauthLogin('azure')">
+    Continue with Microsoft
+  </button>
+
+  <div class="secondary">
+    Already have an account?
+    <a href="login.html">Sign in</a>
+  </div>
+
+  <div id="errorMsg" class="error"></div>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const supabaseClient = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-async function signup() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
+document.getElementById("signupBtn").addEventListener("click", async () => {
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
   const { error } = await supabaseClient.auth.signUp({
     email,
-    password,
+    password
   });
 
   if (error) {
-    document.getElementById("signupMessage").innerText = error.message;
+    document.getElementById("errorMsg").innerText = error.message;
   } else {
-    document.getElementById("signupMessage").innerText =
-      "Signup successful. Check your email.";
+    alert("Check your email to confirm your account.");
   }
-}
-</script>
+});
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function signup() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  const { error } = await supabaseClient.auth.signUp({
-    email,
-    password,
+async function oauthLogin(provider) {
+  await supabaseClient.auth.signInWithOAuth({
+    provider: provider,
     options: {
-      emailRedirectTo: "https://kryphex.github.io/auth/login.html"
+      redirectTo: "https://kryphex.github.io/home.html"
     }
   });
-
-  if (error) {
-    document.getElementById("signupMessage").innerText = error.message;
-  } else {
-    document.getElementById("signupMessage").innerText =
-      "Check your email to confirm.";
-  }
 }
 </script>
 
