@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Security Console</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+supabaseClient.auth.getUser().then(({ data }) => {
+  if (!data.user) {
+    window.location.href = "../auth/login.html";
+  }
+});
+</script>
+
+<div class="dashboard">
+
+  <div class="sidebar">
+    <h2>Kryphex Console</h2>
+    <a href="dashboard.html">Toolkit</a>
+    <a href="#">Threat Feed</a>
+    <a href="#">Monitoring</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <div class="dashboard-content">
+    <h2>Enterprise Security Console</h2>
+    <p>System Status: Operational</p>
+    <p>Threat Intelligence: Active</p>
+    <p>Firewall Monitoring: Enabled</p>
+  </div>
+
+</div>
+
+<script>
+async function logout() {
+  await supabaseClient.auth.signOut();
+  window.location.href = "../auth/login.html";
+}
+</script>
+
+</body>
+</html>
