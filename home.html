@@ -8,150 +8,151 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-<style>
-/* ================= HEADER ================= */
+  <style>
+  /* ================= ABSTRACT HAMBURGER HEADER ================= */
 
-.hamburger-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 90px;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+  .hamburger-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
 
-.header-abstract {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(0,86,255,0.15), transparent 40%),
-    radial-gradient(circle at 80% 60%, rgba(0,86,255,0.12), transparent 45%);
-  z-index: 0;
-}
+  .header-abstract {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0,86,255,0.15), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(0,86,255,0.12), transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(0,86,255,0.08), transparent 50%);
+    animation: abstractMove 12s infinite alternate ease-in-out;
+    z-index: 0;
+  }
 
-.center-logo {
-  position: relative;
-  z-index: 2;
-}
+  @keyframes abstractMove {
+    from { transform: scale(1) translateY(0); }
+    to { transform: scale(1.1) translateY(-10px); }
+  }
 
-.hamburger {
-  position: absolute;
-  left: 25px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 2;
-}
+  .center-logo {
+    position: relative;
+    z-index: 2;
+  }
 
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background: #0a1f44;
-}
+  .hamburger {
+    position: absolute;
+    left: 25px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+  }
 
-/* RIGHT SIDE */
+  .hamburger span {
+    width: 26px;
+    height: 3px;
+    background: #0a1f44;
+    transition: 0.3s ease;
+  }
 
-.header-right {
-  position: absolute;
-  right: 25px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  z-index: 2;
-}
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
 
-/* DROPDOWN */
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
 
-.user-dropdown {
-  position: relative;
-}
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
 
-.dropdown-trigger {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
+  .slide-menu {
+    position: fixed;
+    top: 90px;
+    left: -100%;
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    z-index: 999;
+  }
 
-.nav-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-}
+  .slide-menu.open {
+    left: 0;
+  }
 
-.nav-name {
-  font-size: 14px;
-  font-weight: 600;
-}
+  .slide-menu a {
+    text-decoration: none;
+    color: #0a1f44;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
 
-.role-badge {
-  font-size: 11px;
-  padding: 3px 8px;
-  background: #0056ff;
-  color: white;
-  border-radius: 20px;
-}
+  /* Push hero below fixed header */
+  .hero {
+    margin-top: 110px;
+  }
+  </style>
 
-.dropdown-menu {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  padding: 10px 0;
-  min-width: 200px;
-  display: none;
-  z-index: 2000;
-}
-
-.dropdown-menu.open {
-  display: block;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: #0a1f44;
-}
-
-.dropdown-menu a:hover {
-  background: #f5f7fa;
-}
-
-/* HERO OFFSET */
-
-.hero {
-  margin-top: 110px;
-  text-align: center;
-  padding: 100px 20px;
-}
-</style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header class="hamburger-header">
+
   <div class="header-abstract"></div>
+
+  <div class="hamburger" onclick="toggleMenu(this)">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <div class="center-logo">
     <a href="home.html">
-      <img src="logo.svg" alt="Kryphex Logo" height="32">
+      <img src="logo.svg" alt="Kryphex Logo">
     </a>
   </div>
 
+  <!-- RIGHT SIDE -->
   <div class="header-right">
+    <div id="notificationBell" class="notification-bell">
+      🔔
+      <span class="notif-dot"></span>
+    </div>
+
     <div id="userDropdown" class="user-dropdown"></div>
   </div>
+
 </header>
+<nav id="nav-links" class="slide-menu">
+  <a href="index.html" class="active">Home</a>
+  <a href="services.html">Services</a>
+  <a href="insights.html">Insights</a>
+  <a href="about.html">About</a>
+  <a href="tools/">Tools</a>
+  <a href="case-studies.html">Case Studies</a>
+  <a href="consultation.html">Consultation</a>
+
+  <div id="authArea"></div>
+</nav>
+
+<!-- ================= HERO ================= -->
 
 <section class="hero">
   <h2>Enterprise Cybersecurity Architecture.</h2>
@@ -160,8 +161,70 @@
     threat intelligence modeling, and zero-trust infrastructure
     for organizations operating at scale.
   </p>
-  <button onclick="location.href='consultation.html'">Request Consultation</button>
+
+  <button class="btn" onclick="location.href='consultation.html'">
+    Request Consultation
+  </button>
 </section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Kryphex</h4>
+      <p>
+        Enterprise-focused cybersecurity consultancy delivering
+        structured risk mitigation and zero-trust architecture.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <p>Email: contact.kryphex@gmail.com</p>
+      <p>Business Inquiries: +91 8866553925</p>
+      <p>Region: Global Operations</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <p><a href="services.html">Services</a></p>
+      <p><a href="consultation.html">Consultation</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+  </div>
+</footer>
+
+<!-- ================= AUTH MODAL ================= -->
+
+<div id="authModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <div id="loginForm">
+      <h3>Login</h3>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <button class="btn" onclick="modalLogin()">Login</button>
+      <p onclick="showSignup()" style="cursor:pointer;">Create account</p>
+      <p id="loginMessage"></p>
+    </div>
+
+    <div id="signupForm" style="display:none;">
+      <h3>Sign Up</h3>
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <button class="btn" onclick="modalSignup()">Sign Up</button>
+      <p onclick="showLogin()" style="cursor:pointer;">Already have account?</p>
+      <p id="signupMessage"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -171,7 +234,51 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-document.addEventListener("DOMContentLoaded", updateNavbar);
+const modal = document.getElementById("authModal");
+const authArea = document.getElementById("authArea");
+
+function toggleMenu(el) {
+  el.classList.toggle("active");
+  document.getElementById("nav-links").classList.toggle("open");
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+function showSignup() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "block";
+}
+
+function showLogin() {
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginForm").style.display = "block";
+}
+
+async function modalSignup() {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  const { error } = await supabaseClient.auth.signUp({ email, password });
+
+  document.getElementById("signupMessage").innerText =
+    error ? error.message : "Check your email to confirm.";
+}
+
+async function modalLogin() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    document.getElementById("loginMessage").innerText = error.message;
+  } else {
+    closeModal();
+    updateNavbar();
+  }
+}
 
 async function updateNavbar() {
 
@@ -181,17 +288,25 @@ async function updateNavbar() {
   if (!data.user) {
     dropdown.innerHTML = `
       <a href="auth/login.html">Login</a>
-      <a href="auth/signup.html">Sign Up</a>
+      <a href="auth/signup.html" class="btn-nav">Sign Up</a>
     `;
     return;
   }
 
   const user = data.user;
 
+  const { data: profile } = await supabaseClient
+    .from("profiles")
+    .select("full_name, role")
+    .eq("id", user.id)
+    .single();
+
   const name =
-    user.user_metadata?.full_name ||
+    profile?.full_name ||
     user.user_metadata?.name ||
     user.email;
+
+  const role = profile?.role || "User";
 
   const avatar =
     user.user_metadata?.avatar_url ||
@@ -201,6 +316,7 @@ async function updateNavbar() {
     <div class="dropdown-trigger" id="avatarTrigger">
       <img src="${avatar}" class="nav-avatar">
       <span class="nav-name">${name}</span>
+      <span class="role-badge">${role}</span>
     </div>
 
     <div class="dropdown-menu" id="dropdownMenu">
@@ -210,23 +326,31 @@ async function updateNavbar() {
     </div>
   `;
 
-  document.getElementById("avatarTrigger").addEventListener("click", function (e) {
+  // Attach dropdown toggle
+  document.getElementById("avatarTrigger").addEventListener("click", function(e) {
     e.stopPropagation();
     document.getElementById("dropdownMenu").classList.toggle("open");
   });
 
-  document.getElementById("logoutBtn").addEventListener("click", async function (e) {
+  // Attach logout
+  document.getElementById("logoutBtn").addEventListener("click", async function(e) {
     e.preventDefault();
     await supabaseClient.auth.signOut();
-    window.location.href = "index.html";
+    window.location.reload();
   });
 
-  document.addEventListener("click", function () {
+  // Close when clicking outside
+  document.addEventListener("click", function() {
     const menu = document.getElementById("dropdownMenu");
     if (menu) menu.classList.remove("open");
   });
 }
+updateNavbar();
 </script>
 
 </body>
 </html>
+
+
+
+this is full home page script fix it and give the whole script back
