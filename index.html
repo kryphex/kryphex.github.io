@@ -4,37 +4,17 @@
   <title>Kryphex | Enterprise Cybersecurity</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Main Styles -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vosfh2qvb3");
-</script>
-  
 </head>
 
-
 <body>
-
-<!-- ================= HEADER ================= -->
 
 <header>
   <h1><img src="logo.svg" alt="Kryphex Logo" style="height:28px;"></h1>
 
   <nav id="nav-links">
-    <a href="#" id="loginBtn">Login</a>
-<a href="#" id="signupBtn" class="btn-nav">Sign Up</a>
     <a href="index.html" class="active">Home</a>
     <a href="services.html">Services</a>
     <a href="insights.html">Insights</a>
@@ -42,210 +22,30 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
+
+    <div id="authArea"></div>
   </nav>
 
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-  <button class="dark-toggle" onclick="toggleDarkMode()">☾</button>
 </header>
 
-<!-- ================= HERO ================= -->
-
 <section class="hero">
- <h2>
-Enterprise Cybersecurity Architecture.
-</h2>
+  <h2>Enterprise Cybersecurity Architecture.</h2>
+  <p>
+    Kryphex delivers structured penetration testing,
+    threat intelligence modeling, and zero-trust infrastructure
+    for organizations operating at scale.
+  </p>
 
-<p>
-Kryphex delivers structured penetration testing, 
-threat intelligence modeling, and zero-trust infrastructure 
-for organizations operating at scale.
-</p>
-
-<button class="btn" onclick="clarity('event', 'consultation_click'); location.href='consultation.html';">
+  <button class="btn" onclick="location.href='consultation.html'">
     Request Consultation
   </button>
-
-<div style="margin-top:20px;">
-  <button class="btn">Initiate Security Assessment</button>
-
-  <button class="btn-outline"
-    onclick="location.href='services.html'">
-    Explore Services
-  </button>
-</div>
-  
-</section>
-
-
-<!-- ================= METRICS STRIP ================= -->
-
-
-<section class="authority-band">
-  <div class="container authority-grid">
-
-    <div>Zero-Trust Architecture</div>
-    <div>OWASP Aligned Testing</div>
-    <div>Enterprise Risk Modeling</div>
-    <div>Cloud Security Hardening</div>
-
-  </div>
-</section>
-
-
-<!-- ================= ABOUT ================= -->
-
-<section id="about">
-  <div class="container">
-    <h3>About Kryphex</h3>
-
-    <div class="card">
-      Kryphex is an independent cybersecurity initiative focused on enterprise
-      penetration testing, infrastructure hardening, and digital risk mitigation.
-      Built on modern security frameworks, Kryphex operates with a defense-first mindset
-      to protect mission-critical systems.
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= SERVICES ================= -->
-
-<section id="services" class="alt-bg">
-  <div class="container">
-    <h3>Core Services</h3>
-
-    <div class="card">
-      <strong>Penetration Testing</strong><br><br>
-      Structured vulnerability assessment and red-team simulations aligned with industry standards.
-    </div>
-
-    <div class="card">
-      <strong>Cloud & Infrastructure Security</strong><br><br>
-      Zero-trust implementation and hardened architecture design for scalable environments.
-    </div>
-
-    <div class="card">
-      <strong>Threat Detection & Monitoring</strong><br><br>
-      Continuous monitoring frameworks and structured incident response modeling.
-    </div>
-
-  </div>
-</section>
-
-<section class="process-section alt-bg">
-  <div class="container">
-    <h3>Our Engagement Process</h3>
-
-    <div class="process-grid">
-
-      <div class="process-step">
-        <div class="step-number">01</div>
-        <h4>Assessment</h4>
-        <p>Comprehensive infrastructure review and threat surface evaluation.</p>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">02</div>
-        <h4>Threat Modeling</h4>
-        <p>Identification of exploitable vectors and risk prioritization.</p>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">03</div>
-        <h4>Remediation Strategy</h4>
-        <p>Structured mitigation roadmap with security hardening plan.</p>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">04</div>
-        <h4>Continuous Monitoring</h4>
-        <p>Ongoing detection framework and security posture refinement.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="impact-section">
-  <div class="container">
-    <h3>Measured Security Impact</h3>
-
-    <div class="impact-grid">
-
-      <div class="impact-item">
-        <div class="impact-number">62%</div>
-        <p>Average Attack Surface Reduction</p>
-      </div>
-
-      <div class="impact-item">
-        <div class="impact-number">4-Layer</div>
-        <p>Defense Architecture Model</p>
-      </div>
-
-      <div class="impact-item">
-        <div class="impact-number">24/7</div>
-        <p>Threat Monitoring Framework</p>
-      </div>
-
-      <div class="impact-item">
-        <div class="impact-number">Zero</div>
-        <p>Trust-Based Access Enforcement</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="framework-section alt-bg">
-  <div class="container">
-    <h3>Security Framework Alignment</h3>
-
-    <div class="card">
-      Kryphex methodologies align with globally recognized security frameworks
-      including structured threat modeling, least-privilege enforcement,
-      zero-trust architecture principles, and enterprise risk management standards.
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= INDUSTRIES ================= -->
-
-<section id="industries">
-  <div class="container">
-    <h3>Industries We Protect</h3>
-
-    <div class="card">
-      Financial Services • Healthcare • Technology • SaaS Platforms • Startups
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= CONTACT CTA ================= -->
-
-<section id="contact">
-  <div class="container">
-    <h3>Contact Kryphex</h3>
-    <div class="card">
-      <form class="contact-form">
-        <div class="form-row">
-          <input type="text" placeholder="Name">
-          <input type="email" placeholder="Email">
-        </div>
-        <textarea rows="5" placeholder="Message"></textarea>
-        <button class="btn" type="submit">Submit Inquiry</button>
-      </form>
-    </div>
-  </div>
 </section>
 
 <!-- ================= FOOTER ================= -->
 
 <footer>
-
   <div class="footer-container">
-
     <div class="footer-column">
       <h4>Kryphex</h4>
       <p>
@@ -264,78 +64,42 @@ for organizations operating at scale.
     <div class="footer-column">
       <h4>Quick Links</h4>
       <p><a href="services.html">Services</a></p>
-      <p><a href="insights.html">Insights</a></p>
-      <p><a href="case-studies.html">Case Studies</a></p>
       <p><a href="consultation.html">Consultation</a></p>
     </div>
-   </div>
-
-  <div class="footer-bottom">
-    © 2026 Kryphex. Enterprise Cybersecurity Solutions. All Rights Reserved.
   </div>
 
+  <div class="footer-bottom">
+    © 2026 Kryphex. Enterprise Cybersecurity Solutions.
+  </div>
 </footer>
 
+<!-- ================= AUTH MODAL ================= -->
 
-<script>
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-}
-</script>
-
-<!-- ================= MOBILE TOGGLE SCRIPT ================= -->
-
-<script>
-function toggleMenu() {
-  const nav = document.getElementById("nav-links");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
-}
-</script>
-
-<script>
-function revealOnScroll() {
-  const reveals = document.querySelectorAll(".reveal");
-
-  reveals.forEach((element) => {
-    const windowHeight = window.innerHeight;
-    const elementTop = element.getBoundingClientRect().top;
-    const visiblePoint = 100;
-
-    if (elementTop < windowHeight - visiblePoint) {
-      element.classList.add("active");
-    }
-  });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-</script>
-
-<!-- AUTH MODAL -->
 <div id="authModal" class="modal">
   <div class="modal-content">
-
     <span class="close" onclick="closeModal()">&times;</span>
 
     <div id="loginForm">
       <h3>Login</h3>
-      <input type="email" id="modalLoginEmail" placeholder="Email">
-      <input type="password" id="modalLoginPassword" placeholder="Password">
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
       <button class="btn" onclick="modalLogin()">Login</button>
       <p onclick="showSignup()" style="cursor:pointer;">Create account</p>
-      <p id="modalLoginMessage"></p>
+      <p id="loginMessage"></p>
     </div>
 
     <div id="signupForm" style="display:none;">
       <h3>Sign Up</h3>
-      <input type="email" id="modalSignupEmail" placeholder="Email">
-      <input type="password" id="modalSignupPassword" placeholder="Password">
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
       <button class="btn" onclick="modalSignup()">Sign Up</button>
       <p onclick="showLogin()" style="cursor:pointer;">Already have account?</p>
-      <p id="modalSignupMessage"></p>
+      <p id="signupMessage"></p>
     </div>
-
   </div>
 </div>
+
+<!-- ================= SCRIPTS ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -346,16 +110,12 @@ const supabaseClient = supabase.createClient(
 );
 
 const modal = document.getElementById("authModal");
+const authArea = document.getElementById("authArea");
 
-document.getElementById("loginBtn").onclick = () => {
-  modal.style.display = "block";
-  showLogin();
-};
-
-document.getElementById("signupBtn").onclick = () => {
-  modal.style.display = "block";
-  showSignup();
-};
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
 
 function closeModal() {
   modal.style.display = "none";
@@ -372,36 +132,68 @@ function showLogin() {
 }
 
 async function modalSignup() {
-  const email = document.getElementById("modalSignupEmail").value;
-  const password = document.getElementById("modalSignupPassword").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
 
   const { error } = await supabaseClient.auth.signUp({
     email,
-    password,
-    options: {
-      emailRedirectTo: "https://kryphex.github.io/auth/login.html"
-    }
+    password
   });
 
-  document.getElementById("modalSignupMessage").innerText =
-    error ? error.message : "Check your email.";
+  document.getElementById("signupMessage").innerText =
+    error ? error.message : "Check your email to confirm.";
 }
 
 async function modalLogin() {
-  const email = document.getElementById("modalLoginEmail").value;
-  const password = document.getElementById("modalLoginPassword").value;
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
 
   const { error } = await supabaseClient.auth.signInWithPassword({
     email,
-    password,
+    password
   });
 
   if (error) {
-    document.getElementById("modalLoginMessage").innerText = error.message;
+    document.getElementById("loginMessage").innerText = error.message;
   } else {
-    window.location.href = "/tools/console.html";
+    closeModal();
+    updateNavbar();
   }
 }
+
+async function updateNavbar() {
+  const { data } = await supabaseClient.auth.getUser();
+
+  if (data.user) {
+    authArea.innerHTML = `
+      <a href="tools/console.html">Console</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    `;
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await supabaseClient.auth.signOut();
+      location.reload();
+    });
+
+  } else {
+    authArea.innerHTML = `
+      <a href="#" id="loginNav">Login</a>
+      <a href="#" id="signupNav" class="btn-nav">Sign Up</a>
+    `;
+
+    document.getElementById("loginNav").onclick = () => {
+      modal.style.display = "block";
+      showLogin();
+    };
+
+    document.getElementById("signupNav").onclick = () => {
+      modal.style.display = "block";
+      showSignup();
+    };
+  }
+}
+
+updateNavbar();
 </script>
 
 </body>
