@@ -12,6 +12,18 @@
   box-sizing: border-box;
 }
 
+/* Alternate section backgrounds */
+#about,
+#industries {
+  background: #ffffff;
+}
+
+#services,
+#authority,
+#contact {
+  background: #f0f4f9;
+}
+   
 html { scroll-behavior: smooth; }
 
 body {
@@ -111,7 +123,7 @@ nav a:hover {
 /* ===== SECTIONS ===== */
 
 section {
-  padding: 120px 80px;
+  padding: 140px 80px;
 }
 
 .container {
@@ -119,6 +131,10 @@ section {
   margin: auto;
 }
 
+section:not(.hero) {
+  border-bottom: 1px solid #e6ebf2;
+}
+   
 section h3 {
   text-align: center;
   font-size: 36px;
@@ -212,8 +228,10 @@ footer {
 <section class="hero">
   <h2>Enterprise-Grade Cybersecurity Solutions</h2>
   <p>
-    Protecting critical infrastructure through structured security architecture,
-    advanced threat intelligence, and zero-trust implementation.
+   <p>
+  Enterprise-focused cybersecurity solutions built on zero-trust principles,
+  structured threat modeling, and modern security architecture.
+</p>
   </p>
   <button class="btn">Request Consultation</button>
 </section>
