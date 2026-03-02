@@ -147,3 +147,17 @@ footer {
   transform: translateY(0);
   box-shadow: 0 6px 15px rgba(0,86,255,0.3);
 }
+
+/* ===== FIX MOBILE NAV ===== */
+
+@media (max-width: 1000px) {
+
+  nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+}
