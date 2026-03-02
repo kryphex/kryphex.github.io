@@ -296,3 +296,118 @@ form + p {
   }
 
 }
+
+/* ================= CLEAN ENTERPRISE HEADER ================= */
+
+.clean-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 72px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 9999;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #0a1f44;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Hamburger Clean */
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: #0a1f44;
+  transition: 0.3s ease;
+}
+
+/* Dropdown polish */
+
+.user-dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+
+.role-badge {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: #2563eb;
+  color: white;
+  border-radius: 20px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  padding: 8px 0;
+  min-width: 200px;
+  display: none;
+  z-index: 10000;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown-menu a:hover {
+  background: #f5f7fa;
+}
