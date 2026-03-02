@@ -1285,3 +1285,7 @@ body.dark-mode footer {
 .google-btn span {
   display: inline-block;
 }
+.google-btn img {
+  width: 18px !important;
+  height: 18px !important;
+}
