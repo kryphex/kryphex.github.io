@@ -1055,3 +1055,57 @@ body.dark-mode footer {
   right: 0;
   z-index: 3000;   /* Must be higher than header + hero */
 }
+
+/* ================= CONSOLE RESPONSIVE FIX ================= */
+
+@media (max-width: 900px) {
+
+  /* Stack layout vertically */
+  .dashboard {
+    flex-direction: column;
+  }
+
+  /* Sidebar becomes off-canvas */
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    height: 100%;
+    width: 240px;
+    z-index: 2000;
+    transition: 0.3s ease;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Add overlay when open */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1500;
+    display: none;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  /* Content full width */
+  .dashboard-content {
+    padding: 30px 20px;
+  }
+
+  /* Headings scale properly */
+  .dashboard-content h2 {
+    font-size: 24px;
+  }
+
+  /* Cards full width */
+  .card {
+    width: 100%;
+  }
+
+}
