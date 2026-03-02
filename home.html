@@ -223,30 +223,27 @@ footer {
 
 <!-- ================= HEADER ================= -->
 
-<header class="hamburger-header">
+<header class="clean-header">
 
-  <div class="header-abstract"></div>
+  <div class="header-left">
+    <div class="hamburger" onclick="toggleMenu(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-  <div class="hamburger" onclick="toggleMenu(this)">
-    <span></span>
-    <span></span>
-    <span></span>
+    <a href="home.html" class="logo-text">KRYPHEX</a>
   </div>
 
-  <div class="center-logo">
-    <a href="home.html">
-      <img src="logo.svg" alt="Kryphex Logo">
-    </a>
-  </div>
-
-  <!-- RIGHT SIDE -->
   <div class="header-right">
+
     <div id="notificationBell" class="notification-bell">
       🔔
       <span class="notif-dot"></span>
     </div>
 
     <div id="userDropdown" class="user-dropdown"></div>
+
   </div>
 
 </header>
