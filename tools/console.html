@@ -85,6 +85,16 @@ async function logout() {
 }
 </script>
 
+<!-- Mobile Hamburger -->
+<div class="mobile-topbar">
+  <div class="mobile-hamburger" onclick="toggleSidebar()">
+    ☰
+  </div>
+  <div class="mobile-title">Kryphex Console</div>
+</div>
+
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
 <div class="dashboard">
 
   <div class="sidebar">
@@ -118,3 +128,10 @@ async function logout() {
 
 </body>
 </html>
+
+<script>
+function toggleSidebar() {
+  document.querySelector(".sidebar").classList.toggle("open");
+  document.querySelector(".sidebar-overlay").classList.toggle("active");
+}
+</script>
