@@ -1253,14 +1253,14 @@ body.dark-mode footer {
 
 }
 
-/* ================= GOOGLE BUTTON FIX ================= */
+/* ================= FIXED GOOGLE BUTTON ================= */
 
 .google-btn {
   width: 100%;
   background: #ffffff;
   border: 1px solid #dadce0;
   border-radius: 12px;
-  padding: 14px;
+  padding: 14px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1276,8 +1276,12 @@ body.dark-mode footer {
   background: #f7f8f8;
 }
 
-.google-btn img {
-  width: 18px;     /* 👈 fixed size */
-  height: 18px;    /* 👈 fixed size */
-  object-fit: contain;
+.google-icon {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0;
+}
+
+.google-btn span {
+  display: inline-block;
 }
