@@ -3,38 +3,15 @@
    ========================================================= */
 
 :root {
-  --bg: #0b1120;
-  --surface: #111827;
-  --card: #1f2937;
-  --primary: #2563eb;
-  --accent: #3b82f6;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --border: rgba(255,255,255,0.08);
-  --radius: 14px;
-}
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-
-
-:root {
-  --bg: #0b1120;
-  --surface: #0f172a;
-  --card: #111827;
-  --primary: #2563eb;
-  --primary-soft: rgba(37,99,235,0.15);
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --border: rgba(255,255,255,0.08);
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --primary: #0a1f44;
+  --accent: #2563eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
   --radius: 16px;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.06);
 }
 
 * {
@@ -49,40 +26,37 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Smooth animations */
-a, button {
-  transition: all 0.25s ease;
+h1,h2,h3,h4 {
+  margin: 0;
+  font-weight: 600;
 }
 
-/* Container */
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 0 40px;
 }
 
-/* Glass Card */
-.glass-card {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+.section {
+  padding: 120px 0;
 }
 
-/* Premium Button */
+/* Buttons */
+
 .btn-primary {
   background: var(--primary);
+  color: white;
   padding: 14px 28px;
   border-radius: 12px;
   border: none;
-  color: white;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(37,99,235,0.4);
+  transition: all 0.25s ease;
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
 }
 
 .btn-secondary {
@@ -90,11 +64,19 @@ a, button {
   border: 1px solid var(--border);
   padding: 14px 28px;
   border-radius: 12px;
-  color: var(--text);
-  font-weight: 600;
+  font-weight: 500;
+  cursor: pointer;
 }
 
+/* Cards */
 
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border);
+}
 
 /* ================= RESET ================= */
 
