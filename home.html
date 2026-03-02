@@ -76,128 +76,128 @@
 
 <body>
 
-<header>
-  <h1>
-    <a href="index.html" style="display:flex; align-items:center;">
-      <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
-    </a>
-  </h1>
+<header class="app-header">
+  <div class="container nav">
+    <div class="logo">KRYPHEX</div>
 
-  <nav id="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="services.html">Services</a>
-    <a href="insights.html">Insights</a>
-    <a href="about.html">About</a>
-    <a href="tools/">Tools</a>
-    <a href="case-studies.html">Case Studies</a>
-    <a href="consultation.html">Consultation</a>
-    <div id="authArea"></div>
-  </nav>
+    <nav>
+      <a href="home.html" class="active">Home</a>
+      <a href="services.html">Services</a>
+      <a href="tools/">Tools</a>
+      <a href="case-studies.html">Case Studies</a>
+    </nav>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-actions" id="authArea"></div>
+  </div>
 </header>
 
-<section class="hero">
-  <h2>Enterprise Cybersecurity Architecture.</h2>
-  <p>
-    Kryphex delivers structured penetration testing,
-    threat intelligence modeling, and zero-trust infrastructure
-    for organizations operating at scale.
-  </p>
+<section class="section" style="padding-top:160px;">
+  <div class="container">
 
-  <button class="btn" onclick="location.href='consultation.html'">
-    Request Consultation
-  </button>
-</section>
+    <h1 style="font-size:42px; max-width:700px;">
+      Welcome to Kryphex Platform
+    </h1>
 
-<!-- ================= WHAT WE DO ================= -->
+    <p style="margin-top:20px; color:var(--muted); max-width:600px; font-size:18px;">
+      Manage consultations, access security tools, and monitor
+      enterprise risk architecture from a unified workspace.
+    </p>
 
-<section class="section">
-  <h3>What Kryphex Delivers</h3>
-  <p>
-    We help enterprises secure their infrastructure with structured testing,
-    advanced threat modeling, and zero-trust implementation strategies.
-  </p>
+    <!-- Quick Action Cards -->
+    <div style="margin-top:60px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px;">
 
-  <div class="grid-3">
-    <div class="feature-card">
-      <h4>Penetration Testing</h4>
-      <p>Comprehensive red-team simulations to identify vulnerabilities before attackers do.</p>
+      <div class="card">
+        <h3>Security Console</h3>
+        <p style="margin-top:15px; color:var(--muted);">
+          View enterprise metrics, active consultations and infrastructure status.
+        </p>
+        <div style="margin-top:25px;">
+          <a href="tools/console.html" class="btn-primary">Open Console</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>My Consultations</h3>
+        <p style="margin-top:15px; color:var(--muted);">
+          Track submitted requests and engagement status.
+        </p>
+        <div style="margin-top:25px;">
+          <a href="tools/my-consultations.html" class="btn-secondary">View Requests</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Security Tools</h3>
+        <p style="margin-top:15px; color:var(--muted);">
+          Access professional utilities for encryption, validation and analysis.
+        </p>
+        <div style="margin-top:25px;">
+          <a href="tools/index.html" class="btn-secondary">Explore Tools</a>
+        </div>
+      </div>
+
     </div>
 
-    <div class="feature-card">
-      <h4>Cloud Security</h4>
-      <p>Hardened cloud environments with modern access control and infrastructure monitoring.</p>
-    </div>
-
-    <div class="feature-card">
-      <h4>Threat Intelligence</h4>
-      <p>Data-driven insights to proactively detect and mitigate emerging risks.</p>
-    </div>
   </div>
 </section>
 
-<!-- ================= IMPACT ================= -->
+<section class="section" style="background:white;">
+  <div class="container">
 
-<section class="section stats">
-  <h3>Enterprise Impact</h3>
+    <h2 style="font-size:32px;">Enterprise Architecture Overview</h2>
 
-  <div class="grid-3">
-    <div>
-      <div class="stat-number">99.9%</div>
-      <p>Infrastructure Risk Reduction</p>
+    <div style="margin-top:50px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px;">
+
+      <div class="card">
+        <h4>Risk Assessment</h4>
+        <p style="margin-top:15px; color:var(--muted);">
+          Structured vulnerability analysis and compliance evaluation.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>Zero-Trust Framework</h4>
+        <p style="margin-top:15px; color:var(--muted);">
+          Identity-first access enforcement across distributed systems.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>Threat Modeling</h4>
+        <p style="margin-top:15px; color:var(--muted);">
+          Proactive attack surface monitoring and scenario simulations.
+        </p>
+      </div>
+
     </div>
 
-    <div>
-      <div class="stat-number">24/7</div>
-      <p>Threat Monitoring Capability</p>
-    </div>
-
-    <div>
-      <div class="stat-number">Zero</div>
-      <p>Trust Architecture Model</p>
-    </div>
   </div>
 </section>
 
-<!-- ================= WHY KRYPHEX ================= -->
+<footer class="section" style="background:#f9fafb; padding:60px 0;">
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px;">
 
-<section class="section">
-  <h3>Why Enterprises Choose Kryphex</h3>
-  <p>
-    Our methodology blends structured compliance, offensive testing,
-    and architecture-level hardening. We don't just test systems —
-    we engineer resilience.
-  </p>
-</section>
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-  <div class="footer-container">
-    <div class="footer-column">
-      <h4>Kryphex</h4>
-      <p>
+    <div>
+      <strong>Kryphex</strong>
+      <p style="color:var(--muted); margin-top:10px;">
         Enterprise-focused cybersecurity consultancy delivering
         structured risk mitigation and zero-trust architecture.
       </p>
     </div>
 
-    <div class="footer-column">
-      <h4>Contact</h4>
-      <p>Email: contact.kryphex@gmail.com</p>
-      <p>Business Inquiries: +91 8866553925</p>
-      <p>Region: Global Operations</p>
+    <div>
+      <strong>Contact</strong>
+      <p style="color:var(--muted); margin-top:10px;">
+        contact.kryphex@gmail.com<br>
+        +91 8866553925
+      </p>
     </div>
 
-    <div class="footer-column">
-      <h4>Quick Links</h4>
-      <p><a href="services.html">Services</a></p>
-      <p><a href="consultation.html">Consultation</a></p>
-    </div>
   </div>
 
-  <div class="footer-bottom">
+  <div style="text-align:center; margin-top:40px; color:var(--muted);">
     © 2026 Kryphex. Enterprise Cybersecurity Solutions.
   </div>
 </footer>
+
+</body>
