@@ -1109,3 +1109,83 @@ body.dark-mode footer {
   }
 
 }
+
+/* ================= CONSULTATION CARD UPGRADE ================= */
+
+.request-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  transition: 0.3s ease;
+}
+
+.request-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.request-service {
+  font-weight: 600;
+  font-size: 16px;
+  color: #0a1f44;
+}
+
+.request-status {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Status Colors */
+
+.request-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.request-status.approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.request-status.completed {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.request-meta {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.request-message {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Mobile polish */
+
+@media (max-width: 768px) {
+  .request-card {
+    padding: 16px;
+  }
+
+  .request-service {
+    font-size: 15px;
+  }
+
+  .request-message {
+    font-size: 13px;
+  }
+}
