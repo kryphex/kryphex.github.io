@@ -1478,3 +1478,45 @@ input:focus {
     font-size: 15px;
   }
 }
+
+
+/* ================= MOBILE HERO FIX ================= */
+
+@media (max-width: 900px) {
+
+  .hero,
+  .platform-hero,
+  .dashboard-content,
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .hero,
+  .platform-hero {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .hero h2,
+  .platform-hero h1 {
+    font-size: 32px !important;
+    line-height: 1.2;
+  }
+
+  .hero p,
+  .platform-hero p {
+    font-size: 16px !important;
+  }
+
+  .container {
+    padding: 0 20px !important;
+  }
+
+  .impact-grid,
+  .process-grid {
+    flex-direction: column !important;
+    gap: 25px !important;
+  }
+
+}
