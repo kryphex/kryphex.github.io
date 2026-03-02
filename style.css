@@ -1036,3 +1036,22 @@ body.dark-mode footer {
   }
 
 }
+
+/* ===== DROPDOWN Z-INDEX FIX ===== */
+
+.hamburger-header {
+  z-index: 1000;
+  overflow: visible !important; /* CRITICAL */
+}
+
+.user-dropdown {
+  position: relative;
+  z-index: 2000;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  z-index: 3000;   /* Must be higher than header + hero */
+}
