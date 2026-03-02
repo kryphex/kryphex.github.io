@@ -126,14 +126,15 @@ body {
 
 .dropdown-menu {
   position: absolute;
-  top: 45px;
+  top: 50px;
   right: 0;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   padding: 10px 0;
   display: none;
   min-width: 180px;
+  z-index: 9999;   /* VERY IMPORTANT */
 }
 
 .dropdown-menu.open {
