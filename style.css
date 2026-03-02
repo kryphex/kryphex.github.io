@@ -23,6 +23,17 @@ body {
 /* ===== HEADER BLUR EFFECT ===== */
 
 .hamburger-header {
+  .hamburger-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  z-index: 9999;
+
+  isolation: isolate; /* 🔥 THIS IS THE FIX */
+}
   position: fixed;
   top: 0;
   width: 100%;
