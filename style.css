@@ -79,8 +79,24 @@ body {
 
 /* ===== DROPDOWN ===== */
 
+/* ===== FIX DROPDOWN BEHIND ISSUE ===== */
+
+.hamburger-header {
+  position: fixed;
+  z-index: 9999 !important;
+  overflow: visible !important;
+}
+
 .user-dropdown {
   position: relative;
+  z-index: 10000 !important;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  z-index: 11000 !important;
 }
 
 .dropdown-trigger {
@@ -112,19 +128,6 @@ body {
   background: #0056ff;
   color: white;
   border-radius: 20px;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  padding: 10px 0;
-  display: none;
-  min-width: 180px;
-  z-index: 9999;
 }
 
 .dropdown-menu.open {
