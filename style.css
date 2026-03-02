@@ -146,3 +146,41 @@ body {
   color: #64748b;
   font-size: 14px;
 }
+
+
+/* =============================
+   RESPONSIVE SYSTEM
+============================= */
+
+/* Mobile default (0px - 767px) */
+/* Already mobile-first */
+
+/* Tablet */
+@media (min-width: 768px) {
+
+  .hero h1 {
+    font-size: 52px;
+  }
+
+  .container {
+    padding: 80px 40px;
+  }
+
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+
+  .hero {
+    padding: 140px 20px 100px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .main-header {
+    padding: 0 80px;
+  }
+
+}
