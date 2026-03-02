@@ -1000,3 +1000,38 @@ body.dark-mode footer {
 .user-links a {
   font-size: 14px;
 }
+
+/* ===== CRITICAL MOBILE HEADER FIX ===== */
+
+@media (max-width: 768px) {
+
+  .hamburger-header {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Force right section to be absolutely positioned */
+  .header-right {
+    position: absolute !important;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Hide long text */
+  .nav-name,
+  .role-badge {
+    display: none !important;
+  }
+
+  .nav-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+}
