@@ -1291,3 +1291,190 @@ body.dark-mode footer {
   display: none !important;
 }
 
+/* ================= RESET ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ================= AUTH CARD ================= */
+
+.auth-box,
+.auth-container {
+  width: 100%;
+  max-width: 520px;              /* Bigger */
+  padding: 60px 45px;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 50px 100px rgba(0,0,0,0.25);
+  text-align: center;
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= TITLE ================= */
+
+h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  color: #111827;
+}
+
+/* ================= INPUTS ================= */
+
+input {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: 0.2s ease;
+}
+
+input:focus {
+  border-color: #2563eb;
+  outline: none;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+/* ================= PRIMARY BUTTON ================= */
+
+.primary-btn {
+  width: 100%;
+  padding: 16px;
+  background: #0a0f1c;
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.25s ease;
+}
+
+.primary-btn:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ================= DIVIDER ================= */
+
+.divider {
+  margin: 28px 0;
+  font-size: 13px;
+  color: #6b7280;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 35%;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+/* ================= GOOGLE BUTTON ================= */
+
+.google-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.google-btn:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+/* ================= LINKS ================= */
+
+.secondary {
+  margin-top: 22px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.secondary a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.secondary a:hover {
+  text-decoration: underline;
+}
+
+/* ================= ERROR ================= */
+
+.error {
+  margin-top: 14px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+/* ================= PASSWORD STRENGTH ================= */
+
+#strengthText {
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+/* ================= MOBILE OPTIMIZATION ================= */
+
+@media (max-width: 480px) {
+
+  .auth-box,
+  .auth-container {
+    padding: 45px 25px;
+    border-radius: 18px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  input {
+    padding: 14px;
+  }
+
+  .primary-btn,
+  .google-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
