@@ -1255,37 +1255,32 @@ body.dark-mode footer {
 
 /* ================= FIXED GOOGLE BUTTON ================= */
 
+/* ================= PREMIUM CLEAN GOOGLE BUTTON ================= */
+
 .google-btn {
   width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
   background: #ffffff;
-  border: 1px solid #dadce0;
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-weight: 500;
   font-size: 15px;
-  color: #3c4043;
+  font-weight: 600;
+  color: #1f1f1f;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
 }
 
+/* Hover */
 .google-btn:hover {
-  background: #f7f8f8;
+  background: #f9f9f9;
+  border-color: #d0d0d0;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
 }
 
-.google-icon {
-  width: 18px !important;
-  height: 18px !important;
-  flex-shrink: 0;
-}
-
-.google-btn span {
-  display: inline-block;
-}
-.google-btn img {
-  width: 18px !important;
-  height: 18px !important;
+/* Active press effect */
+.google-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
