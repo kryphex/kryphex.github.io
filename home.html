@@ -8,104 +8,214 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-  <style>
-  /* ================= ABSTRACT HAMBURGER HEADER ================= */
+<style>
 
-  .hamburger-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 90px;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
+/* ================= PREMIUM HEADER ================= */
 
-  .header-abstract {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(0,86,255,0.15), transparent 40%),
-      radial-gradient(circle at 80% 60%, rgba(0,86,255,0.12), transparent 45%),
-      radial-gradient(circle at 50% 50%, rgba(0,86,255,0.08), transparent 50%);
-    animation: abstractMove 12s infinite alternate ease-in-out;
-    z-index: 0;
-  }
+.hamburger-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
 
-  @keyframes abstractMove {
-    from { transform: scale(1) translateY(0); }
-    to { transform: scale(1.1) translateY(-10px); }
-  }
+.center-logo img {
+  height: 28px;
+}
 
-  .center-logo {
-    position: relative;
-    z-index: 2;
-  }
+.hamburger {
+  position: absolute;
+  left: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
 
-  .hamburger {
-    position: absolute;
-    left: 25px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    z-index: 2;
-  }
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: #111;
+  transition: 0.3s ease;
+}
 
-  .hamburger span {
-    width: 26px;
-    height: 3px;
-    background: #0a1f44;
-    transition: 0.3s ease;
-  }
+/* ================= SLIDE MENU ================= */
 
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translateY(8px);
-  }
+.slide-menu {
+  position: fixed;
+  top: 80px;
+  left: -100%;
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
 
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-  }
+.slide-menu.open {
+  left: 0;
+}
 
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-8px);
-  }
+.slide-menu a {
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  margin-bottom: 18px;
+}
 
-  .slide-menu {
-    position: fixed;
-    top: 90px;
-    left: -100%;
-    width: 100%;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-    z-index: 999;
-  }
+/* ================= HERO ================= */
 
-  .slide-menu.open {
-    left: 0;
-  }
+.hero {
+  margin-top: 120px;
+  padding: 100px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #0a1f44, #0f2b66);
+  color: white;
+}
 
-  .slide-menu a {
-    text-decoration: none;
-    color: #0a1f44;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
+.hero h2 {
+  font-size: 44px;
+  font-weight: 700;
+  max-width: 900px;
+  margin: auto;
+}
 
-  /* Push hero below fixed header */
-  .hero {
-    margin-top: 110px;
-  }
-  </style>
+.hero p {
+  font-size: 18px;
+  margin-top: 20px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9;
+}
+
+/* ================= BUTTON ================= */
+
+.btn {
+  margin-top: 40px;
+  padding: 18px 40px;
+  border-radius: 22px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(180deg, #0071e3, #0058b0);
+  color: white;
+  transition: 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0,113,227,0.25);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0,113,227,0.35);
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 60px 30px;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-column h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.footer-column p,
+.footer-column a {
+  font-size: 14px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: #6b7280;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 20px;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+  margin-bottom: 20px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  background: #f5f5f7;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+}
+
+.close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+</style>
 
 </head>
 
