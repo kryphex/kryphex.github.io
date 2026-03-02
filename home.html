@@ -326,11 +326,7 @@ async function updateNavbar() {
     </div>
   `;
 
-  // Attach dropdown toggle
-  document.getElementById("avatarTrigger").addEventListener("click", function(e) {
-    e.stopPropagation();
-    document.getElementById("dropdownMenu").classList.toggle("open");
-  });
+  
 
   // Attach logout
   document.getElementById("logoutBtn").addEventListener("click", async function(e) {
@@ -339,12 +335,23 @@ async function updateNavbar() {
     window.location.reload();
   });
 
-  // Close when clicking outside
-  document.addEventListener("click", function() {
-    const menu = document.getElementById("dropdownMenu");
-    if (menu) menu.classList.remove("open");
-  });
-}
+const avatarTrigger = document.getElementById("avatarTrigger");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+avatarTrigger.addEventListener("click", function(e) {
+  e.stopPropagation();
+  dropdownMenu.classList.toggle("open");
+});
+
+dropdownMenu.addEventListener("click", function(e) {
+  e.stopPropagation(); // prevent closing when clicking inside menu
+});
+
+document.addEventListener("click", function() {
+  dropdownMenu.classList.remove("open");
+});
+
+
 updateNavbar();
 </script>
 
