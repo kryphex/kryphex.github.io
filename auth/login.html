@@ -30,10 +30,7 @@
       text-align: center;
     }
 
-    .auth-box img {
-      height: 36px;
-      margin-bottom: 25px;
-    }
+    /* 🔥 LOGO STYLE REMOVED */
 
     h1 {
       font-size: 22px;
@@ -72,23 +69,24 @@
       color: #777;
     }
 
-    .oauth-btn {
+    .google-btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      background: white;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f1f1f;
       cursor: pointer;
-      margin-bottom: 12px;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      transition: all 0.25s ease;
     }
 
-    .oauth-btn img {
-      height: 18px;
+    .google-btn:hover {
+      background: #f9f9f9;
+      border-color: #d0d0d0;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
     }
 
     .secondary {
@@ -114,9 +112,7 @@
 
 <div class="auth-box">
 
-  <a href="../index.html">
-    <img src="../logo.svg" alt="Kryphex">
-  </a>
+  <!-- 🔥 LOGO REMOVED -->
 
   <h1>Log In to Kryphex</h1>
 
@@ -124,20 +120,20 @@
   <input type="password" id="password" placeholder="Password">
 
   <button class="primary-btn" id="loginBtn">Login</button>
-<div class="secondary">
-  <a href="#" onclick="resetPassword()">Forgot password?</a>
-</div>
 
-<button class="oauth-btn" onclick="magicLogin()">
-  Send Magic Link
-</button>
+  <div class="secondary">
+    <a href="#" onclick="resetPassword()">Forgot password?</a>
+  </div>
+
+  <button class="primary-btn" onclick="magicLogin()" style="background:#0056ff;">
+    Send Magic Link
+  </button>
 
   <div class="divider">or continue with</div>
 
-  <!-- GOOGLE BUTTON -->
-<button class="google-btn" onclick="googleLogin()">
-  Continue with Google
-</button>
+  <button class="google-btn" onclick="googleLogin()">
+    Continue with Google
+  </button>
 
   <div class="secondary">
     Don't have an account?
@@ -156,14 +152,12 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-// If already logged in → go to home
 supabaseClient.auth.getUser().then(({ data }) => {
   if (data.user) {
     window.location.href = "../home.html";
   }
 });
 
-// Email Login
 document.getElementById("loginBtn").addEventListener("click", async () => {
 
   const email = document.getElementById("email").value;
@@ -181,7 +175,6 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 });
 
-// Google Login
 async function googleLogin() {
   await supabaseClient.auth.signInWithOAuth({
     provider: "google",
@@ -190,9 +183,7 @@ async function googleLogin() {
     }
   });
 }
-</script>
 
-<script>
 async function magicLogin() {
   const email = document.getElementById("email").value;
 
@@ -215,10 +206,6 @@ async function magicLogin() {
   }
 }
 
-</script>
-
-<script>
-
 async function resetPassword() {
   const email = document.getElementById("email").value;
 
@@ -237,9 +224,7 @@ async function resetPassword() {
     alert("Password reset email sent.");
   }
 }
-
 </script>
-
 
 </body>
 </html>
