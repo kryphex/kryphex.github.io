@@ -1284,3 +1284,10 @@ body.dark-mode footer {
   transform: translateY(0);
   box-shadow: none;
 }
+
+/* ================= REMOVE LOGO COMPLETELY ================= */
+
+.center-logo {
+  display: none !important;
+}
+
