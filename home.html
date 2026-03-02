@@ -1,112 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Kryphex | Enterprise Cybersecurity</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<body class="landing-body">
 
-  <style>
-    /* ================= PREMIUM HEADER ================= */
-    .hamburger-header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      height: 80px;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .center-logo img { height: 28px; }
-    .hamburger { position: absolute; left: 25px; display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { width: 24px; height: 2px; background: #111; transition: 0.3s ease; }
-    .slide-menu { position: fixed; top: 80px; left: -100%; width: 100%; background: white; display: flex; flex-direction: column; padding: 30px; transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-    .slide-menu.open { left: 0; }
-    .slide-menu a { font-weight: 600; color: #111; text-decoration: none; margin-bottom: 18px; }
-    .hero { margin-top: 120px; padding: 100px 20px; text-align: center; background: linear-gradient(135deg, #0a1f44, #0f2b66); color: white; }
-    .hero h2 { font-size: 44px; font-weight: 700; max-width: 900px; margin: auto; }
-    .hero p { font-size: 18px; margin-top: 20px; max-width: 650px; margin-left: auto; margin-right: auto; opacity: 0.9; }
-    .btn { margin-top: 40px; padding: 18px 40px; border-radius: 22px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; background: linear-gradient(180deg, #0071e3, #0058b0); color: white; transition: 0.25s ease; box-shadow: 0 8px 20px rgba(0,113,227,0.25); }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,113,227,0.35); }
-    footer { background: #0f172a; color: #e5e7eb; padding: 60px 30px; }
-    .footer-container { max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; gap: 40px; }
-    .footer-column { flex: 1; min-width: 220px; }
-    .footer-column h4 { margin-bottom: 15px; font-size: 16px; }
-    .footer-column p, .footer-column a { font-size: 14px; color: #9ca3af; text-decoration: none; }
-    .footer-column a:hover { color: white; }
-    .footer-bottom { text-align: center; margin-top: 40px; font-size: 13px; color: #6b7280; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; padding: 20px; }
-    .modal-content { background: white; width: 100%; max-width: 420px; padding: 40px; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); position: relative; }
-    .modal-content h3 { margin-bottom: 20px; }
-    .modal-content input { width: 100%; padding: 14px; margin-bottom: 14px; border-radius: 14px; border: 1px solid #ddd; background: #f5f5f7; }
-    .modal-content input:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
-    .close { position: absolute; top: 18px; right: 22px; font-size: 20px; cursor: pointer; }
-  </style>
-</head>
+<header class="landing-header">
+  <div class="logo">KRYPHEX</div>
 
-<body>
-  <!-- ================= HEADER ================= -->
-  <header class="clean-header">
-    <div class="header-left">
-      <div class="hamburger" onclick="toggleMenu(this)">
-        <span></span><span></span><span></span>
-      </div>
-      <a href="home.html" class="logo-text">KRYPHEX</a>
-    </div>
-    <div class="header-right">
-      <div id="notificationBell" class="notification-bell">🔔 <span class="notif-dot"></span></div>
-      <div id="userDropdown" class="user-dropdown"></div>
-    </div>
-  </header>
-
-  <nav id="nav-links" class="slide-menu">
-    <a href="index.html" class="active">Home</a>
+  <nav id="landingNav">
+    <a href="home.html" class="active">Home</a>
     <a href="services.html">Services</a>
     <a href="insights.html">Insights</a>
-    <a href="about.html">About</a>
-    <a href="tools/">Tools</a>
-    <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
-    <div id="authArea"></div>
   </nav>
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <h2>Enterprise Cybersecurity Architecture.</h2>
-    <p>Kryphex delivers structured penetration testing, threat intelligence modeling, and zero-trust infrastructure for organizations operating at scale.</p>
-    <button class="btn" onclick="location.href='consultation.html'">Request Consultation</button>
-  </section>
+  <div class="menu-toggle" onclick="toggleLandingNav()">☰</div>
+</header>
 
-  <!-- ================= FOOTER ================= -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-column">
-        <h4>Kryphex</h4>
-        <p>Enterprise-focused cybersecurity consultancy delivering structured risk mitigation and zero-trust architecture.</p>
-      </div>
-      <div class="footer-column">
-        <h4>Contact</h4>
-        <p>Email: contact.kryphex@gmail.com</p>
-        <p>Business Inquiries: +91 8866553925</p>
-        <p>Region: Global Operations</p>
-      </div>
-      <div class="footer-column">
-        <h4>Quick Links</h4>
-        <p><a href="services.html">Services</a></p>
-        <p><a href="consultation.html">Consultation</a></p>
-      </div>
-    </div>
-    <div class="footer-bottom">© 2026 Kryphex. Enterprise Cybersecurity Solutions.</div>
-  </footer>
+<section class="hero">
+  <h2>Enterprise Cybersecurity Platform</h2>
+  <p>Manage consultations and enterprise security operations.</p>
 
-  <!-- ================= AUTH MODAL ================= -->
-  <div id="authModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times
+  <button class="btn" onclick="location.href='console.html'">
+    Open Console
+  </button>
+</section>
+
+<script>
+function toggleLandingNav() {
+  document.getElementById("landingNav").classList.toggle("open");
+}
+</script>
+
+</body>
