@@ -152,6 +152,46 @@ body {
   background: #f5f7fa;
 }
 
+/* ================= MOBILE HEADER FIX ================= */
+
+@media (max-width: 768px) {
+
+  /* Reduce header height */
+  .hamburger-header {
+    height: 70px;
+  }
+
+  /* Center logo properly */
+  .center-logo img {
+    height: 24px;
+  }
+
+  /* Reduce right side spacing */
+  .header-right {
+    right: 12px;
+    gap: 8px;
+  }
+
+  /* Hide name & role on mobile (CRITICAL FIX) */
+  .nav-name,
+  .role-badge {
+    display: none;
+  }
+
+  /* Keep only avatar */
+  .nav-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Fix dropdown alignment */
+  .dropdown-menu {
+    right: 0;
+    width: 170px;
+  }
+
+}
+
 
 /* ===== OAUTH BUTTON CLEAN FIX ===== */
 
