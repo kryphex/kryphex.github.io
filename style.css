@@ -1824,3 +1824,55 @@ nav a:hover {
 .card {
   padding: 40px;
 }
+
+.dashboard-hero {
+  padding: 120px 20px 60px;
+  background: linear-gradient(135deg, #0b1e3c, #0f2f6e);
+  color: white;
+  text-align: center;
+}
+
+.dashboard-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.dashboard-hero h1 {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.dashboard-hero p {
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.dashboard-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard-overview {
+  padding: 80px 20px;
+  background: #f8fafc;
+}
+
+.overview-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.overview-card {
+  background: white;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+
