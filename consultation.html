@@ -6,7 +6,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <style>
+  /* ================= ELITE CONSULTATION STYLING ================= */
+
+  .consultation-wrapper {
+    max-width: 850px;
+    margin: auto;
+  }
+
+  .consultation-card {
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 28px;
+    box-shadow:
+      0 30px 60px rgba(0,0,0,0.08),
+      0 8px 20px rgba(0,0,0,0.04);
+    margin-top: 40px;
+    transition: 0.3s ease;
+  }
+
+  .consultation-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.12),
+      0 12px 30px rgba(0,0,0,0.06);
+  }
+
+  .consultation-card input,
+  .consultation-card select,
+  .consultation-card textarea {
+    width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    margin-bottom: 18px;
+    font-size: 15px;
+    transition: 0.2s ease;
+  }
+
+  .consultation-card input:focus,
+  .consultation-card select:focus,
+  .consultation-card textarea:focus {
+    background: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    outline: none;
+  }
+
+  .consultation-card select {
+    appearance: none;
+  }
+
+  .consultation-note {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .consultation-card {
+      padding: 35px 20px;
+    }
+  }
+
+  </style>
 </head>
+
 <body>
 
 <header>
@@ -16,16 +84,16 @@
   </a>
 </h1>
 
-  <nav id="nav-links">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="insights.html">Insights</a>
-    <a href="about.html">About</a>
-    <a href="case-studies.html">Case Studies</a>
-    <a href="consultation.html">Consultation</a>
-  </nav>
+<nav id="nav-links">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="insights.html">Insights</a>
+  <a href="about.html">About</a>
+  <a href="case-studies.html">Case Studies</a>
+  <a href="consultation.html">Consultation</a>
+</nav>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
 <section class="hero">
@@ -37,10 +105,12 @@
 </section>
 
 <section>
-  <div class="container">
-    <div class="card">
+  <div class="container consultation-wrapper">
 
-      <button type="button" onclick="submitConsultation()">
+    <div class="consultation-card">
+
+      <!-- PROPER FORM START -->
+      <form onsubmit="event.preventDefault(); submitConsultation();">
 
         <div class="form-row">
           <input id="fullName" type="text" placeholder="Full Name" required>
@@ -52,7 +122,7 @@
           <input id="industry" type="text" placeholder="Industry">
         </div>
 
-        <select id="service" style="width:100%; padding:12px; border-radius:4px; border:1px solid #ccc;">
+        <select id="service" required>
           <option value="">Select Service Interest</option>
           <option>Penetration Testing</option>
           <option>Cloud Security</option>
@@ -62,17 +132,18 @@
 
         <textarea id="message" rows="6" placeholder="Briefly describe your security objectives"></textarea>
 
-        <button type="button" class="btn" onclick="submitConsultation()">
+        <button type="submit" class="btn">
           Schedule Consultation
         </button>
 
       </form>
 
-      <p style="margin-top:20px; font-size:13px; color:#666;">
+      <p class="consultation-note">
         All consultation requests are treated with strict confidentiality.
       </p>
 
     </div>
+
   </div>
 </section>
 
