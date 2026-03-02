@@ -319,3 +319,27 @@ footer {
 .center-logo {
   display: none !important;
 }
+
+
+/* ===== FORCE PAGE TO STACK VERTICALLY ===== */
+
+body {
+  display: block !important;
+}
+
+/* Ensure main layout stacks */
+header,
+main,
+section,
+footer {
+  width: 100%;
+  display: block;
+}
+
+/* If any parent container is flex row, fix it */
+.page-wrapper,
+.home-wrapper,
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+}
