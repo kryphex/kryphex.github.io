@@ -90,126 +90,55 @@
     <div class="nav-actions" id="authArea"></div>
 </header>
 
- <section class="dashboard-hero">
-  <div class="dashboard-container">
+<div class="container">
 
-    <h1>Welcome to Kryphex</h1>
-    <p>
-      Unified enterprise security workspace for consultations,
-      architecture monitoring, and advanced tooling.
-    </p>
+  <h1 style="margin-top:40px;">Dashboard</h1>
+  <p style="color:#64748b; max-width:600px;">
+    Manage consultations, access security tools, and monitor
+    enterprise architecture from one unified workspace.
+  </p>
 
-    <div class="dashboard-actions">
-      <a href="tools/console.html" class="btn-primary">Open Security Console</a>
-      <a href="consultation.html" class="btn-secondary">Request Consultation</a>
+  <div class="card-grid">
+
+    <div class="card">
+      <h3>Security Console</h3>
+      <p>
+        View enterprise metrics, active consultations,
+        and infrastructure status.
+      </p>
+      <br>
+      <a href="tools/console.html" class="btn-primary">
+        Open Console
+      </a>
     </div>
 
-  </div>
-</section>
-
-<section class="dashboard-overview">
-  <div class="overview-grid">
-
-    <div class="overview-card">
-      <h3>Active Consultations</h3>
-      <p id="consultationCount">Loading...</p>
-    </div>
-
-    <div class="overview-card">
+    <div class="card">
       <h3>Security Tools</h3>
-      <p>JWT Decoder, IP Viewer, Hash Generator, Password Suite</p>
+      <p>
+        Password intelligence, JWT decoding, IP analysis,
+        hash generators, and more.
+      </p>
+      <br>
+      <a href="tools/" class="btn-primary">
+        Open Tools
+      </a>
     </div>
 
-    <div class="overview-card">
-      <h3>Architecture Status</h3>
-      <p>Zero-Trust Framework Enabled</p>
-    </div>
-
-  </div>
-</section>
-  
-<section class="section" style="padding-top:160px;">
-  <div class="container">
-
-    <h1 style="font-size:42px; max-width:700px;">
-      Welcome to Kryphex Platform
-    </h1>
-
-    <p style="margin-top:20px; color:var(--muted); max-width:600px; font-size:18px;">
-      Manage consultations, access security tools, and monitor
-      enterprise risk architecture from a unified workspace.
-    </p>
-
-    <!-- Quick Action Cards -->
-    <div style="margin-top:60px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px;">
-
-      <div class="card">
-        <h3>Security Console</h3>
-        <p style="margin-top:15px; color:var(--muted);">
-          View enterprise metrics, active consultations and infrastructure status.
-        </p>
-        <div style="margin-top:25px;">
-          <a href="tools/console.html" class="btn-primary">Open Console</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>My Consultations</h3>
-        <p style="margin-top:15px; color:var(--muted);">
-          Track submitted requests and engagement status.
-        </p>
-        <div style="margin-top:25px;">
-          <a href="tools/my-consultations.html" class="btn-secondary">View Requests</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Security Tools</h3>
-        <p style="margin-top:15px; color:var(--muted);">
-          Access professional utilities for encryption, validation and analysis.
-        </p>
-        <div style="margin-top:25px;">
-          <a href="tools/index.html" class="btn-secondary">Explore Tools</a>
-        </div>
-      </div>
-
+    <div class="card">
+      <h3>Enterprise Consultation</h3>
+      <p>
+        Schedule structured penetration testing,
+        zero-trust audits, and compliance evaluation.
+      </p>
+      <br>
+      <a href="consultation.html" class="btn-primary">
+        Request Consultation
+      </a>
     </div>
 
   </div>
-</section>
 
-<section class="section" style="background:white;">
-  <div class="container">
-
-    <h2 style="font-size:32px;">Enterprise Architecture Overview</h2>
-
-    <div style="margin-top:50px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px;">
-
-      <div class="card">
-        <h4>Risk Assessment</h4>
-        <p style="margin-top:15px; color:var(--muted);">
-          Structured vulnerability analysis and compliance evaluation.
-        </p>
-      </div>
-
-      <div class="card">
-        <h4>Zero-Trust Framework</h4>
-        <p style="margin-top:15px; color:var(--muted);">
-          Identity-first access enforcement across distributed systems.
-        </p>
-      </div>
-
-      <div class="card">
-        <h4>Threat Modeling</h4>
-        <p style="margin-top:15px; color:var(--muted);">
-          Proactive attack surface monitoring and scenario simulations.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
+</div>
 
 <footer class="section" style="background:#f9fafb; padding:60px 0;">
   <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px;">
