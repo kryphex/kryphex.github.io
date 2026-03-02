@@ -77,14 +77,19 @@
 
 <body>
 
-<header>
-<h1>
-  <a href="index.html" style="display:flex; align-items:center;">
-    <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
-  </a>
-</h1>
+<header class="hamburger-header">
 
-<nav id="nav-links">
+  <div class="hamburger" onclick="toggleMenu(this)">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <a href="index.html" class="logo-text">KRYPHEX</a>
+
+</header>
+
+<nav id="mobileMenu" class="mobile-menu">
   <a href="index.html">Home</a>
   <a href="services.html">Services</a>
   <a href="insights.html">Insights</a>
@@ -92,9 +97,6 @@
   <a href="case-studies.html">Case Studies</a>
   <a href="consultation.html">Consultation</a>
 </nav>
-
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-</header>
 
 <section class="hero">
   <h2>Request Enterprise Consultation</h2>
