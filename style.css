@@ -411,3 +411,20 @@ form + p {
 .dropdown-menu a:hover {
   background: #f5f7fa;
 }
+
+/* ===== FIX CONSULTATION LAYOUT ===== */
+
+body {
+  display: block !important;
+}
+
+section {
+  padding-top: 120px;
+}
+
+.consultation-card {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
