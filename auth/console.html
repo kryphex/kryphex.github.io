@@ -1,58 +1,39 @@
-<!DOCTYPE html>
+<body class="dashboard-body">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="mobile-topbar">
+  <div class="mobile-hamburger" onclick="toggleSidebar()">☰</div>
+  <div class="mobile-title">Console</div>
+</div>
 
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-supabaseClient.auth.getUser().then(({ data }) => {
-  if (!data.user) {
-    window.location.href = "../auth/login.html";
-  }
-});
-</script>
-
-<html>
-<head>
-  <title>Kryphex | Internal Security Console</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-
-<script>
-if (localStorage.getItem("kryphexAuth") !== "true") {
-  window.location.href = "../auth/login.html";
-}
-</script>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <div class="dashboard">
 
-  <div class="sidebar">
-    <h2>Kryphex Console</h2>
-    <a href="dashboard.html">Toolkit</a>
-    <a href="pro-tools.html">Pro Tools</a>
+  <div class="sidebar" id="sidebar">
+    <h2>Kryphex</h2>
+    <a href="console.html">Dashboard</a>
+    <a href="my-consultations.html">My Requests</a>
+    <a href="consultation.html">New Consultation</a>
     <a href="#" onclick="logout()">Logout</a>
   </div>
 
   <div class="dashboard-content">
-    <h2>Enterprise Security Console</h2>
-    <p>System Status: Operational</p>
-    <p>Threat Intelligence Feed: Active</p>
-    <p>Monitoring: Enabled</p>
+    <h2>Welcome to Console</h2>
+    <p>Manage your enterprise consultations.</p>
   </div>
 
 </div>
 
 <script>
-function logout() {
-  localStorage.removeItem("kryphexAuth");
-  window.location.href = "../auth/login.html";
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("sidebarOverlay").classList.toggle("active");
+}
+
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("sidebarOverlay").classList.remove("active");
 }
 </script>
 
 </body>
-</html>
