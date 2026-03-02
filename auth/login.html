@@ -7,33 +7,126 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../auth.css"> <!-- your CSS file -->
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #e6ecff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .auth-box {
+      width: 100%;
+      max-width: 420px;
+      padding: 45px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #0056ff;
+      outline: none;
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 14px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      margin: 20px 0;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .oauth-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .secondary {
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .secondary a {
+      color: #0056ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .error {
+      margin-top: 10px;
+      color: red;
+      font-size: 13px;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="auth-box">
 
-  <h1>Log in to Kryphex</h1>
+  <!-- LOGO REMOVED ONLY -->
+
+  <h1>Log In to Kryphex</h1>
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
 
-  <button class="primary-btn" id="loginBtn">Sign In</button>
+  <button class="primary-btn" id="loginBtn">Login</button>
 
   <div class="secondary">
-    <a href="#" onclick="resetPassword()">Forgot your password?</a>
+    <a href="#" onclick="resetPassword()">Forgot password?</a>
   </div>
 
-  <div class="divider">OR</div>
+  <button class="oauth-btn" onclick="magicLogin()">
+    Send Magic Link
+  </button>
 
-  <button class="google-btn" onclick="googleLogin()">
+  <div class="divider">or continue with</div>
+
+  <button class="oauth-btn" onclick="googleLogin()">
     Continue with Google
   </button>
 
   <div class="secondary">
-    Don’t have an account?
-    <a href="signup.html">Sign up</a>
+    Don't have an account?
+    <a href="signup.html">Create account</a>
   </div>
 
   <div id="errorMsg" class="error"></div>
@@ -70,31 +163,6 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     window.location.href = "../home.html";
   }
 });
-
-async function googleLogin() {
-  await supabaseClient.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: "https://kryphex.github.io/home.html"
-    }
-  });
-}
-
-async function resetPassword() {
-  const email = document.getElementById("email").value;
-
-  if (!email) {
-    alert("Enter your email first.");
-    return;
-  }
-
-  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: "https://kryphex.github.io/auth/reset.html"
-  });
-
-  if (error) alert(error.message);
-  else alert("Password reset email sent.");
-}
 </script>
 
 </body>
