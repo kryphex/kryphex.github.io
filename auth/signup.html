@@ -49,10 +49,7 @@
       z-index: 2;
     }
 
-    .logo img {
-      height: 36px;
-      margin-bottom: 30px;
-    }
+    /* 🔥 LOGO STYLE REMOVED */
 
     h1 {
       font-size: 22px;
@@ -92,15 +89,24 @@
       color: #777;
     }
 
-    .oauth-btn {
+    .google-btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      background: white;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f1f1f;
       cursor: pointer;
-      margin-bottom: 12px;
-      font-size: 14px;
+      transition: all 0.25s ease;
+    }
+
+    .google-btn:hover {
+      background: #f9f9f9;
+      border-color: #d0d0d0;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
     }
 
     .secondary {
@@ -128,44 +134,21 @@
 
 <div class="auth-container">
 
-  <div class="logo">
-    <a href="../index.html">
-      <img src="../logo.svg" alt="Kryphex">
-    </a>
-  </div>
+  <!-- 🔥 LOGO BLOCK REMOVED -->
 
   <h1>Create your Kryphex account</h1>
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
-<div id="strengthText" style="font-size:12px;margin-bottom:15px;"></div>
-<script>
-const passwordInput = document.getElementById("password");
-const strengthText = document.getElementById("strengthText");
+  <div id="strengthText" style="font-size:12px;margin-bottom:15px;"></div>
 
-passwordInput.addEventListener("input", function() {
-  const val = passwordInput.value;
-
-  if (val.length < 6) {
-    strengthText.innerText = "Weak";
-    strengthText.style.color = "red";
-  } else if (val.match(/[A-Z]/) && val.match(/[0-9]/)) {
-    strengthText.innerText = "Strong";
-    strengthText.style.color = "green";
-  } else {
-    strengthText.innerText = "Medium";
-    strengthText.style.color = "orange";
-  }
-});
-</script>
   <button class="primary-btn" id="signupBtn">Create Account</button>
 
   <div class="divider">or continue with</div>
 
-<button class="google-btn" onclick="googleLogin()">
-  Continue with Google
-</button>
-
+  <button class="google-btn" onclick="oauthLogin('google')">
+    Continue with Google
+  </button>
 
   <div class="secondary">
     Already have an account?
@@ -183,6 +166,24 @@ const supabaseClient = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
+
+const passwordInput = document.getElementById("password");
+const strengthText = document.getElementById("strengthText");
+
+passwordInput.addEventListener("input", function() {
+  const val = passwordInput.value;
+
+  if (val.length < 6) {
+    strengthText.innerText = "Weak";
+    strengthText.style.color = "red";
+  } else if (val.match(/[A-Z]/) && val.match(/[0-9]/)) {
+    strengthText.innerText = "Strong";
+    strengthText.style.color = "green";
+  } else {
+    strengthText.innerText = "Medium";
+    strengthText.style.color = "orange";
+  }
+});
 
 document.getElementById("signupBtn").addEventListener("click", async () => {
 
