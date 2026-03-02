@@ -76,19 +76,45 @@
 
 <body>
 
-<header class="app-header">
-  <div class="container nav">
-    <div class="logo">KRYPHEX</div>
+<header>
 
-    <nav>
-      <a href="home.html" class="active">Home</a>
-      <a href="services.html">Services</a>
-      <a href="tools/">Tools</a>
-      <a href="case-studies.html">Case Studies</a>
-    </nav>
+  <section class="dashboard-hero">
+  <div class="dashboard-container">
 
-    <div class="nav-actions" id="authArea"></div>
+    <h1>Welcome to Kryphex</h1>
+    <p>
+      Unified enterprise security workspace for consultations,
+      architecture monitoring, and advanced tooling.
+    </p>
+
+    <div class="dashboard-actions">
+      <a href="tools/console.html" class="btn-primary">Open Security Console</a>
+      <a href="consultation.html" class="btn-secondary">Request Consultation</a>
+    </div>
+
   </div>
+</section>
+
+<section class="dashboard-overview">
+  <div class="overview-grid">
+
+    <div class="overview-card">
+      <h3>Active Consultations</h3>
+      <p id="consultationCount">Loading...</p>
+    </div>
+
+    <div class="overview-card">
+      <h3>Security Tools</h3>
+      <p>JWT Decoder, IP Viewer, Hash Generator, Password Suite</p>
+    </div>
+
+    <div class="overview-card">
+      <h3>Architecture Status</h3>
+      <p>Zero-Trust Framework Enabled</p>
+    </div>
+
+  </div>
+</section>
 </header>
 
 <section class="section" style="padding-top:160px;">
