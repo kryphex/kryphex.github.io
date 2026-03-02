@@ -2,6 +2,26 @@
    KRY PHEX GLOBAL STYLES
    ========================================================= */
 
+/* ==============================
+   GLOBAL LAYOUT FIX
+============================== */
+
+section,
+.container,
+.content,
+.page {
+  width: 100%;
+}
+
+section {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
 /* ================= RESET ================= */
 
 * {
