@@ -72,6 +72,25 @@
     }
   }
 
+  .calendly-inline-wrap {
+    margin-top: 24px;
+    border: 1px solid #dbe6f5;
+    border-radius: 16px;
+    background: #ffffff;
+    overflow: hidden;
+    min-height: 760px;
+    display: none;
+  }
+
+  .consultation-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .consultation-actions .btn {
+    margin-top: 0;
+  }
+
   </style>
 </head>
 
@@ -109,19 +128,19 @@
 
     <div class="consultation-card">
 
-      <form id="consultationForm">
+      <form id="consultationForm" onsubmit="return false;">
 
         <div class="form-row">
-          <input id="fullName" type="text" placeholder="Full Name" required>
-          <input id="email" type="email" placeholder="Work Email" required>
+          <input id="fullName" name="fullName" type="text" placeholder="Full Name" required>
+          <input id="email" name="email" type="email" placeholder="Work Email" required>
         </div>
 
         <div class="form-row">
-          <input id="company" type="text" placeholder="Company Name">
-          <input id="industry" type="text" placeholder="Industry">
+          <input id="company" name="company" type="text" placeholder="Company Name">
+          <input id="industry" name="industry" type="text" placeholder="Industry">
         </div>
 
-        <select id="service" required>
+        <select id="service" name="service" required>
           <option value="">Select Service Interest</option>
           <option>Penetration Testing</option>
           <option>Cloud Security</option>
@@ -129,15 +148,21 @@
           <option>Security Architecture</option>
         </select>
 
-        <textarea id="message" rows="6" placeholder="Briefly describe your security objectives"></textarea>
+        <textarea id="message" name="message" rows="6" placeholder="Briefly describe your security objectives"></textarea>
 
-        <button type="submit" class="btn">
-          Schedule Consultation
-        </button>
+        <div class="consultation-actions">
+          <button type="button" class="btn" id="consultationSubmitBtn" onclick="submitConsultation()">
+            Schedule Consultation
+          </button>
+        </div>
 
         <p id="consultationStatus" class="consultation-note" style="margin-top:12px;"></p>
 
       </form>
+
+      <div id="calendlyInlineWrap" class="calendly-inline-wrap">
+        <div id="calendlyInlineContainer" style="min-width:320px;height:760px;"></div>
+      </div>
 
       <p class="consultation-note">
         All consultation requests are treated with strict confidentiality.
@@ -226,44 +251,71 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
+const consultationSupabase =
+  (typeof supabaseClient !== "undefined" && supabaseClient)
+    ? supabaseClient
+    : supabase.createClient(
+        "https://xvtnnszvfbirixppbdtl.supabase.co",
+        "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+      );
+
+if (typeof protectPage === "function") {
+  protectPage("/auth/login.html?redirect=consultation.html");
+}
 
 async function submitConsultation() {
   const statusEl = document.getElementById("consultationStatus");
-  const submitBtn = document.querySelector("button[type='submit']");
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Scheduling...";
-  }
-  if (statusEl) statusEl.textContent = "Saving consultation request...";
-  const { data: userData } = await supabaseClient.auth.getUser();
+  const submitBtn = document.getElementById("consultationSubmitBtn");
+  const form = document.getElementById("consultationForm");
+  debugReset();
+  debugLog("Submit triggered.");
+  try {
+    const isRunning = submitBtn?.dataset?.loading === "1";
+    if (isRunning) return;
+    if (submitBtn) submitBtn.dataset.loading = "1";
 
-  if (!userData || !userData.user) {
-    if (statusEl) statusEl.textContent = "Please login first. Redirecting to login...";
-    setTimeout(() => {
-      window.location.href = "auth/login.html?redirect=consultation.html";
-    }, 500);
     if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Schedule Consultation";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Scheduling...";
     }
-    return;
+    if (form) {
+      form.querySelectorAll("input, select, textarea, button").forEach((el) => {
+        el.disabled = true;
+      });
+    }
+    if (statusEl) statusEl.textContent = "Saving consultation request...";
+    debugLog("Checking authenticated user...");
+    const { data: userData } = await consultationSupabase.auth.getUser();
+    debugLog(`Auth user present: ${Boolean(userData && userData.user)}`);
+
+    if (!userData || !userData.user) {
+      if (statusEl) statusEl.textContent = "Please login first. Redirecting to login...";
+      debugLog("No user session. Redirecting to login.");
+      setTimeout(() => {
+        window.location.href = "auth/login.html?redirect=consultation.html";
+      }, 500);
+      return;
+    }
+
+    const user = userData.user;
+
+  const formData = form ? new FormData(form) : null;
+  const fullName = String(formData?.get("fullName") || "").trim();
+  let email = String(formData?.get("email") || "").trim();
+  const company = String(formData?.get("company") || "").trim();
+  const industry = String(formData?.get("industry") || "").trim();
+  const service = String(formData?.get("service") || "").trim();
+  const message = String(formData?.get("message") || "").trim();
+  if (!email) {
+    email = String(user.email || "").trim();
+    const emailInput = document.getElementById("email");
+    if (emailInput && email) emailInput.value = email;
   }
-
-  const user = userData.user;
-
-  const fullName = document.getElementById("fullName").value;
-  const email = document.getElementById("email").value;
-  const company = document.getElementById("company").value;
-  const industry = document.getElementById("industry").value;
-  const service = document.getElementById("service").value;
-  const message = document.getElementById("message").value;
+  debugLog("Collected form inputs.");
 
   if (!fullName || !email || !service) {
     if (statusEl) statusEl.textContent = "Full Name, Work Email, and Service are required.";
+    debugLog(`Validation failed. Missing => fullName:${!fullName} email:${!email} service:${!service}`);
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.textContent = "Schedule Consultation";
@@ -291,44 +343,69 @@ async function submitConsultation() {
     status: "Pending"
   };
 
-  let insertError = null;
-  let insertData = null;
+    const payloadVariants = [
+      payloadFull,
+      payloadBase,
+      { user_id: user.id, full_name: fullName, email, company, service, message },
+      { user_id: user.id, full_name: fullName, service, message },
+      { full_name: fullName, email, company, industry, service, message },
+      { full_name: fullName, service, message }
+    ];
 
-  // Try full payload first; fallback if schema doesn't include email/industry.
-  let insertRes = await supabaseClient.from("consultations").insert([payloadFull]).select().single();
-  if (insertRes.error && /column|schema|invalid input/i.test(insertRes.error.message || "")) {
-    insertRes = await supabaseClient.from("consultations").insert([payloadBase]).select().single();
-  }
-  insertError = insertRes.error;
-  insertData = insertRes.data;
+    let saved = false;
+    let lastError = null;
+    for (let i = 0; i < payloadVariants.length; i += 1) {
+      const variant = payloadVariants[i];
+      debugLog(`Insert attempt ${i + 1}: keys => ${Object.keys(variant).join(", ")}`);
+      const res = await consultationSupabase.from("consultations").insert([variant]);
+      if (!res.error) {
+        saved = true;
+        debugLog(`Insert attempt ${i + 1} succeeded.`);
+        break;
+      }
+      lastError = res.error;
+      debugLog(`Insert attempt ${i + 1} failed: ${res.error.message}`);
+    }
 
-  if (insertError) {
-    if (statusEl) statusEl.textContent = `Save failed: ${insertError.message}`;
+    if (!saved) {
+      if (statusEl) statusEl.textContent = `Save failed: ${lastError?.message || "Unknown error"}`;
+      debugLog(`Final insert failure: ${safeStringify(lastError)}`);
+      return;
+    }
+
+    debugLog("Consultation row inserted successfully.");
+    if (statusEl) statusEl.textContent = "Saved successfully. Opening Calendly...";
+    openCalendlyScheduler(fullName, email, service);
+  } catch (err) {
+    if (statusEl) statusEl.textContent = `Unexpected error: ${err?.message || err}`;
+    debugLog(`Unexpected error: ${err?.message || err}`);
+    debugLog(`Unexpected error object: ${safeStringify(err)}`);
+  } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.textContent = "Schedule Consultation";
+      delete submitBtn.dataset.loading;
     }
-    return;
-  }
-
-  if (insertData && insertData.id) {
-    try {
-      localStorage.setItem("last_consultation_id", String(insertData.id));
-    } catch {}
-  }
-
-  if (statusEl) statusEl.textContent = "Saved successfully. Opening Calendly...";
-  openCalendlyScheduler(fullName, email, service);
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Schedule Consultation";
+    if (form) {
+      form.querySelectorAll("input, select, textarea, button").forEach((el) => {
+        el.disabled = false;
+      });
+    }
   }
 }
+window.submitConsultation = submitConsultation;
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("consultationForm");
+  const submitBtn = document.getElementById("consultationSubmitBtn");
   if (form) {
     form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitConsultation();
+    });
+  }
+  if (submitBtn) {
+    submitBtn.addEventListener("click", (event) => {
       event.preventDefault();
       submitConsultation();
     });
@@ -337,16 +414,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function openCalendlyScheduler(fullName, email, service) {
   const statusEl = document.getElementById("consultationStatus");
+  const calendlyWrap = document.getElementById("calendlyInlineWrap");
+  const calendlyContainer = document.getElementById("calendlyInlineContainer");
   const calendlyUrl =
     `https://calendly.com/contact-kryphex/30min?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&a1=${encodeURIComponent(service)}`;
+  debugLog(`Calendly URL prepared: ${calendlyUrl}`);
 
-  if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
-    window.Calendly.initPopupWidget({ url: calendlyUrl });
-    if (statusEl) statusEl.textContent = "Calendly opened. Complete the booking to finalize.";
+  if (calendlyWrap) {
+    calendlyWrap.style.display = "block";
+    debugLog("Calendly container displayed.");
+  }
+
+  if (window.Calendly && typeof window.Calendly.initInlineWidget === "function" && calendlyContainer) {
+    calendlyContainer.innerHTML = "";
+    window.Calendly.initInlineWidget({
+      url: calendlyUrl,
+      parentElement: calendlyContainer
+    });
+    debugLog("Calendly inline widget initialized.");
+    if (calendlyWrap) {
+      calendlyWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    if (statusEl) statusEl.textContent = "Choose a time below to complete scheduling.";
     return;
   }
 
-  window.location.assign(calendlyUrl);
+  // Fallback: inline iframe (no redirect).
+  if (calendlyContainer) {
+    calendlyContainer.innerHTML =
+      `<iframe src="${calendlyUrl}" width="100%" height="760" frameborder="0" title="Calendly Scheduler"></iframe>`;
+    debugLog("Calendly script unavailable. Loaded fallback iframe.");
+    if (calendlyWrap) {
+      calendlyWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+  if (statusEl) statusEl.textContent = "Choose a time below to complete scheduling.";
+}
+
+function safeStringify(value) {
+  try {
+    return JSON.stringify(value, Object.getOwnPropertyNames(value), 2);
+  } catch {
+    try {
+      return JSON.stringify(value, null, 2);
+    } catch {
+      return String(value);
+    }
+  }
+}
+
+function debugReset() {
+  const panel = document.getElementById("consultationDebug");
+  const log = document.getElementById("consultationDebugLog");
+  if (panel) panel.style.display = "block";
+  if (log) log.textContent = "";
+}
+
+function debugLog(message) {
+  const panel = document.getElementById("consultationDebug");
+  const log = document.getElementById("consultationDebugLog");
+  if (!panel || !log) return;
+  panel.style.display = "block";
+  const stamp = new Date().toLocaleTimeString();
+  log.textContent += `[${stamp}] ${message}\n`;
 }
 </script>
 
