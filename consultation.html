@@ -178,6 +178,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script src="js/auth.js"></script>
 
 <script>
@@ -192,11 +193,19 @@ const supabaseClient = supabase.createClient(
 );
 
 async function submitConsultation() {
-
+  const submitBtn = document.querySelector("button[type='submit']");
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Scheduling...";
+  }
   const { data: userData } = await supabaseClient.auth.getUser();
 
   if (!userData || !userData.user) {
     alert("You must be logged in first.");
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Schedule Consultation";
+    }
     return;
   }
 
@@ -222,10 +231,29 @@ async function submitConsultation() {
 
   if (error) {
     alert("Error: " + error.message);
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Schedule Consultation";
+    }
   } else {
-    alert("Consultation submitted successfully.");
-    window.location.href = "tools/console.html";
+    openCalendlyScheduler(fullName, email, service);
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Schedule Consultation";
+    }
   }
+}
+
+function openCalendlyScheduler(fullName, email, service) {
+  const calendlyUrl =
+    `https://calendly.com/contact-kryphex/30min?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&a1=${encodeURIComponent(service)}`;
+
+  if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
+    window.Calendly.initPopupWidget({ url: calendlyUrl });
+    return;
+  }
+
+  window.location.href = calendlyUrl;
 }
 </script>
 

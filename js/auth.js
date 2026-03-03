@@ -20,10 +20,10 @@ async function signup(email, password) {
 
 async function logout() {
   await supabaseClient.auth.signOut();
-  window.location.href = "index.html";
+  window.location.href = "/index.html";
 }
 
-async function protectPage(redirectPath = "index.html") {
+async function protectPage(redirectPath = "/index.html") {
   const user = await getCurrentUser();
   if (!user) {
     window.location.href = redirectPath;
@@ -38,7 +38,7 @@ async function updateAuthArea() {
 
   if (user) {
     authArea.innerHTML = `
-      <a href="tools/console.html">Console</a>
+      <a href="/tools/console.html">Console</a>
       <a href="javascript:void(0)" id="logoutBtn">Logout</a>
     `;
 
@@ -46,15 +46,15 @@ async function updateAuthArea() {
     if (logoutBtn) {
       logoutBtn.addEventListener("click", async () => {
         await supabaseClient.auth.signOut();
-        window.location.reload();
+        window.location.href = "/index.html";
       });
     }
     return;
   }
 
   authArea.innerHTML = `
-    <a href="auth/login.html">Login</a>
-    <a href="auth/signup.html" class="btn-nav">Sign Up</a>
+    <a href="/auth/login.html">Login</a>
+    <a href="/auth/signup.html" class="btn-nav">Sign Up</a>
   `;
 }
 
