@@ -10,17 +10,17 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
-<body>
+<body class="home-page">
 
 <header>
   <h1>
-  <a href="index.html" style="display:flex; align-items:center;">
+  <a href="home.html" id="homeLogoLink" style="display:flex; align-items:center;">
     <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
   </a>
 </h1>
 
   <nav id="nav-links">
-    <a href="index.html" class="active">Home</a>
+    <a href="home.html" class="active" id="homeNavLink">Home</a>
     <a href="services.html">Services</a>
     <a href="insights.html">Insights</a>
     <a href="about.html">About</a>
@@ -34,7 +34,9 @@
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
+<main class="home-stack">
 <section class="hero">
+  <span class="hero-badge">Trusted by growing teams & enterprises</span>
   <h2>Enterprise Cybersecurity Architecture.</h2>
   <p>
     Kryphex delivers structured penetration testing,
@@ -42,10 +44,158 @@
     for organizations operating at scale.
   </p>
 
+  <div class="hero-highlights">
+    <div><strong>98%</strong><span>Issue remediation success</span></div>
+    <div><strong>24/7</strong><span>Security monitoring support</span></div>
+    <div><strong>120+</strong><span>Assessments delivered</span></div>
+  </div>
+
   <button class="btn" onclick="location.href='consultation.html'">
     Request Consultation
   </button>
 </section>
+
+<section class="home-value">
+  <div class="container">
+    <h3>Security outcomes, not just reports.</h3>
+    <div class="value-grid">
+      <article class="value-card">
+        <h4>Attack Surface Reduction</h4>
+        <p>
+          Identify weak points across apps, infra, and identity layers,
+          then harden critical paths first.
+        </p>
+      </article>
+      <article class="value-card">
+        <h4>Board-Ready Risk Clarity</h4>
+        <p>
+          Translate technical findings into business impact and priority-driven
+          remediation roadmaps.
+        </p>
+      </article>
+      <article class="value-card">
+        <h4>Zero-Trust by Design</h4>
+        <p>
+          Deploy identity-centric access controls, segmentation, and continuous
+          verification to contain threats.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-page {
+    background: radial-gradient(circle at 10% 0%, #ebf2ff 0%, #f5f7fa 50%, #ffffff 100%);
+  }
+
+  .home-page .hero {
+    position: relative;
+    padding: 180px 20px 130px;
+    background: linear-gradient(135deg, #07132e 0%, #0b2a66 45%, #0b3b89 100%);
+    overflow: hidden;
+  }
+
+  .home-page .hero::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 176, 255, 0.28), transparent 65%);
+    top: -240px;
+    right: -120px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .hero-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    align-items: center;
+  }
+
+  .hero-highlights div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, 320px);
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .hero-highlights strong {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .hero-highlights span {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+
+  .home-value {
+    padding: 90px 20px;
+    background: transparent;
+  }
+
+  .home-value h3 {
+    margin-bottom: 26px;
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .value-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(8, 36, 82, 0.08);
+    padding: 26px;
+    border: 1px solid #e7eefb;
+  }
+
+  .value-card h4 {
+    margin: 0 0 12px;
+    color: #0b2a66;
+    font-size: 19px;
+  }
+
+  .value-card p {
+    margin: 0;
+    color: #334155;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  .home-page .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .home-page .footer-column {
+    width: 100%;
+  }
+
+</style>
 
 <!-- ================= FOOTER ================= -->
 
@@ -77,6 +227,7 @@
     © 2026 Kryphex. Enterprise Cybersecurity Solutions.
   </div>
 </footer>
+</main>
 
 <!-- ================= AUTH MODAL ================= -->
 
@@ -171,8 +322,7 @@ async function updateNavbar() {
 
   if (data.user) {
     authArea.innerHTML = `
-      <a href="tools/console.html">Console</a>
-      <a href="#" id="logoutBtn">Logout</a>
+      <a href="javascript:void(0)" id="logoutBtn">Logout</a>
     `;
 
     document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -181,25 +331,30 @@ async function updateNavbar() {
     });
 
   } else {
-    authArea.innerHTML = `
-      <a href="#" id="loginNav">Login</a>
-      <a href="#" id="signupNav" class="btn-nav">Sign Up</a>
-    `;
-
-    document.getElementById("loginNav").onclick = () => {
-      modal.style.display = "block";
-      showLogin();
-    };
-
-    document.getElementById("signupNav").onclick = () => {
-      modal.style.display = "block";
-      showSignup();
-    };
+    window.location.href = "index.html";
   }
 }
 
 updateNavbar();
+
+function preventReloadOnHomeClick(event) {
+  const currentPage = window.location.pathname.split("/").pop() || "home.html";
+  if (currentPage === "home.html") {
+    event.preventDefault();
+  }
+}
+
+const homeNavLink = document.getElementById("homeNavLink");
+if (homeNavLink) {
+  homeNavLink.addEventListener("click", preventReloadOnHomeClick);
+}
+
+const homeLogoLink = document.getElementById("homeLogoLink");
+if (homeLogoLink) {
+  homeLogoLink.addEventListener("click", preventReloadOnHomeClick);
+}
 </script>
 
 </body>
 </html>
+

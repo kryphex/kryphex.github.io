@@ -111,7 +111,7 @@
   <button class="primary-btn" id="loginBtn">Login</button>
 
   <div class="secondary">
-    <a href="#" onclick="resetPassword()">Forgot password?</a>
+    <a href="javascript:void(0)" onclick="resetPassword()">Forgot password?</a>
   </div>
 
   <button class="oauth-btn" onclick="magicLogin()">
@@ -141,11 +141,8 @@ const supabaseClient = supabase.createClient(
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
 
-supabaseClient.auth.getUser().then(({ data }) => {
-  if (data.user) {
-    window.location.href = "../home.html";
-  }
-});
+// Force fresh login every time this page is opened.
+supabaseClient.auth.signOut();
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
 
@@ -163,6 +160,54 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     window.location.href = "../home.html";
   }
 });
+
+document.getElementById("password").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    document.getElementById("loginBtn").click();
+  }
+});
+
+async function resetPassword() {
+  const email = document.getElementById("email").value.trim();
+  if (!email) {
+    document.getElementById("errorMsg").innerText = "Enter your email first.";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/auth/login.html`
+  });
+
+  document.getElementById("errorMsg").innerText =
+    error ? error.message : "Password reset link sent to your email.";
+}
+
+async function magicLogin() {
+  const email = document.getElementById("email").value.trim();
+  if (!email) {
+    document.getElementById("errorMsg").innerText = "Enter your email first.";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: `${window.location.origin}/home.html` }
+  });
+
+  document.getElementById("errorMsg").innerText =
+    error ? error.message : "Magic link sent. Check your inbox.";
+}
+
+async function googleLogin() {
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: `${window.location.origin}/home.html` }
+  });
+
+  if (error) {
+    document.getElementById("errorMsg").innerText = error.message;
+  }
+}
 </script>
 
 </body>

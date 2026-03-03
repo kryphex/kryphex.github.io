@@ -1541,3 +1541,127 @@ input:focus {
   }
 
 }
+
+/* ================= HOME PAGE STACK FIX ================= */
+
+body.home-page {
+  display: block !important;
+  min-height: auto !important;
+  padding: 0 !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+  background: #f5f7fa !important;
+}
+
+.home-page .home-stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.home-page .home-stack > section,
+.home-page .home-stack > footer {
+  width: 100%;
+}
+
+/* ================= ELITE UI POLISH ================= */
+
+:root {
+  --kry-bg: #f4f7fc;
+  --kry-surface: #ffffff;
+  --kry-text: #0f172a;
+  --kry-muted: #475569;
+  --kry-primary: #1d4ed8;
+  --kry-primary-strong: #1e40af;
+  --kry-border: #dbe6f5;
+  --kry-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+}
+
+body {
+  background: var(--kry-bg) !important;
+  color: var(--kry-text);
+  display: block !important;
+  min-height: 100vh;
+  padding: 0 !important;
+  justify-content: initial !important;
+  align-items: initial !important;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--kry-border);
+}
+
+nav {
+  flex-wrap: wrap;
+}
+
+nav a {
+  letter-spacing: 0.01em;
+}
+
+section h2 {
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.hero p,
+.card p,
+.footer-column p,
+.footer-column a,
+li {
+  line-height: 1.7;
+}
+
+.card,
+.value-card,
+.request-card {
+  border-radius: 16px;
+  border: 1px solid var(--kry-border);
+  box-shadow: var(--kry-shadow);
+}
+
+.btn,
+.btn-outline,
+.btn-nav {
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn:hover,
+.btn-outline:hover,
+.btn-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(29, 78, 216, 0.2);
+}
+
+input,
+textarea,
+select {
+  border: 1px solid #d7e1ef;
+  border-radius: 10px;
+  line-height: 1.45;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--kry-primary);
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+}
+
+footer {
+  background: linear-gradient(160deg, #081a3c 0%, #0d2a63 100%);
+}
+
+.footer-bottom {
+  letter-spacing: 0.01em;
+}
+
+.home-page #homeNavLink.active {
+  pointer-events: none;
+  cursor: default;
+}

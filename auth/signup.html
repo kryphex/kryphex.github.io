@@ -123,7 +123,7 @@
 
   <div class="secondary">
     Already have an account?
-    <a href="login.html">LogIn</a>
+    <a href="login.html">Log In</a>
   </div>
 
   <div id="errorMsg" class="error"></div>
@@ -154,6 +154,17 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
     alert("Check your email to confirm your account.");
   }
 });
+
+async function googleLogin() {
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: `${window.location.origin}/home.html` }
+  });
+
+  if (error) {
+    document.getElementById("errorMsg").innerText = error.message;
+  }
+}
 </script>
 
 </body>

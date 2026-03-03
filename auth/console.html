@@ -194,11 +194,11 @@
 </div>
 
 <div class="sidebar" id="sidebar">
-  <a href="#">Dashboard</a>
-  <a href="#">My Consultations</a>
-  <a href="#">Security Reports</a>
-  <a href="#">Settings</a>
-  <a href="#" onclick="logout()">Logout</a>
+  <a href="../tools/console.html">Dashboard</a>
+  <a href="../tools/my-consultations.html">My Consultations</a>
+  <a href="../tools/history.html">Security Reports</a>
+  <a href="../about.html">Settings</a>
+  <a href="javascript:void(0)" onclick="logout()">Logout</a>
 </div>
 
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
@@ -267,10 +267,17 @@ function closeSidebar() {
   document.getElementById("overlay").classList.remove("active");
 }
 
-function logout() {
-  alert("Hook this to Supabase logout.");
+async function logout() {
+  const supabaseClient = supabase.createClient(
+    "https://xvtnnszvfbirixppbdtl.supabase.co",
+    "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+  );
+  await supabaseClient.auth.signOut();
+  window.location.href = "login.html";
 }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </body>
 </html>

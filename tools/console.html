@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   
 <head>
@@ -38,6 +38,7 @@ async function loadConsultations() {
   const { data, error } = await supabaseClient
     .from("consultations")
     .select("*")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
   const container = document.getElementById("consultList");
@@ -99,12 +100,12 @@ async function logout() {
 
   <div class="sidebar">
     <h2>Kryphex Console</h2>
-    <a href="#">Dashboard</a>
+    <a href="console.html">Dashboard</a>
     <a href="../admin/dashboard.html">Admin Panel</a>
-    <a href="#">Threat Feed</a>
-    <a href="#">Monitoring</a>
+    <a href="history.html">Threat Feed</a>
+    <a href="my-consultations.html">Monitoring</a>
     <a href="history.html">Scan History</a>
-    <a href="#" onclick="logout()">Logout</a>
+    <a href="javascript:void(0)" onclick="logout()">Logout</a>
     
     <hr style="margin:40px 0;">
 
@@ -126,15 +127,13 @@ async function logout() {
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/js/auth.js"></script>
-
-</body>
-</html>
-
 <script>
 function toggleSidebar() {
   document.querySelector(".sidebar").classList.toggle("open");
   document.querySelector(".sidebar-overlay").classList.toggle("active");
 }
 </script>
+
+</body>
+</html>
+

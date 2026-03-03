@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>Kryphex | Secure Payment</title>
@@ -28,10 +28,9 @@
 
     <div class="card">
       <h3>Enterprise Security Consultation</h3>
-      <p style="font-size:18px; font-weight:600;">₹2,999</p>
+      <p style="font-size:18px; font-weight:600;">Rs 2,999</p>
 
-      <button class="btn"
-        onclick="window.location.href='YOUR_RAZORPAY_LINK'">
+      <button class="btn" onclick="openPaymentLink()">
         Pay Securely
       </button>
 
@@ -43,6 +42,13 @@
 
   </div>
 </section>
+
+<script>
+function openPaymentLink() {
+  const paymentLink = "https://razorpay.com/payment-gateway/";
+  window.open(paymentLink, "_blank", "noopener");
+}
+</script>
 
 <footer>
   <div class="footer-bottom">
