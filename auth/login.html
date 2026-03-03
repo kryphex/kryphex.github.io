@@ -1,239 +1,668 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>Kryphex | Login</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #eef3fb;
+      --ink: #0e1b3d;
+      --muted: #5f6f90;
+      --line: #d7e1f3;
+      --card: rgba(255, 255, 255, 0.86);
+      --primary: #1d4ed8;
+      --primary-2: #1338be;
+      --danger: #b91c1c;
+      --ok: #0f766e;
+    }
+
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa, #e6ecff);
+      min-height: 100vh;
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 8% -5%, #bfdbfe 0%, transparent 55%),
+        radial-gradient(760px 380px at 100% 10%, #c7d2fe 0%, transparent 52%),
+        linear-gradient(145deg, #f8fbff 0%, var(--bg) 58%, #e9eef8 100%);
+      display: grid;
+      place-items: center;
+      padding: 26px;
+      overflow-x: hidden;
+      transition: opacity .28s ease, transform .28s ease;
+    }
+
+    body.is-routing {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .auth-shell {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.62);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 28px 70px rgba(15, 27, 61, 0.16);
+      animation: rise 0.55s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-pane {
+      padding: 38px;
+      position: relative;
+      background:
+        linear-gradient(165deg, rgba(11, 31, 88, 0.97) 0%, rgba(20, 62, 180, 0.96) 70%, rgba(31, 97, 255, 0.93) 100%);
+      color: #fff;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 680px;
+      overflow: hidden;
+    }
+
+    .brand-pane::before {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      right: -120px;
+      top: -90px;
+      background: radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%);
+      filter: blur(1px);
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      z-index: 1;
+    }
+
+    .kicker {
+      margin: 22px 0 0;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.86;
+      font-weight: 700;
+    }
+
+    .headline {
+      margin: 10px 0 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(34px, 4.2vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      max-width: 17ch;
+      z-index: 1;
+    }
+
+    .subcopy {
+      margin: 18px 0 0;
+      max-width: 45ch;
+      line-height: 1.65;
+      opacity: 0.93;
+      z-index: 1;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 24px;
+      z-index: 1;
+    }
+
+    .metric {
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.11);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .metric span {
+      font-size: 11px;
+      opacity: 0.92;
+    }
+
+    .trust {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      font-size: 13px;
+      opacity: 0.9;
+      z-index: 1;
+    }
+
+    .form-pane {
+      padding: 36px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(250,252,255,0.96) 100%);
     }
 
-    .auth-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px 24px;
-      z-index: 100;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    .auth-card {
+      width: min(460px, 100%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 16px 42px rgba(15, 27, 61, 0.08);
+      padding: 28px;
     }
 
-    .auth-box {
-      width: 100%;
-      max-width: 420px;
-      padding: 45px;
-      background: rgba(255,255,255,0.95);
-      border-radius: 16px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.1);
-      text-align: center;
+    .auth-card h1 {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
     }
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 25px;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 16px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
+    .auth-card p {
+      margin: 10px 0 22px;
+      color: var(--muted);
       font-size: 14px;
     }
 
-    input:focus {
-      border-color: #0056ff;
-      outline: none;
+    .field {
+      margin-bottom: 12px;
     }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #45557a;
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 42px 12px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fff;
+      color: var(--ink);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29,78,216,0.14);
+    }
+
+    .pw-wrap { position: relative; } .pw-wrap .toggle-pass { top: auto; bottom: 8px; transform: none; }
+
+    .toggle-pass {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #5d6e91;
+      font-size: 0;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 8px;
+    display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;line-height:1;}
+
+    .toggle-pass:hover { background: #eef4ff; }
 
     .primary-btn {
       width: 100%;
-      padding: 14px;
-      background: #000;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
+      border: 0;
+      border-radius: 12px;
+      padding: 13px;
+      margin-top: 8px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
-      margin-bottom: 20px;
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      box-shadow: 0 12px 26px rgba(29,78,216,0.3);
+    }
+
+    .primary-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(29,78,216,0.35);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
+
+    .sub-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .remember-wrap {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: #5e729b;
+    }
+
+    .remember-wrap label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      color: #334a7d;
+    }
+
+    .remember-wrap input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: var(--primary);
+    }
+
+    .session-hint {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #6478a3;
+      min-height: 16px;
+    }
+
+    .sub-actions a,
+    .secondary a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 700;
     }
 
     .divider {
-      margin: 20px 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin: 16px 0;
+      color: #6a7ca1;
       font-size: 12px;
-      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
     }
 
-    .oauth-btn {
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: var(--line);
+    }
+
+    .ghost-btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      background: white;
-      cursor: pointer;
-      margin-bottom: 12px;
+      padding: 11px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #1f3161;
+      font-family: inherit;
       font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background .2s ease, border-color .2s ease;
+    display:flex;align-items:center;justify-content:center;gap:10px;}
+
+    .ghost-btn:hover {
+      background: #f6f9ff;
+      border-color: #c7d4ef;
     }
 
     .secondary {
-      margin-top: 20px;
+      margin-top: 8px;
+      text-align: center;
       font-size: 13px;
+      color: #60749e;
     }
 
-    .secondary a {
-      color: #0056ff;
-      text-decoration: none;
-      font-weight: 500;
+    .message {
+      margin-top: 12px;
+      min-height: 18px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .error {
-      margin-top: 10px;
-      color: red;
-      font-size: 13px;
+    .message.error { color: var(--danger); }
+    .message.success { color: var(--ok); }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 18, 44, 0.45);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .loading-overlay.show {
+      display: flex;
+    }
+
+    .loading-card {
+      width: min(360px, 100%);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #d7e1f3;
+      box-shadow: 0 20px 50px rgba(12, 28, 63, 0.22);
+      padding: 18px;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 26px;
+      height: 26px;
+      border: 3px solid #dbe6fb;
+      border-top-color: #1d4ed8;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 980px) {
+      .auth-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-pane {
+        min-height: auto;
+        padding: 24px;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(3, minmax(0,1fr));
+      }
+
+      .form-pane {
+        padding: 22px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body { padding: 12px; }
+
+      .auth-card {
+        padding: 20px;
+        border-radius: 14px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
-
 <body>
-<header class="auth-header">
-  <a href="../index.html" style="display:flex; align-items:center;">
-    <img src="../logo.svg" alt="Kryphex Logo" style="height:28px;">
-  </a>
-</header>
+  <main class="auth-shell">
+    <section class="brand-pane">
+      <div>
+        <a class="logo-link" href="../index.html">
+          <img src="../logo.svg" alt="Kryphex Logo" style="height:30px;">
+        </a>
+        <p class="kicker">Security Access Node</p>
+        <h2 class="headline">Command your cyber posture in one console.</h2>
+        <p class="subcopy">Log in to access threat tools, consultation workflows, and risk intelligence modules tailored for enterprise operations.</p>
+        <div class="metrics">
+          <div class="metric"><strong>24/7</strong><span>SOC-aligned coverage</span></div>
+          <div class="metric"><strong>98%</strong><span>Remediation success</span></div>
+          <div class="metric"><strong>120+</strong><span>Assessments delivered</span></div>
+        </div>
+      </div>
+      <div class="trust">Protected by encrypted session controls and enterprise-grade authentication.</div>
+    </section>
 
-<div class="auth-box">
+    <section class="form-pane">
+      <div class="auth-card">
+        <h1>Welcome back</h1>
+        <p>Sign in to continue into Kryphex platform operations.</p>
 
-  <!-- LOGO REMOVED ONLY -->
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" autocomplete="email" placeholder="you@company.com">
+        </div>
 
-  <h1>Log In to Kryphex</h1>
+        <div class="field pw-wrap">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password" placeholder="Enter your password">
+          <button type="button" class="toggle-pass" id="togglePassword" aria-label="Show password"><svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12C3.8 8.5 7.4 6 12 6C16.6 6 20.2 8.5 22 12C20.2 15.5 16.6 18 12 18C7.4 18 3.8 15.5 2 12Z" stroke="#5d6e91" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#5d6e91" stroke-width="1.8"/></svg></button>
+        </div>
 
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
+        <button class="primary-btn" id="loginBtn">Secure Login</button>
 
-  <button class="primary-btn" id="loginBtn">Login</button>
+        <div class="remember-wrap">
+          <label><input type="checkbox" id="rememberMe" checked> Remember this device</label>
+          <span id="sessionModeLabel">Persistent session</span>
+        </div>
+        <div class="session-hint" id="sessionHint">Session stays active on this browser.</div>
 
-  <div class="secondary">
-    <a href="javascript:void(0)" onclick="resetPassword()">Forgot password?</a>
+        <div class="sub-actions">
+          <a href="javascript:void(0)" id="resetPasswordBtn">Forgot password?</a>
+          <span>Need instant access?</span>
+        </div>
+
+        <button class="ghost-btn" id="magicLinkBtn">Send Magic Link</button>
+
+        <div class="divider">or</div>
+
+        <button class="ghost-btn" id="googleBtn"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.2-1.4 3.6-5.4 3.6-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3 14.6 2 12 2 6.5 2 2 6.5 2 12s4.5 10 10 10c5.8 0 9.7-4.1 9.7-9.8 0-.7-.1-1.3-.2-2H12Z"/><path fill="#34A853" d="M2 12c0 5.5 4.5 10 10 10 2.7 0 4.9-.9 6.5-2.4l-3-2.3c-.8.6-2 1-3.5 1-2.7 0-5.1-1.8-5.9-4.3H2.9c.5 1.6 1.4 3.1 2.6 4.2A9.9 9.9 0 0 1 2 12Z"/><path fill="#FBBC05" d="M6.1 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.3H2.9A10 10 0 0 0 2 12c0 1.6.4 3.1 1 4.5L6.1 14Z"/><path fill="#4285F4" d="M12 5.8c2 0 3.3.9 4.1 1.6l3-2.9C17 2.8 14.8 2 12 2 7.6 2 3.8 4.5 2 8.2l3.2 2.5C6 8 8.3 5.8 12 5.8Z"/></svg><span>Continue with Google</span></button>
+
+        <div class="secondary">Don't have an account? <a href="signup.html">Create account</a></div>
+        <div id="errorMsg" class="message"></div>
+      </div>
+    </section>
+  </main>
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div id="loadingText">Processing secure request...</div>
+    </div>
   </div>
 
-  <button class="oauth-btn" onclick="magicLogin()">
-    Send Magic Link
-  </button>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const supabaseClient = supabase.createClient(
+    "https://xvtnnszvfbirixppbdtl.supabase.co",
+    "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+  );
 
-  <div class="divider">or continue with</div>
+  // Force fresh login every time this page is opened.
+  supabaseClient.auth.signOut();
 
-  <button class="oauth-btn" onclick="googleLogin()">
-    Continue with Google
-  </button>
+  const redirectTarget = (() => {
+    const param = new URLSearchParams(window.location.search).get("redirect");
+    if (!param) return "../home.html";
+    if (!/^[a-zA-Z0-9_./-]+$/.test(param)) return "../home.html";
+    if (param.startsWith("http")) return "../home.html";
+    return `../${param.replace(/^\/+/, "")}`;
+  })();
 
-  <div class="secondary">
-    Don't have an account?
-    <a href="signup.html">Create account</a>
-  </div>
+  const emailEl = document.getElementById("email");
+  const passwordEl = document.getElementById("password");
+  const errorMsg = document.getElementById("errorMsg");
+  const loginBtn = document.getElementById("loginBtn");
+  const rememberMe = document.getElementById("rememberMe");
+  const sessionModeLabel = document.getElementById("sessionModeLabel");
+  const sessionHint = document.getElementById("sessionHint");
+  const loadingOverlay = document.getElementById("loadingOverlay");
+  const loadingText = document.getElementById("loadingText");
 
-  <div id="errorMsg" class="error"></div>
+  function showOverlay(text) {
+    loadingText.textContent = text || "Processing secure request...";
+    loadingOverlay.classList.add("show");
+  }
 
-</div>
+  function hideOverlay() {
+    loadingOverlay.classList.remove("show");
+  }
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  function routeTo(url, message = "Redirecting...") {
+    showOverlay(message);
+    document.body.classList.add("is-routing");
+    setTimeout(() => {
+      window.location.href = url;
+    }, 260);
+  }
 
-<script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
+  function setMessage(text, type = "error") {
+    errorMsg.className = `message ${type}`;
+    errorMsg.textContent = text;
+  }
 
-// Force fresh login every time this page is opened.
-supabaseClient.auth.signOut();
+  function updateSessionHint() {
+    const remember = !!rememberMe.checked;
+    sessionModeLabel.textContent = remember ? "Persistent session" : "Session-only mode";
+    sessionHint.textContent = remember
+      ? "Session stays active on this browser."
+      : "Session details won’t be remembered on this device.";
+  }
 
-const redirectTarget = (() => {
-  const param = new URLSearchParams(window.location.search).get("redirect");
-  if (!param) return "../home.html";
-  if (!/^[a-zA-Z0-9_./-]+$/.test(param)) return "../home.html";
-  if (param.startsWith("http")) return "../home.html";
-  return `../${param.replace(/^\/+/, "")}`;
-})();
+  const rememberedEmail = localStorage.getItem("kryphex_last_email");
+  if (rememberedEmail) emailEl.value = rememberedEmail;
+  rememberMe.checked = localStorage.getItem("kryphex_remember_device") !== "0";
+  updateSessionHint();
+  rememberMe.addEventListener("change", updateSessionHint);
 
-document.getElementById("loginBtn").addEventListener("click", async () => {
+  async function doLogin() {
+    const email = emailEl.value.trim();
+    const password = passwordEl.value;
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+    if (!email || !password) {
+      setMessage("Enter both email and password.", "error");
+      return;
+    }
 
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
+    loginBtn.disabled = true;
+    loginBtn.textContent = "Authenticating...";
+    setMessage("", "error");
+
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      setMessage(error.message, "error");
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Secure Login";
+      hideOverlay();
+      return;
+    }
+
+    setMessage("Login successful. Redirecting...", "success");
+    if (rememberMe.checked) {
+      localStorage.setItem("kryphex_last_email", email);
+      localStorage.setItem("kryphex_remember_device", "1");
+    } else {
+      localStorage.removeItem("kryphex_last_email");
+      localStorage.setItem("kryphex_remember_device", "0");
+    }
+    routeTo(redirectTarget, "Access granted. Opening platform...");
+  }
+
+  loginBtn.addEventListener("click", doLogin);
+  passwordEl.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") doLogin();
   });
 
-  if (error) {
-    document.getElementById("errorMsg").innerText = error.message;
-  } else {
-    window.location.href = redirectTarget;
-  }
-});
+  document.getElementById("togglePassword").addEventListener("click", () => { const reveal = passwordEl.type === "password"; passwordEl.type = reveal ? "text" : "password"; const btn = document.getElementById("togglePassword"); btn.setAttribute("aria-label", reveal ? "Hide password" : "Show password"); document.getElementById("eyeIcon").innerHTML = reveal ? `<path d="M2 12C3.8 8.5 7.4 6 12 6C16.6 6 20.2 8.5 22 12C20.2 15.5 16.6 18 12 18C7.4 18 3.8 15.5 2 12Z" stroke="#5d6e91" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#5d6e91" stroke-width="1.8"/>` : `<path d="M3 3l18 18" stroke="#5d6e91" stroke-width="1.8"/><path d="M10.7 10.8a2.5 2.5 0 0 0 3.4 3.4" stroke="#5d6e91" stroke-width="1.8"/><path d="M6.6 6.7C4.7 8 3.2 9.8 2 12c1.8 3.5 5.4 6 10 6 2 0 3.8-.5 5.3-1.4" stroke="#5d6e91" stroke-width="1.8"/><path d="M14.5 6.3A10.3 10.3 0 0 1 22 12c-.6 1.1-1.3 2-2.2 2.8" stroke="#5d6e91" stroke-width="1.8"/>`; });
 
-document.getElementById("password").addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    document.getElementById("loginBtn").click();
-  }
-});
+  document.getElementById("resetPasswordBtn").addEventListener("click", async () => {
+    const email = emailEl.value.trim();
+    if (!email) {
+      setMessage("Enter your email first.", "error");
+      return;
+    }
 
-async function resetPassword() {
-  const email = document.getElementById("email").value.trim();
-  if (!email) {
-    document.getElementById("errorMsg").innerText = "Enter your email first.";
-    return;
-  }
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/login.html`
+    });
 
-  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/auth/login.html`
+    setMessage(error ? error.message : "Reset link sent to your email.", error ? "error" : "success");
   });
 
-  document.getElementById("errorMsg").innerText =
-    error ? error.message : "Password reset link sent to your email.";
-}
+  document.getElementById("magicLinkBtn").addEventListener("click", async () => {
+    const email = emailEl.value.trim();
+    if (!email) {
+      setMessage("Enter your email first.", "error");
+      return;
+    }
 
-async function magicLogin() {
-  const email = document.getElementById("email").value.trim();
-  if (!email) {
-    document.getElementById("errorMsg").innerText = "Enter your email first.";
-    return;
-  }
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${window.location.origin}/home.html` }
+    });
 
-  const { error } = await supabaseClient.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: `${window.location.origin}/home.html` }
+    setMessage(error ? error.message : "Magic link sent. Check your inbox.", error ? "error" : "success");
   });
 
-  document.getElementById("errorMsg").innerText =
-    error ? error.message : "Magic link sent. Check your inbox.";
-}
+  document.getElementById("googleBtn").addEventListener("click", async () => {
+    showOverlay("Redirecting to Google secure sign-in...");
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/home.html` }
+    });
 
-async function googleLogin() {
-  const { error } = await supabaseClient.auth.signInWithOAuth({
-    provider: "google",
-    options: { redirectTo: `${window.location.origin}/home.html` }
+    if (error) {
+      hideOverlay();
+      setMessage(error.message, "error");
+    }
   });
-
-  if (error) {
-    document.getElementById("errorMsg").innerText = error.message;
-  }
-}
-</script>
-
+  </script>
 </body>
 </html>
+
+
