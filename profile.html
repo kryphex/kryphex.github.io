@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hamburger-mode subpage-layout profile-page">
+
+<header>
+<h1>
+  <a href="home.html" style="display:flex; align-items:center;">
+    <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+  </a>
+</h1>
+  <nav id="nav-links">
+    <a href="home.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools/">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+  </nav>
+  <div id="authArea" class="header-auth"></div>
+  <button id="menuToggleBtn" class="menu-toggle" type="button" aria-label="Toggle navigation menu">&#9776;</button>
+</header>
+
+<section class="hero">
+  <h2>My Profile</h2>
+  <p>Manage your account details and consultation preferences.</p>
+</section>
+
+<section>
+  <div class="container profile-wrap">
+    <article class="card profile-card">
+      <h3>Account Information</h3>
+
+      <div class="profile-grid">
+        <label>Email
+          <input type="email" id="profileEmail" readonly>
+        </label>
+
+        <label>Full Name
+          <input type="text" id="profileName" placeholder="Enter your full name">
+        </label>
+
+        <label>Company
+          <input type="text" id="profileCompany" placeholder="Enter your company">
+        </label>
+
+        <label>Role
+          <input type="text" id="profileRole" placeholder="Security Lead, DevOps, CTO...">
+        </label>
+
+        <label>Phone
+          <input type="text" id="profilePhone" placeholder="+91 ...">
+        </label>
+
+        <label>Region
+          <input type="text" id="profileRegion" placeholder="India / APAC / US ...">
+        </label>
+      </div>
+
+      <label>About / Notes
+        <textarea id="profileBio" rows="5" placeholder="Your security goals, stack, priorities..."></textarea>
+      </label>
+
+      <div class="profile-actions">
+        <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
+        <button class="btn-outline" id="resetProfileBtn" type="button">Reset</button>
+      </div>
+
+      <p id="profileStatus" class="profile-status">Loading profile...</p>
+    </article>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+<script>
+function toggleMenu() {
+  const navLinks = document.getElementById("nav-links");
+  const shouldOpen = !document.body.classList.contains("nav-open");
+  document.body.classList.toggle("nav-open", shouldOpen);
+  if (navLinks) {
+    navLinks.classList.toggle("open", shouldOpen);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const header = document.querySelector("header");
+  const navLinks = document.getElementById("nav-links");
+  const toggleBtn = document.getElementById("menuToggleBtn");
+  const statusEl = document.getElementById("profileStatus");
+
+  if (toggleBtn) toggleBtn.addEventListener("click", toggleMenu);
+  if (navLinks) {
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.body.classList.remove("nav-open");
+        navLinks.classList.remove("open");
+      });
+    });
+  }
+  document.addEventListener("click", (event) => {
+    if (!document.body.classList.contains("nav-open")) return;
+    if (!header || header.contains(event.target)) return;
+    document.body.classList.remove("nav-open");
+    if (navLinks) navLinks.classList.remove("open");
+  });
+
+  await protectPage("/auth/login.html");
+  const user = await getCurrentUser();
+  if (!user) return;
+
+  document.getElementById("profileEmail").value = user.email || "";
+
+  const storageKey = `kryphex_profile_${user.id}`;
+  const emptyData = {
+    name: "",
+    company: "",
+    role: "",
+    phone: "",
+    region: "",
+    bio: ""
+  };
+
+  function setForm(data) {
+    document.getElementById("profileName").value = data.name || "";
+    document.getElementById("profileCompany").value = data.company || "";
+    document.getElementById("profileRole").value = data.role || "";
+    document.getElementById("profilePhone").value = data.phone || "";
+    document.getElementById("profileRegion").value = data.region || "";
+    document.getElementById("profileBio").value = data.bio || "";
+  }
+
+  let saved = emptyData;
+  try {
+    const raw = localStorage.getItem(storageKey);
+    if (raw) saved = { ...emptyData, ...JSON.parse(raw) };
+  } catch {
+    saved = emptyData;
+  }
+  const remoteMeta = user.user_metadata || {};
+  saved = {
+    ...saved,
+    name: remoteMeta.name || saved.name,
+    company: remoteMeta.company || saved.company,
+    role: remoteMeta.role || saved.role,
+    phone: remoteMeta.phone || saved.phone,
+    region: remoteMeta.region || saved.region,
+    bio: remoteMeta.bio || saved.bio
+  };
+  setForm(saved);
+  statusEl.textContent = "Profile loaded.";
+
+  document.getElementById("saveProfileBtn").addEventListener("click", async () => {
+    const payload = {
+      name: document.getElementById("profileName").value.trim(),
+      company: document.getElementById("profileCompany").value.trim(),
+      role: document.getElementById("profileRole").value.trim(),
+      phone: document.getElementById("profilePhone").value.trim(),
+      region: document.getElementById("profileRegion").value.trim(),
+      bio: document.getElementById("profileBio").value.trim()
+    };
+
+    const saveBtn = document.getElementById("saveProfileBtn");
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+    statusEl.textContent = "Saving profile...";
+
+    const { error } = await supabaseClient.auth.updateUser({
+      data: payload
+    });
+
+    if (error) {
+      statusEl.textContent = `Save failed: ${error.message}`;
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Save Profile";
+      return;
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(payload));
+    saved = payload;
+    statusEl.textContent = "Profile saved successfully.";
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save Profile";
+  });
+
+  document.getElementById("resetProfileBtn").addEventListener("click", () => {
+    setForm(saved);
+    statusEl.textContent = "Changes reset.";
+  });
+});
+</script>
+
+</body>
+</html>
+

@@ -28,8 +28,8 @@
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
 
-    <div id="authArea"></div>
   </nav>
+  <div id="authArea" class="header-auth"></div>
 
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
@@ -269,128 +269,17 @@
 </footer>
 </main>
 
-<!-- ================= AUTH MODAL ================= -->
-
-<div id="authModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-
-    <div id="loginForm">
-      <h3>Login</h3>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <button class="btn" onclick="modalLogin()">Login</button>
-      <p onclick="showSignup()" style="cursor:pointer;">Create account</p>
-      <p id="loginMessage"></p>
-    </div>
-
-    <div id="signupForm" style="display:none;">
-      <h3>Sign Up</h3>
-      <input type="email" id="signupEmail" placeholder="Email">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <button class="btn" onclick="modalSignup()">Sign Up</button>
-      <p onclick="showLogin()" style="cursor:pointer;">Already have account?</p>
-      <p id="signupMessage"></p>
-    </div>
-  </div>
-</div>
-
 <!-- ================= SCRIPTS ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
 
 <script>
-const supabaseClient = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-const modal = document.getElementById("authModal");
-const authArea = document.getElementById("authArea");
-
 function toggleMenu() {
   document.body.classList.toggle("nav-open");
 }
 
-function closeModal() {
-  modal.style.display = "none";
-}
-
-function showSignup() {
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "block";
-}
-
-function showLogin() {
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("loginForm").style.display = "block";
-}
-
-async function modalSignup() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  const { error } = await supabaseClient.auth.signUp({
-    email,
-    password
-  });
-
-  document.getElementById("signupMessage").innerText =
-    error ? error.message : "Check your email to confirm.";
-}
-
-async function modalLogin() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    document.getElementById("loginMessage").innerText = error.message;
-  } else {
-    closeModal();
-    updateNavbar();
-  }
-}
-
-async function updateNavbar() {
-  const { data } = await supabaseClient.auth.getUser();
-
-  if (data.user) {
-    let isAdmin = false;
-    const { data: profile } = await supabaseClient
-      .from("profiles")
-      .select("role")
-      .eq("id", data.user.id)
-      .maybeSingle();
-
-    if (profile && profile.role === "admin") {
-      isAdmin = true;
-    }
-
-    authArea.innerHTML = isAdmin
-      ? `
-        <a href="tools/console.html">Console</a>
-        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
-      `
-      : `
-        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
-      `;
-
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await supabaseClient.auth.signOut();
-      window.location.href = "index.html";
-    });
-
-  } else {
-    window.location.href = "index.html";
-  }
-}
-
-updateNavbar();
+protectPage("/index.html");
 
 function preventReloadOnHomeClick(event) {
   const currentPage = window.location.pathname.split("/").pop() || "home.html";

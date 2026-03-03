@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Penetration Testing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hamburger-mode subpage-layout service-detail-page elite-service-page">
+
+<header>
+<h1>
+  <a href="home.html" style="display:flex; align-items:center;">
+    <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+  </a>
+</h1>
+  <nav id="nav-links">
+    <a href="home.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools/">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+  </nav>
+  <div id="authArea" class="header-auth"></div>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero elite-hero">
+  <span class="service-hero-badge">Offensive Security Program</span>
+  <h2>Penetration Testing Module</h2>
+  <p>Model engagement scope, estimate effort, and prioritize findings with a structured risk lens.</p>
+</section>
+
+<section class="service-switcher-wrap">
+  <div class="container service-switcher">
+    <a href="penetration-testing.html" class="active">Penetration Testing</a>
+    <a href="cloud-security.html">Cloud Security</a>
+    <a href="threat-intelligence.html">Threat Intelligence</a>
+  </div>
+</section>
+
+<section>
+  <div class="container elite-grid">
+    <article class="card elite-card">
+      <h3>Engagement Scope Planner</h3>
+      <p>Select in-scope vectors to auto-build an estimate.</p>
+      <div class="check-grid" id="scopeChecklist">
+        <label><input type="checkbox" data-hours="18" data-risk="2"> Web Application</label>
+        <label><input type="checkbox" data-hours="12" data-risk="2"> API Layer</label>
+        <label><input type="checkbox" data-hours="16" data-risk="3"> Mobile Application</label>
+        <label><input type="checkbox" data-hours="14" data-risk="2"> Cloud Configuration</label>
+        <label><input type="checkbox" data-hours="10" data-risk="1"> External Attack Surface</label>
+        <label><input type="checkbox" data-hours="22" data-risk="4"> Social Engineering</label>
+      </div>
+      <button class="btn" onclick="buildScopePlan()">Build Plan</button>
+      <div class="result-panel" id="scopeResult">Select vectors and click Build Plan.</div>
+    </article>
+
+    <article class="card elite-card">
+      <h3>Risk Matrix Scoring</h3>
+      <p>Score severity using likelihood, impact, and exploitability.</p>
+      <div class="field-grid">
+        <label>Likelihood (1-5)
+          <input type="number" id="riskLikelihood" min="1" max="5" value="3">
+        </label>
+        <label>Impact (1-5)
+          <input type="number" id="riskImpact" min="1" max="5" value="3">
+        </label>
+        <label>Exploitability (1-5)
+          <input type="number" id="riskExploit" min="1" max="5" value="3">
+        </label>
+      </div>
+      <button class="btn" onclick="calculateRiskMatrix()">Calculate Priority</button>
+      <div class="result-panel" id="riskResult">Priority score will appear here.</div>
+    </article>
+
+    <article class="card elite-card elite-card-wide">
+      <h3>Remediation Sprint Builder</h3>
+      <p>Generate a sprint sequence from your current risk profile.</p>
+      <div class="field-grid two-col">
+        <label>Critical Findings
+          <input type="number" id="critCount" min="0" value="2">
+        </label>
+        <label>High Findings
+          <input type="number" id="highCount" min="0" value="4">
+        </label>
+        <label>Medium Findings
+          <input type="number" id="medCount" min="0" value="7">
+        </label>
+        <label>Engineering Capacity (tickets/week)
+          <input type="number" id="engCap" min="1" value="8">
+        </label>
+      </div>
+      <button class="btn" onclick="buildRemediationPlan()">Generate Sprint Plan</button>
+      <div class="result-panel" id="sprintResult">Plan output pending.</div>
+    </article>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+<script>
+function toggleMenu() {
+  document.body.classList.toggle("nav-open");
+  document.getElementById("nav-links").classList.toggle("open");
+}
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, Number(v) || min));
+}
+
+function buildScopePlan() {
+  const picks = Array.from(document.querySelectorAll('#scopeChecklist input:checked'));
+  if (!picks.length) {
+    document.getElementById('scopeResult').textContent = 'No vectors selected. Choose at least one scope item.';
+    return;
+  }
+
+  let hours = 0;
+  let riskUnits = 0;
+  const names = [];
+  picks.forEach((item) => {
+    hours += Number(item.dataset.hours);
+    riskUnits += Number(item.dataset.risk);
+    names.push(item.parentElement.textContent.trim());
+  });
+
+  const days = Math.ceil(hours / 6);
+  const intensity = riskUnits >= 14 ? 'High-intensity' : riskUnits >= 9 ? 'Balanced' : 'Focused';
+
+  document.getElementById('scopeResult').innerHTML =
+    `<strong>${intensity} engagement</strong><br>` +
+    `Estimated effort: <strong>${hours}h</strong> (~${days} working days)<br>` +
+    `In scope: ${names.join(', ')}`;
+}
+
+function calculateRiskMatrix() {
+  const l = clamp(document.getElementById('riskLikelihood').value, 1, 5);
+  const i = clamp(document.getElementById('riskImpact').value, 1, 5);
+  const e = clamp(document.getElementById('riskExploit').value, 1, 5);
+  const score = l * i * e;
+
+  let rating = 'Low';
+  let sla = 'Remediate in 21 days';
+  if (score >= 70) {
+    rating = 'Critical';
+    sla = 'Remediate in 24 hours';
+  } else if (score >= 40) {
+    rating = 'High';
+    sla = 'Remediate in 72 hours';
+  } else if (score >= 20) {
+    rating = 'Medium';
+    sla = 'Remediate in 10 days';
+  }
+
+  document.getElementById('riskResult').innerHTML =
+    `Score: <strong>${score}</strong> | Rating: <strong>${rating}</strong><br>${sla}`;
+}
+
+function buildRemediationPlan() {
+  const crit = Math.max(0, Number(document.getElementById('critCount').value) || 0);
+  const high = Math.max(0, Number(document.getElementById('highCount').value) || 0);
+  const med = Math.max(0, Number(document.getElementById('medCount').value) || 0);
+  const cap = Math.max(1, Number(document.getElementById('engCap').value) || 1);
+
+  const totalWeighted = (crit * 3) + (high * 2) + med;
+  const weeks = Math.ceil(totalWeighted / cap);
+
+  document.getElementById('sprintResult').innerHTML =
+    `<strong>Estimated delivery:</strong> ${weeks} week(s)<br>` +
+    `Sprint order: Critical (${crit}) -> High (${high}) -> Medium (${med})<br>` +
+    `Recommendation: Reserve first sprint for perimeter and auth-path issues.`;
+}
+</script>
+
+</body>
+</html>

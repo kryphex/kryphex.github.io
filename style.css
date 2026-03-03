@@ -1,4 +1,4 @@
-/* =========================================================
+﻿/* =========================================================
    KRY PHEX GLOBAL STYLES
    ========================================================= */
 
@@ -421,7 +421,7 @@ body {
   padding: 120px 40px;
 
   display: flex;
-  flex-direction: column;   /* 🔥 IMPORTANT */
+  flex-direction: column;   /* ðŸ”¥ IMPORTANT */
   align-items: flex-start;  /* stack left */
 
   transition: 0.4s ease;
@@ -1670,6 +1670,9 @@ footer {
 
 body.hamburger-mode .menu-toggle {
   display: block !important;
+  border: 0;
+  background: transparent;
+  color: #0f172a;
   font-size: 30px;
   line-height: 1;
   padding: 4px 10px;
@@ -1680,6 +1683,25 @@ body.hamburger-mode .menu-toggle {
 body.hamburger-mode .menu-toggle:hover {
   background: rgba(29, 78, 216, 0.1);
   transform: translateY(-1px);
+}
+
+body.hamburger-mode .header-auth {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+body.hamburger-mode .header-auth a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1d4ed8;
+  border: 1px solid #dbe6f5;
+  background: #f8fbff;
+  border-radius: 10px;
+  padding: 8px 12px;
 }
 
 body.hamburger-mode #nav-links {
@@ -1733,9 +1755,692 @@ body.hamburger-mode #nav-links.open {
   transform: translate(-50%, 0) scale(1);
 }
 
+
+body.tools-page-vertical.hamburger-mode #nav-links {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: min(94vw, 420px);
+}
+
+body.tools-page-vertical.hamburger-mode #nav-links a,
+body.tools-page-vertical.hamburger-mode #nav-links #authArea a {
+  width: 100%;
+  text-align: left;
+}
+
 @media (max-width: 900px) {
   body.hamburger-mode #nav-links {
     width: min(94vw, 560px);
     justify-content: flex-start;
+  }
+}
+
+/* ================= SUBPAGE ALIGNMENT ================= */
+
+body.subpage-layout section {
+  padding: 88px 24px;
+}
+
+body.subpage-layout .hero {
+  padding: 170px 24px 110px;
+}
+
+body.subpage-layout .hero h2 {
+  max-width: 920px;
+  margin: 0 auto 14px;
+}
+
+body.subpage-layout .hero p {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+body.subpage-layout .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+body.subpage-layout .container.tools-grid {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+body.subpage-layout .card {
+  max-width: 900px;
+  margin: 0 auto 22px;
+}
+
+body.subpage-layout .card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+body.subpage-layout .card p {
+  margin-bottom: 0;
+}
+
+body.subpage-layout .cta-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+body.subpage-layout .cta-row .btn,
+body.subpage-layout .cta-row .btn-outline {
+  margin-top: 0;
+  min-width: 210px;
+}
+
+body.subpage-layout .tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  body.subpage-layout .tools-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+}
+
+body.subpage-layout .tools-grid .card {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  min-height: 230px;
+  padding: 34px 30px 26px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.subpage-layout .tools-grid .card h3 {
+  margin: 0 auto;
+  max-width: 20ch;
+  text-align: center;
+  line-height: 1.35;
+}
+
+body.subpage-layout .tools-grid .card .btn {
+  margin-top: auto;
+  align-self: center;
+  min-width: 148px;
+  padding: 12px 22px;
+  border-radius: 12px;
+}
+
+body.subpage-layout .consultation-card .btn {
+  display: block;
+  margin: 14px auto 0;
+  min-width: 240px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================= SERVICES CENTER ALIGN ================= */
+
+body.services-page .services-grid {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+body.services-page .service-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 34px 28px;
+}
+
+body.services-page .service-card h3 {
+  margin: 0 0 10px;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.12;
+}
+
+body.services-page .service-card p {
+  margin: 0;
+  font-size: 18px;
+}
+
+body.services-page .service-card .btn {
+  margin-top: 20px;
+}
+
+/* ================= SERVICE DETAIL PAGES ================= */
+
+body.service-detail-page .service-detail-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+body.service-detail-page .service-tool-card {
+  padding: 30px;
+}
+
+body.service-detail-page .service-tool-card h3,
+body.service-detail-page .service-tool-card p {
+  text-align: center;
+}
+
+body.service-detail-page .service-checklist {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 10px;
+}
+
+body.service-detail-page .service-checklist label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #dbe6f5;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+body.service-detail-page .service-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0 10px;
+}
+
+body.service-detail-page .service-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+}
+
+body.service-detail-page .service-fields input,
+body.service-detail-page #iocInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d7e1ef;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+body.service-detail-page #iocInput {
+  margin: 16px 0 8px;
+  resize: vertical;
+}
+
+body.service-detail-page .service-tool-card .btn {
+  display: block;
+  margin: 16px auto 0;
+}
+
+body.service-detail-page .service-result {
+  margin-top: 14px;
+  text-align: center;
+  font-weight: 700;
+  color: #0b2a66;
+}
+
+@media (max-width: 800px) {
+  body.service-detail-page .service-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= SERVICES LAYOUT (MATCH REFERENCE) ================= */
+body.services-page section {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+body.services-page .services-grid {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+
+body.services-page .services-grid .service-card {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  min-height: 230px;
+  padding: 34px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+body.services-page .services-grid .service-card h3 {
+  margin: 0 0 10px;
+  font-size: clamp(44px, 5vw, 62px);
+  line-height: 1.08;
+}
+
+body.services-page .services-grid .service-card p {
+  margin: 0;
+  font-size: 18px;
+}
+
+body.services-page .services-grid .service-card .btn {
+  margin-top: 20px;
+  align-self: center;
+}
+
+@media (max-width: 900px) {
+  body.services-page .services-grid {
+    gap: 26px;
+  }
+
+  body.services-page .services-grid .service-card {
+    width: min(100%, 620px);
+    min-height: 200px;
+  }
+
+  body.services-page .services-grid .service-card h3 {
+    font-size: clamp(34px, 8vw, 48px);
+  }
+}
+
+/* ================= SERVICE MODULE SWITCHER ================= */
+body.service-detail-page .service-switcher-wrap {
+  padding-top: 18px;
+  padding-bottom: 8px;
+}
+
+body.service-detail-page .service-switcher {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+body.service-detail-page .service-switcher a {
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #dbe6f5;
+  background: #f8fbff;
+  color: #0b2a66;
+  font-weight: 600;
+}
+
+body.service-detail-page .service-switcher a.active {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+/* ================= ELITE SERVICE MODULES ================= */
+body.elite-service-page {
+  background: radial-gradient(circle at 10% 0%, #ecf3ff 0%, #f5f8fd 55%, #ffffff 100%);
+}
+
+body.elite-service-page .elite-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+body.elite-service-page .elite-hero::after {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  right: -120px;
+  top: -130px;
+  background: radial-gradient(circle, rgba(92, 143, 255, 0.3), transparent 68%);
+}
+
+body.elite-service-page .service-hero-badge {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+body.elite-service-page .elite-grid {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+body.elite-service-page .elite-card {
+  margin: 0;
+  max-width: none;
+  min-height: 360px;
+  padding: 28px;
+  border: 1px solid #d7e5fb;
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(9, 37, 84, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+}
+
+body.elite-service-page .elite-card h3 {
+  margin: 0;
+  color: #0b2a66;
+  font-size: 30px;
+  line-height: 1.14;
+}
+
+body.elite-service-page .elite-card p {
+  margin: 0;
+  color: #1e293b;
+}
+
+body.elite-service-page .elite-card .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+body.elite-service-page .elite-card-wide {
+  grid-column: 1 / -1;
+  min-height: 300px;
+}
+
+body.elite-service-page .field-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+body.elite-service-page .field-grid.two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body.elite-service-page .field-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: 600;
+  color: #0f274f;
+}
+
+body.elite-service-page input,
+body.elite-service-page select,
+body.elite-service-page textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d3e1f7;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+body.elite-service-page textarea {
+  resize: vertical;
+}
+
+body.elite-service-page .check-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body.elite-service-page .check-grid label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dbe6f5;
+  background: #f8fbff;
+  font-weight: 600;
+}
+
+body.elite-service-page .result-panel {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #d7e5fb;
+  background: #f3f8ff;
+  color: #0f274f;
+  line-height: 1.55;
+}
+
+@media (max-width: 980px) {
+  body.elite-service-page .elite-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.elite-service-page .elite-card-wide {
+    grid-column: auto;
+  }
+
+  body.elite-service-page .field-grid.two-col,
+  body.elite-service-page .check-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= PROFILE PAGE ================= */
+body.profile-page .profile-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+body.profile-page .profile-card {
+  margin: 0;
+  max-width: none;
+  padding: 28px;
+}
+
+body.profile-page .profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+body.profile-page label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+  color: #0f274f;
+}
+
+body.profile-page input,
+body.profile-page textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #d3e1f7;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+body.profile-page input[readonly] {
+  background: #f7fbff;
+  color: #475569;
+}
+
+body.profile-page .profile-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+body.profile-page .profile-actions .btn,
+body.profile-page .profile-actions .btn-outline {
+  margin-top: 0;
+  min-width: 170px;
+}
+
+body.profile-page .profile-status {
+  margin-top: 14px;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+@media (max-width: 760px) {
+  body.profile-page .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= AUTH PROFILE DROPDOWN ================= */
+#authArea .auth-profile-menu {
+  position: relative;
+}
+
+#authArea .auth-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #dbe6f5;
+  background: #f8fbff;
+  color: #0b2a66;
+  border-radius: 12px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+#authArea .auth-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: #1d4ed8;
+  color: #fff;
+}
+
+#authArea .auth-avatar.large {
+  width: 42px;
+  height: 42px;
+  font-size: 14px;
+}
+
+#authArea .auth-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+#authArea .auth-identity strong {
+  font-size: 13px;
+  color: #0b2a66;
+}
+
+#authArea .auth-identity small {
+  font-size: 11px;
+  color: #475569;
+}
+
+#authArea .auth-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(90vw, 340px);
+  background: #fff;
+  border: 1px solid #dbe6f5;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+  padding: 12px;
+  z-index: 2200;
+  display: none;
+}
+
+#authArea .auth-dropdown.open {
+  display: block;
+}
+
+#authArea .auth-dropdown-head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6edf8;
+}
+
+#authArea .auth-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b2a66;
+}
+
+#authArea .auth-sub {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+#authArea .auth-action {
+  width: 100%;
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  border: 1px solid #dbe6f5;
+  background: #f8fbff;
+  color: #0b2a66;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#authArea .auth-action:hover {
+  background: #eef5ff;
+}
+
+#authArea .auth-action.danger {
+  color: #b91c1c;
+  border-color: #f3d1d1;
+  background: #fff6f6;
+}
+
+@media (max-width: 900px) {
+  #authArea .auth-identity {
+    display: none;
   }
 }

@@ -30,6 +30,15 @@ async function protectPage(redirectPath = "/index.html") {
   }
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 async function updateAuthArea() {
   const authArea = document.getElementById("authArea");
   if (!authArea) return;
@@ -37,27 +46,88 @@ async function updateAuthArea() {
   const user = await getCurrentUser();
 
   if (user) {
-    let isAdmin = false;
-    const { data: profile } = await supabaseClient
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .maybeSingle();
+    const profileStoreKey = `kryphex_profile_${user.id}`;
+    let localProfile = {};
+    try {
+      const raw = localStorage.getItem(profileStoreKey);
+      localProfile = raw ? JSON.parse(raw) : {};
+    } catch {
+      localProfile = {};
+    }
+    const remoteMeta = user.user_metadata || {};
 
-    if (profile && profile.role === "admin") {
-      isAdmin = true;
+    const displayName = (remoteMeta.name || localProfile.name || user.email || "User").trim();
+    const baseRole = (remoteMeta.role || localProfile.role || "Security Member").trim();
+    const displayCompany = (remoteMeta.company || localProfile.company || "Kryphex").trim();
+    const safeName = escapeHtml(displayName);
+    const safeRole = escapeHtml(displayRole);
+    const safeCompany = escapeHtml(displayCompany);
+    const initials = (displayName.match(/\b\w/g) || [])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || "U";
+
+    let isAdmin = false;
+    try {
+      const { data: profile, error: roleError } = await supabaseClient
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (!roleError) {
+        const role = (profile?.role || "").toString().trim().toLowerCase();
+        isAdmin = role === "admin";
+      }
+    } catch {
+      isAdmin = false;
+    }
+    const displayRole = isAdmin ? "Founder/C.E.O" : baseRole;
+
+    authArea.innerHTML = `
+      <div class="auth-profile-menu" id="authProfileMenu">
+        <button class="auth-profile-trigger" id="authProfileTrigger" type="button" aria-label="Open profile menu" aria-expanded="false">
+          <span class="auth-avatar">${initials}</span>
+          <span class="auth-identity">
+            <strong>${safeName}</strong>
+            <small>${safeCompany}</small>
+          </span>
+        </button>
+        <div class="auth-dropdown" id="authDropdown">
+          <div class="auth-dropdown-head">
+            <div class="auth-avatar large">${initials}</div>
+            <div>
+              <p class="auth-name">${safeName}</p>
+              <p class="auth-sub">${safeRole} | ${safeCompany}</p>
+            </div>
+          </div>
+          <a href="/profile.html" class="auth-action">View Profile</a>
+          ${isAdmin ? '<a href="/tools/console.html" class="auth-action">Console</a>' : ""}
+          <button class="auth-action danger" id="logoutBtn" type="button">Log Out</button>
+        </div>
+      </div>
+    `;
+
+    const menu = document.getElementById("authProfileMenu");
+    const trigger = document.getElementById("authProfileTrigger");
+    const dropdown = document.getElementById("authDropdown");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (trigger && dropdown) {
+      trigger.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = dropdown.classList.toggle("open");
+        trigger.setAttribute("aria-expanded", String(isOpen));
+      });
     }
 
-    authArea.innerHTML = isAdmin
-      ? `
-        <a href="/tools/console.html">Console</a>
-        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
-      `
-      : `
-        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
-      `;
+    document.addEventListener("click", (event) => {
+      if (!menu || !dropdown || !trigger) return;
+      if (menu.contains(event.target)) return;
+      dropdown.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+    });
 
-    const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
       logoutBtn.addEventListener("click", async () => {
         await supabaseClient.auth.signOut();

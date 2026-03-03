@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Threat Intelligence</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hamburger-mode subpage-layout service-detail-page elite-service-page">
+
+<header>
+<h1>
+  <a href="home.html" style="display:flex; align-items:center;">
+    <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+  </a>
+</h1>
+  <nav id="nav-links">
+    <a href="home.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools/">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+  </nav>
+  <div id="authArea" class="header-auth"></div>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero elite-hero">
+  <span class="service-hero-badge">Monitoring & Threat Ops</span>
+  <h2>Threat Intelligence Module</h2>
+  <p>Classify indicators, calculate response priority, and draft a focused hunt strategy.</p>
+</section>
+
+<section class="service-switcher-wrap">
+  <div class="container service-switcher">
+    <a href="penetration-testing.html">Penetration Testing</a>
+    <a href="cloud-security.html">Cloud Security</a>
+    <a href="threat-intelligence.html" class="active">Threat Intelligence</a>
+  </div>
+</section>
+
+<section>
+  <div class="container elite-grid">
+    <article class="card elite-card">
+      <h3>IOC Classifier Plus</h3>
+      <p>Paste one indicator per line and classify in one click.</p>
+      <textarea id="iocInput" rows="9" placeholder="8.8.8.8&#10;https://example.com/login&#10;44d88612fea8a8f36de82e1278abb02f"></textarea>
+      <button class="btn" onclick="classifyIocs()">Analyze Indicators</button>
+      <div class="result-panel" id="iocResult">IPs: 0 | URLs: 0 | Domains: 0 | Hashes: 0 | Unknown: 0</div>
+    </article>
+
+    <article class="card elite-card">
+      <h3>Incident Priority Engine</h3>
+      <p>Compute severity from confidence, criticality, and spread.</p>
+      <div class="field-grid">
+        <label>Detection Confidence (0-100)
+          <input type="number" id="confidence" min="0" max="100" value="70">
+        </label>
+        <label>Business Criticality (1-5)
+          <input type="number" id="criticality" min="1" max="5" value="4">
+        </label>
+        <label>Spread (hosts affected)
+          <input type="number" id="spread" min="1" value="12">
+        </label>
+      </div>
+      <button class="btn" onclick="computeIncidentPriority()">Compute Priority</button>
+      <div class="result-panel" id="priorityResult">Priority result pending.</div>
+    </article>
+
+    <article class="card elite-card elite-card-wide">
+      <h3>Hunt Query Planner</h3>
+      <p>Select telemetry and tactic to generate a practical hunting direction.</p>
+      <div class="check-grid" id="telemetryChecks">
+        <label><input type="checkbox" value="EDR"> EDR Telemetry</label>
+        <label><input type="checkbox" value="DNS"> DNS Logs</label>
+        <label><input type="checkbox" value="Proxy"> Proxy Logs</label>
+        <label><input type="checkbox" value="Email"> Email Gateway Logs</label>
+      </div>
+      <div class="field-grid">
+        <label>Tactic Focus
+          <select id="huntTactic">
+            <option>Credential Access</option>
+            <option>Command & Control</option>
+            <option>Persistence</option>
+            <option>Lateral Movement</option>
+          </select>
+        </label>
+      </div>
+      <button class="btn" onclick="generateHuntPlan()">Generate Hunt Plan</button>
+      <div class="result-panel" id="huntResult">Hunt plan output pending.</div>
+    </article>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+<script>
+function toggleMenu() {
+  document.body.classList.toggle("nav-open");
+  document.getElementById("nav-links").classList.toggle("open");
+}
+
+function classifyIocs() {
+  const lines = document.getElementById('iocInput').value
+    .split(/\r?\n/)
+    .map((v) => v.trim())
+    .filter(Boolean);
+
+  let ips = 0;
+  let urls = 0;
+  let domains = 0;
+  let hashes = 0;
+  let unknown = 0;
+
+  const ipPattern = /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
+  const urlPattern = /^https?:\/\//i;
+  const domainPattern = /^(?!-)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
+  const hashPattern = /^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/;
+
+  lines.forEach((line) => {
+    if (ipPattern.test(line)) ips += 1;
+    else if (urlPattern.test(line)) urls += 1;
+    else if (hashPattern.test(line)) hashes += 1;
+    else if (domainPattern.test(line)) domains += 1;
+    else unknown += 1;
+  });
+
+  document.getElementById('iocResult').textContent =
+    `IPs: ${ips} | URLs: ${urls} | Domains: ${domains} | Hashes: ${hashes} | Unknown: ${unknown}`;
+}
+
+function computeIncidentPriority() {
+  const conf = Math.max(0, Math.min(100, Number(document.getElementById('confidence').value) || 0));
+  const crit = Math.max(1, Math.min(5, Number(document.getElementById('criticality').value) || 1));
+  const spread = Math.max(1, Number(document.getElementById('spread').value) || 1);
+
+  const spreadScore = Math.min(5, Math.ceil(spread / 10));
+  const score = Math.round((conf / 20) + (crit * 2) + (spreadScore * 2));
+
+  let tier = 'Low';
+  let action = 'Queue for next analyst cycle.';
+  if (score >= 18) {
+    tier = 'Critical';
+    action = 'Escalate now, isolate impacted hosts, open incident bridge.';
+  } else if (score >= 13) {
+    tier = 'High';
+    action = 'Escalate to SOC lead and begin containment within 1 hour.';
+  } else if (score >= 9) {
+    tier = 'Medium';
+    action = 'Validate telemetry and prepare scoped containment.';
+  }
+
+  document.getElementById('priorityResult').innerHTML =
+    `Priority Score: <strong>${score}</strong> (${tier})<br>${action}`;
+}
+
+function generateHuntPlan() {
+  const sources = Array.from(document.querySelectorAll('#telemetryChecks input:checked')).map((i) => i.value);
+  const tactic = document.getElementById('huntTactic').value;
+
+  if (!sources.length) {
+    document.getElementById('huntResult').textContent = 'Select at least one telemetry source.';
+    return;
+  }
+
+  document.getElementById('huntResult').innerHTML =
+    `<strong>Tactic:</strong> ${tactic}<br>` +
+    `<strong>Telemetry:</strong> ${sources.join(', ')}<br>` +
+    `Query direction: filter high-risk entities, pivot by uncommon process lineage, and cluster by repeated external destinations.`;
+}
+</script>
+
+</body>
+</html>

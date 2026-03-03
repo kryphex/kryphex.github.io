@@ -75,7 +75,7 @@
   </style>
 </head>
 
-<body class="hamburger-mode">
+<body class="hamburger-mode subpage-layout">
 
 <header>
   <h1>
@@ -91,8 +91,8 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html" class="active">Consultation</a>
-    <div id="authArea"></div>
   </nav>
+  <div id="authArea" class="header-auth"></div>
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
@@ -187,6 +187,7 @@ function toggleMenu() {
   const nav = document.getElementById("nav-links");
   const isOpen = body.classList.toggle("nav-open");
   nav.classList.toggle("open", isOpen);
+  nav.style.display = isOpen ? "flex" : "none";
 
   nav.style.opacity = isOpen ? "1" : "0";
   nav.style.visibility = isOpen ? "visible" : "hidden";
@@ -208,10 +209,18 @@ document.addEventListener("click", (event) => {
   if (isOpen && !clickedInsideNav && !clickedToggle) {
     document.body.classList.remove("nav-open");
     nav.classList.remove("open");
+    nav.style.display = "none";
     nav.style.opacity = "0";
     nav.style.visibility = "hidden";
     nav.style.pointerEvents = "none";
     nav.style.transform = "translate(-50%, -20px) scale(0.98)";
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.getElementById("nav-links");
+  if (nav) {
+    nav.style.display = "none";
   }
 });
 
@@ -240,6 +249,7 @@ async function submitConsultation() {
   const user = userData.user;
 
   const fullName = document.getElementById("fullName").value;
+  const email = document.getElementById("email").value;
   const company = document.getElementById("company").value;
   const service = document.getElementById("service").value;
   const message = document.getElementById("message").value;
@@ -287,4 +297,5 @@ function openCalendlyScheduler(fullName, email, service) {
 
 </body>
 </html>
+
 

@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Cloud Security</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hamburger-mode subpage-layout service-detail-page elite-service-page">
+
+<header>
+<h1>
+  <a href="home.html" style="display:flex; align-items:center;">
+    <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+  </a>
+</h1>
+  <nav id="nav-links">
+    <a href="home.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools/">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+  </nav>
+  <div id="authArea" class="header-auth"></div>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="hero elite-hero">
+  <span class="service-hero-badge">Cloud Governance & Hardening</span>
+  <h2>Cloud Security Module</h2>
+  <p>Measure maturity, simulate exposure, and generate a practical zero-trust rollout path.</p>
+</section>
+
+<section class="service-switcher-wrap">
+  <div class="container service-switcher">
+    <a href="penetration-testing.html">Penetration Testing</a>
+    <a href="cloud-security.html" class="active">Cloud Security</a>
+    <a href="threat-intelligence.html">Threat Intelligence</a>
+  </div>
+</section>
+
+<section>
+  <div class="container elite-grid">
+    <article class="card elite-card">
+      <h3>Posture Benchmark</h3>
+      <p>Set provider and score core control domains.</p>
+      <div class="field-grid two-col">
+        <label>Provider
+          <select id="cloudProvider">
+            <option>AWS</option>
+            <option>Azure</option>
+            <option>GCP</option>
+            <option>Hybrid</option>
+          </select>
+        </label>
+        <label>Identity & Access (0-5)
+          <input type="number" id="iamScore" min="0" max="5" value="3">
+        </label>
+        <label>Network Segmentation (0-5)
+          <input type="number" id="netScore" min="0" max="5" value="2">
+        </label>
+        <label>Encryption & Key Mgmt (0-5)
+          <input type="number" id="encScore" min="0" max="5" value="3">
+        </label>
+        <label>Monitoring & SIEM (0-5)
+          <input type="number" id="monScore" min="0" max="5" value="2">
+        </label>
+        <label>Backup/Recovery (0-5)
+          <input type="number" id="bcpScore" min="0" max="5" value="2">
+        </label>
+      </div>
+      <button class="btn" onclick="calculateCloudPosture()">Run Benchmark</button>
+      <div class="result-panel" id="cloudPostureResult">Benchmark output pending.</div>
+    </article>
+
+    <article class="card elite-card">
+      <h3>Misconfiguration Simulator</h3>
+      <p>Model impact for common cloud control failures.</p>
+      <div class="field-grid">
+        <label>Scenario
+          <select id="misconfigScenario">
+            <option value="storage">Public storage bucket with sensitive data</option>
+            <option value="iam">Wildcard IAM permissions on admin role</option>
+            <option value="network">Management port open to internet</option>
+            <option value="keys">Unrotated access keys older than 180 days</option>
+          </select>
+        </label>
+      </div>
+      <button class="btn" onclick="simulateMisconfig()">Simulate Exposure</button>
+      <div class="result-panel" id="misconfigResult">Simulation details will appear here.</div>
+    </article>
+
+    <article class="card elite-card elite-card-wide">
+      <h3>Zero-Trust Rollout Planner</h3>
+      <p>Generate phased rollout estimates using organization profile.</p>
+      <div class="field-grid two-col">
+        <label>Employees
+          <input type="number" id="orgUsers" min="10" value="350">
+        </label>
+        <label>Cloud Accounts / Subscriptions
+          <input type="number" id="cloudAccounts" min="1" value="8">
+        </label>
+        <label>Business-Critical Apps
+          <input type="number" id="criticalApps" min="1" value="12">
+        </label>
+        <label>Security Engineers Available
+          <input type="number" id="secEngineers" min="1" value="5">
+        </label>
+      </div>
+      <button class="btn" onclick="buildCloudRoadmap()">Build Roadmap</button>
+      <div class="result-panel" id="cloudRoadmapResult">Roadmap output pending.</div>
+    </article>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+<script>
+function toggleMenu() {
+  document.body.classList.toggle("nav-open");
+  document.getElementById("nav-links").classList.toggle("open");
+}
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, Number(v) || min));
+}
+
+function calculateCloudPosture() {
+  const provider = document.getElementById('cloudProvider').value;
+  const scores = [
+    clamp(document.getElementById('iamScore').value, 0, 5),
+    clamp(document.getElementById('netScore').value, 0, 5),
+    clamp(document.getElementById('encScore').value, 0, 5),
+    clamp(document.getElementById('monScore').value, 0, 5),
+    clamp(document.getElementById('bcpScore').value, 0, 5)
+  ];
+
+  const total = scores.reduce((sum, n) => sum + n, 0);
+  const pct = Math.round((total / 25) * 100);
+  const tier = pct >= 80 ? 'Advanced' : pct >= 55 ? 'Managed' : pct >= 35 ? 'Developing' : 'Initial';
+
+  document.getElementById('cloudPostureResult').innerHTML =
+    `Provider: <strong>${provider}</strong><br>` +
+    `Posture Score: <strong>${pct}%</strong> (${tier})<br>` +
+    `Next action: Prioritize domains scoring 2 or below for immediate hardening.`;
+}
+
+function simulateMisconfig() {
+  const scenario = document.getElementById('misconfigScenario').value;
+  let response = '';
+
+  if (scenario === 'storage') {
+    response = 'Blast radius: broad data exposure. Fix: block public ACLs, enforce bucket policy, enable access logging.';
+  } else if (scenario === 'iam') {
+    response = 'Blast radius: privilege escalation to full tenant control. Fix: replace wildcard actions, enforce least privilege.';
+  } else if (scenario === 'network') {
+    response = 'Blast radius: remote exploit path into management plane. Fix: restrict source CIDR, enforce VPN/bastion.';
+  } else {
+    response = 'Blast radius: credential replay and persistent unauthorized access. Fix: rotate keys, move to short-lived tokens.';
+  }
+
+  document.getElementById('misconfigResult').textContent = response;
+}
+
+function buildCloudRoadmap() {
+  const users = Math.max(10, Number(document.getElementById('orgUsers').value) || 10);
+  const accounts = Math.max(1, Number(document.getElementById('cloudAccounts').value) || 1);
+  const apps = Math.max(1, Number(document.getElementById('criticalApps').value) || 1);
+  const engineers = Math.max(1, Number(document.getElementById('secEngineers').value) || 1);
+
+  const complexity = Math.ceil((users / 200) + (accounts / 2) + (apps / 6));
+  const weeks = Math.ceil(complexity / engineers) + 4;
+
+  document.getElementById('cloudRoadmapResult').innerHTML =
+    `<strong>Estimated rollout:</strong> ${weeks} week(s)<br>` +
+    `Phase 1 (Weeks 1-2): IAM baselining + MFA enforcement<br>` +
+    `Phase 2 (Weeks 3-${Math.max(4, weeks - 2)}): segmentation + workload identity<br>` +
+    `Phase 3 (Final 2 weeks): policy automation + continuous verification`;
+}
+</script>
+
+</body>
+</html>

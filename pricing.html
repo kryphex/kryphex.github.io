@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="subpage-layout">
 
 <header>
   <h1>
@@ -21,7 +21,7 @@
     <a href="pricing.html" class="active">Pricing</a>
     <a href="home.html">Home</a>
   </nav>
-  <div id="authArea"></div>
+  <div id="authArea" class="header-auth"></div>
 </header>
 
 <section class="hero">
@@ -34,35 +34,20 @@
     <div class="card">
       <h3>Enterprise Consultation</h3>
       <p>Starting from Rs 2,999 for an initial structured consultation and scoping session.</p>
-      <button class="btn" onclick="window.location.href='consultation.html'">Book Consultation</button>
+      <div class="cta-row">
+        <button class="btn" onclick="window.location.href='consultation.html'">Book Consultation</button>
+      </div>
     </div>
   </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
 <script>
-const pageSupabase = supabase.createClient(
-  "https://xvtnnszvfbirixppbdtl.supabase.co",
-  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
-);
-
-async function enforceAuth() {
-  const { data } = await pageSupabase.auth.getUser();
-  if (!data.user) {
-    window.location.href = "auth/login.html";
-    return;
-  }
-
-  const authArea = document.getElementById("authArea");
-  authArea.innerHTML = '<a href="javascript:void(0)" id="logoutBtn" class="btn-nav">Logout</a>';
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
-    await pageSupabase.auth.signOut();
-    window.location.href = "index.html";
-  });
-}
-
-enforceAuth();
+protectPage("/auth/login.html");
 </script>
 
 </body>
 </html>
+
+

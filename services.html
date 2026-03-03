@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="hamburger-mode">
+<body class="hamburger-mode subpage-layout services-page">
 
 <header>
 <h1>
@@ -22,31 +22,35 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
-    <div id="authArea"></div>
   </nav>
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <div id="authArea" class="header-auth"></div>
+  <button id="menuToggleBtn" class="menu-toggle" type="button" aria-label="Toggle navigation menu">☰</button>
 </header>
 
 <section class="hero">
   <h2>Enterprise Security Services</h2>
+  <p>Choose a service module to explore workflows and readiness actions.</p>
 </section>
 
 <section>
-  <div class="container">
-    <div class="card">
+  <div class="container services-grid">
+    <article class="card service-card">
       <h3>Penetration Testing</h3>
       <p>OWASP-aligned structured testing methodology.</p>
-    </div>
+      <button class="btn" onclick="location.href='penetration-testing.html'">Open Module</button>
+    </article>
 
-    <div class="card">
+    <article class="card service-card">
       <h3>Cloud Security</h3>
       <p>Zero-trust infrastructure implementation.</p>
-    </div>
+      <button class="btn" onclick="location.href='cloud-security.html'">Open Module</button>
+    </article>
 
-    <div class="card">
+    <article class="card service-card">
       <h3>Threat Intelligence</h3>
       <p>Behavioral detection and monitoring systems.</p>
-    </div>
+      <button class="btn" onclick="location.href='threat-intelligence.html'">Open Module</button>
+    </article>
   </div>
 </section>
 
@@ -54,9 +58,41 @@
 <script src="js/auth.js"></script>
 <script>
 function toggleMenu() {
-  document.body.classList.toggle("nav-open");
-  document.getElementById("nav-links").classList.toggle("open");
+  const navLinks = document.getElementById("nav-links");
+  const shouldOpen = !document.body.classList.contains("nav-open");
+  document.body.classList.toggle("nav-open", shouldOpen);
+  if (navLinks) {
+    navLinks.classList.toggle("open", shouldOpen);
+  }
 }
+
+window.toggleMenu = toggleMenu;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector("header");
+  const navLinks = document.getElementById("nav-links");
+  const toggleBtn = document.getElementById("menuToggleBtn");
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", toggleMenu);
+  }
+
+  if (navLinks) {
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.body.classList.remove("nav-open");
+        navLinks.classList.remove("open");
+      });
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    if (!document.body.classList.contains("nav-open")) return;
+    if (!header || header.contains(event.target)) return;
+    document.body.classList.remove("nav-open");
+    if (navLinks) navLinks.classList.remove("open");
+  });
+});
 </script>
 
 </body>

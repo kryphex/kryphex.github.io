@@ -1,18 +1,30 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>Kryphex | Security Tools</title>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="hamburger-mode subpage-layout tools-page-vertical">
 
 <header>
 <h1>
-  <a href="index.html" style="display:flex; align-items:center;">
+  <a href="home.html" style="display:flex; align-items:center;">
     <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
   </a>
 </h1>
+  <nav id="nav-links">
+    <a href="home.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools.html" class="active">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html">Consultation</a>
+    <div id="authArea" class="header-auth"></div>
+  </nav>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
 <section class="hero">
@@ -44,7 +56,17 @@ document.getElementById("passwordInput").addEventListener("input", function() {
   document.getElementById("strengthResult").innerText =
     value.length === 0 ? "" : "Strength: " + levels[score - 1];
 });
+
+function toggleMenu() {
+  document.body.classList.toggle("nav-open");
+  document.getElementById("nav-links").classList.toggle("open");
+}
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js?v=3"></script>
 
 </body>
 </html>
+
+
