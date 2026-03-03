@@ -109,7 +109,7 @@
 
     <div class="consultation-card">
 
-      <form onsubmit="event.preventDefault(); submitConsultation();">
+      <form id="consultationForm">
 
         <div class="form-row">
           <input id="fullName" type="text" placeholder="Full Name" required>
@@ -134,6 +134,8 @@
         <button type="submit" class="btn">
           Schedule Consultation
         </button>
+
+        <p id="consultationStatus" class="consultation-note" style="margin-top:12px;"></p>
 
       </form>
 
@@ -230,15 +232,20 @@ const supabaseClient = supabase.createClient(
 );
 
 async function submitConsultation() {
+  const statusEl = document.getElementById("consultationStatus");
   const submitBtn = document.querySelector("button[type='submit']");
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.textContent = "Scheduling...";
   }
+  if (statusEl) statusEl.textContent = "Saving consultation request...";
   const { data: userData } = await supabaseClient.auth.getUser();
 
   if (!userData || !userData.user) {
-    alert("You must be logged in first.");
+    if (statusEl) statusEl.textContent = "Please login first. Redirecting to login...";
+    setTimeout(() => {
+      window.location.href = "auth/login.html?redirect=consultation.html";
+    }, 500);
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.textContent = "Schedule Consultation";
@@ -251,47 +258,95 @@ async function submitConsultation() {
   const fullName = document.getElementById("fullName").value;
   const email = document.getElementById("email").value;
   const company = document.getElementById("company").value;
+  const industry = document.getElementById("industry").value;
   const service = document.getElementById("service").value;
   const message = document.getElementById("message").value;
 
-  const { error } = await supabaseClient
-    .from("consultations")
-    .insert([
-      {
-        user_id: user.id,
-        full_name: fullName,
-        company: company,
-        service: service,
-        message: message,
-        status: "Pending"
-      }
-    ]);
+  if (!fullName || !email || !service) {
+    if (statusEl) statusEl.textContent = "Full Name, Work Email, and Service are required.";
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Schedule Consultation";
+    }
+    return;
+  }
 
-  if (error) {
-    alert("Error: " + error.message);
+  const payloadFull = {
+    user_id: user.id,
+    full_name: fullName,
+    email: email,
+    company: company,
+    industry: industry,
+    service: service,
+    message: message,
+    status: "Pending"
+  };
+
+  const payloadBase = {
+    user_id: user.id,
+    full_name: fullName,
+    company: company,
+    service: service,
+    message: message,
+    status: "Pending"
+  };
+
+  let insertError = null;
+  let insertData = null;
+
+  // Try full payload first; fallback if schema doesn't include email/industry.
+  let insertRes = await supabaseClient.from("consultations").insert([payloadFull]).select().single();
+  if (insertRes.error && /column|schema|invalid input/i.test(insertRes.error.message || "")) {
+    insertRes = await supabaseClient.from("consultations").insert([payloadBase]).select().single();
+  }
+  insertError = insertRes.error;
+  insertData = insertRes.data;
+
+  if (insertError) {
+    if (statusEl) statusEl.textContent = `Save failed: ${insertError.message}`;
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.textContent = "Schedule Consultation";
     }
-  } else {
-    openCalendlyScheduler(fullName, email, service);
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Schedule Consultation";
-    }
+    return;
+  }
+
+  if (insertData && insertData.id) {
+    try {
+      localStorage.setItem("last_consultation_id", String(insertData.id));
+    } catch {}
+  }
+
+  if (statusEl) statusEl.textContent = "Saved successfully. Opening Calendly...";
+  openCalendlyScheduler(fullName, email, service);
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Schedule Consultation";
   }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("consultationForm");
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitConsultation();
+    });
+  }
+});
+
 function openCalendlyScheduler(fullName, email, service) {
+  const statusEl = document.getElementById("consultationStatus");
   const calendlyUrl =
     `https://calendly.com/contact-kryphex/30min?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&a1=${encodeURIComponent(service)}`;
 
   if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
     window.Calendly.initPopupWidget({ url: calendlyUrl });
+    if (statusEl) statusEl.textContent = "Calendly opened. Complete the booking to finalize.";
     return;
   }
 
-  window.location.href = calendlyUrl;
+  window.location.assign(calendlyUrl);
 }
 </script>
 
