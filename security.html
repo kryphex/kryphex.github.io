@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Security</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>
+    <a href="home.html" style="display:flex; align-items:center;">
+      <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+    </a>
+  </h1>
+  <nav id="nav-links">
+    <a href="platform.html">Platform</a>
+    <a href="security.html" class="active">Security</a>
+    <a href="resources.html">Resources</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="home.html">Home</a>
+  </nav>
+  <div id="authArea"></div>
+</header>
+
+<section class="hero">
+  <h2>Security Services</h2>
+  <p>Offensive testing, architecture hardening, and continuous defense operations.</p>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <h3>Core Capabilities</h3>
+      <p>Penetration testing, cloud posture review, threat modeling, and zero-trust implementation support.</p>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const pageSupabase = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function enforceAuth() {
+  const { data } = await pageSupabase.auth.getUser();
+  if (!data.user) {
+    window.location.href = "auth/login.html";
+    return;
+  }
+
+  const authArea = document.getElementById("authArea");
+  authArea.innerHTML = '<a href="javascript:void(0)" id="logoutBtn" class="btn-nav">Logout</a>';
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await pageSupabase.auth.signOut();
+    window.location.href = "index.html";
+  });
+}
+
+enforceAuth();
+</script>
+
+</body>
+</html>

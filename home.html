@@ -321,13 +321,29 @@ async function updateNavbar() {
   const { data } = await supabaseClient.auth.getUser();
 
   if (data.user) {
-    authArea.innerHTML = `
-      <a href="javascript:void(0)" id="logoutBtn">Logout</a>
-    `;
+    let isAdmin = false;
+    const { data: profile } = await supabaseClient
+      .from("profiles")
+      .select("role")
+      .eq("id", data.user.id)
+      .maybeSingle();
+
+    if (profile && profile.role === "admin") {
+      isAdmin = true;
+    }
+
+    authArea.innerHTML = isAdmin
+      ? `
+        <a href="tools/console.html">Console</a>
+        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
+      `
+      : `
+        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
+      `;
 
     document.getElementById("logoutBtn").addEventListener("click", async () => {
       await supabaseClient.auth.signOut();
-      location.reload();
+      window.location.href = "index.html";
     });
 
   } else {

@@ -180,13 +180,13 @@
   <div class="logo">KRYPHEX</div>
 
   <div class="nav">
-    <a href="home.html">Platform</a>
-    <a href="services.html">Security</a>
-    <a href="insights.html">Resources</a>
-    <a href="consultation.html">Pricing</a>
+    <a href="platform.html" data-protected-href="platform.html" class="protected-nav-link">Platform</a>
+    <a href="security.html" data-protected-href="security.html" class="protected-nav-link">Security</a>
+    <a href="resources.html" data-protected-href="resources.html" class="protected-nav-link">Resources</a>
+    <a href="pricing.html" data-protected-href="pricing.html" class="protected-nav-link">Pricing</a>
   </div>
 
-  <div class="auth">
+  <div class="auth" id="authActions">
     <a href="auth/login.html" class="login">Login</a>
     <a href="auth/signup.html" class="signup">Sign Up</a>
   </div>
@@ -201,13 +201,73 @@
   </p>
 
   <div class="cta">
-    <a href="consultation.html" class="btn-primary">Request Consultation</a>
-    <a href="auth/login.html" class="btn-secondary">Enter Platform</a>
+    <a href="consultation.html" class="btn-primary" id="requestConsultationBtn">Request Consultation</a>
+    <a href="auth/login.html" class="btn-secondary" id="enterPlatformBtn">Enter Platform</a>
   </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/auth.js"></script>
+<script>
+const indexSupabase = supabase.createClient(
+  "https://xvtnnszvfbirixppbdtl.supabase.co",
+  "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+);
+
+async function syncIndexAuthUI() {
+  const authActions = document.getElementById("authActions");
+  const enterPlatformBtn = document.getElementById("enterPlatformBtn");
+  const requestConsultationBtn = document.getElementById("requestConsultationBtn");
+  const protectedNavLinks = document.querySelectorAll(".protected-nav-link");
+  const { data } = await indexSupabase.auth.getUser();
+  const isLoggedIn = Boolean(data && data.user);
+
+  if (isLoggedIn) {
+    let isAdmin = false;
+    const { data: profile } = await indexSupabase
+      .from("profiles")
+      .select("role")
+      .eq("id", data.user.id)
+      .maybeSingle();
+
+    if (profile && profile.role === "admin") {
+      isAdmin = true;
+    }
+
+    authActions.innerHTML = isAdmin
+      ? `
+        <a href="tools/console.html" class="login">Console</a>
+        <a href="javascript:void(0)" class="signup" id="logoutBtn">Logout</a>
+      `
+      : `
+        <a href="javascript:void(0)" class="signup" id="logoutBtn">Logout</a>
+      `;
+    enterPlatformBtn.href = "home.html";
+    requestConsultationBtn.href = "consultation.html";
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await indexSupabase.auth.signOut();
+      location.reload();
+    });
+
+    protectedNavLinks.forEach((link) => {
+      link.href = link.dataset.protectedHref;
+    });
+    return;
+  }
+
+  authActions.innerHTML = `
+    <a href="auth/login.html" class="login">Login</a>
+    <a href="auth/signup.html" class="signup">Sign Up</a>
+  `;
+  enterPlatformBtn.href = "auth/login.html";
+  requestConsultationBtn.href = "auth/login.html?redirect=consultation.html";
+  protectedNavLinks.forEach((link) => {
+    link.href = `auth/login.html?redirect=${encodeURIComponent(link.dataset.protectedHref)}`;
+  });
+}
+
+syncIndexAuthUI();
+</script>
 
 </body>
 </html>

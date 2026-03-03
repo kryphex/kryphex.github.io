@@ -144,6 +144,14 @@ const supabaseClient = supabase.createClient(
 // Force fresh login every time this page is opened.
 supabaseClient.auth.signOut();
 
+const redirectTarget = (() => {
+  const param = new URLSearchParams(window.location.search).get("redirect");
+  if (!param) return "../home.html";
+  if (!/^[a-zA-Z0-9_./-]+$/.test(param)) return "../home.html";
+  if (param.startsWith("http")) return "../home.html";
+  return `../${param.replace(/^\/+/, "")}`;
+})();
+
 document.getElementById("loginBtn").addEventListener("click", async () => {
 
   const email = document.getElementById("email").value;
@@ -157,7 +165,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   if (error) {
     document.getElementById("errorMsg").innerText = error.message;
   } else {
-    window.location.href = "../home.html";
+    window.location.href = redirectTarget;
   }
 });
 

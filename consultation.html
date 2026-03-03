@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>Kryphex | Request Consultation</title>
@@ -77,26 +77,24 @@
 
 <body>
 
-<header class="hamburger-header">
-
-  <div class="hamburger" onclick="toggleMenu(this)">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <a href="index.html" class="logo-text">KRYPHEX</a>
-
+<header>
+  <h1>
+    <a href="home.html" style="display:flex; align-items:center;">
+      <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+    </a>
+  </h1>
+  <nav id="nav-links">
+    <a href="home.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="about.html">About</a>
+    <a href="tools/">Tools</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="consultation.html" class="active">Consultation</a>
+    <div id="authArea"></div>
+  </nav>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
-
-<nav id="mobileMenu" class="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="services.html">Services</a>
-  <a href="insights.html">Insights</a>
-  <a href="about.html">About</a>
-  <a href="case-studies.html">Case Studies</a>
-  <a href="consultation.html">Consultation</a>
-</nav>
 
 <section class="hero">
   <h2>Request Enterprise Consultation</h2>
@@ -111,7 +109,6 @@
 
     <div class="consultation-card">
 
-      <!-- PROPER FORM START -->
       <form onsubmit="event.preventDefault(); submitConsultation();">
 
         <div class="form-row">
@@ -181,12 +178,14 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
 
 <script>
-function toggleMenu(el) {
-  el.classList.toggle("active");
-  document.getElementById("mobileMenu").classList.toggle("open");
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
 }
+
 const supabaseClient = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"

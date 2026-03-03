@@ -10,10 +10,20 @@
 
 <header>
 <h1>
-  <a href="../index.html" style="display:flex; align-items:center;">
+  <a href="../home.html" style="display:flex; align-items:center;">
     <img src="../logo.svg" alt="Kryphex Logo" style="height:28px;">
   </a>
 </h1>
+  <nav id="nav-links">
+    <a href="../home.html">Home</a>
+    <a href="../services.html">Services</a>
+    <a href="../insights.html">Insights</a>
+    <a href="../about.html">About</a>
+    <a href="../tools/" class="active">Tools</a>
+    <a href="../case-studies.html">Case Studies</a>
+    <a href="../consultation.html">Consultation</a>
+  </nav>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
 <section class="hero">
@@ -69,6 +79,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/auth.js"></script>
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+</script>
 
 </body>
 </html>
