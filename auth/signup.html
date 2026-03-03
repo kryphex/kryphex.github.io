@@ -21,6 +21,18 @@
       overflow: hidden;
     }
 
+    .auth-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 24px;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
     .auth-container {
       position: relative;
       width: 100%;
@@ -103,6 +115,11 @@
 </head>
 
 <body>
+<header class="auth-header">
+  <a href="../index.html" style="display:flex; align-items:center;">
+    <img src="../logo.svg" alt="Kryphex Logo" style="height:28px;">
+  </a>
+</header>
 
 <div class="auth-container">
 

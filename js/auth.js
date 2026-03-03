@@ -37,10 +37,25 @@ async function updateAuthArea() {
   const user = await getCurrentUser();
 
   if (user) {
-    authArea.innerHTML = `
-      <a href="/tools/console.html">Console</a>
-      <a href="javascript:void(0)" id="logoutBtn">Logout</a>
-    `;
+    let isAdmin = false;
+    const { data: profile } = await supabaseClient
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profile && profile.role === "admin") {
+      isAdmin = true;
+    }
+
+    authArea.innerHTML = isAdmin
+      ? `
+        <a href="/tools/console.html">Console</a>
+        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
+      `
+      : `
+        <a href="javascript:void(0)" id="logoutBtn">Logout</a>
+      `;
 
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {

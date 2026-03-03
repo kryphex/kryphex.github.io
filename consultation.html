@@ -75,7 +75,7 @@
   </style>
 </head>
 
-<body>
+<body class="hamburger-mode">
 
 <header>
   <h1>
@@ -91,6 +91,7 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html" class="active">Consultation</a>
+    <a href="tools/console.html">Console</a>
     <div id="authArea"></div>
   </nav>
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -183,9 +184,37 @@
 
 <script>
 function toggleMenu() {
+  const body = document.body;
   const nav = document.getElementById("nav-links");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+  const isOpen = body.classList.toggle("nav-open");
+  nav.classList.toggle("open", isOpen);
+
+  nav.style.opacity = isOpen ? "1" : "0";
+  nav.style.visibility = isOpen ? "visible" : "hidden";
+  nav.style.pointerEvents = isOpen ? "auto" : "none";
+  nav.style.transform = isOpen
+    ? "translate(-50%, 0) scale(1)"
+    : "translate(-50%, -20px) scale(0.98)";
 }
+
+document.addEventListener("click", (event) => {
+  const nav = document.getElementById("nav-links");
+  const toggle = document.querySelector(".menu-toggle");
+  if (!nav || !toggle) return;
+
+  const clickedInsideNav = nav.contains(event.target);
+  const clickedToggle = toggle.contains(event.target);
+  const isOpen = document.body.classList.contains("nav-open");
+
+  if (isOpen && !clickedInsideNav && !clickedToggle) {
+    document.body.classList.remove("nav-open");
+    nav.classList.remove("open");
+    nav.style.opacity = "0";
+    nav.style.visibility = "hidden";
+    nav.style.pointerEvents = "none";
+    nav.style.transform = "translate(-50%, -20px) scale(0.98)";
+  }
+});
 
 const supabaseClient = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
@@ -259,3 +288,4 @@ function openCalendlyScheduler(fullName, email, service) {
 
 </body>
 </html>
+

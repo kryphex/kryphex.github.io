@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="hamburger-mode">
 
 <header>
 <h1>
@@ -22,6 +22,7 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
+    <a href="tools/console.html">Console</a>
     <div id="authArea"></div>
   </nav>
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -54,8 +55,8 @@
 <script src="js/auth.js"></script>
 <script>
 function toggleMenu() {
-  const nav = document.getElementById("nav-links");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+  document.body.classList.toggle("nav-open");
+  document.getElementById("nav-links").classList.toggle("open");
 }
 </script>
 

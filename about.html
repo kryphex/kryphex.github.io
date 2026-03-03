@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="hamburger-mode">
 
 <header>
 <h1>
@@ -23,6 +23,7 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
+    <a href="tools/console.html">Console</a>
     <div id="authArea"></div>
   </nav>
 
@@ -122,8 +123,7 @@ function toggleDarkMode() {
 
 <script>
 function toggleMenu() {
-  const nav = document.getElementById("nav-links");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+  document.body.classList.toggle("nav-open");
 }
 </script>
 

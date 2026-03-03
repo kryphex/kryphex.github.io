@@ -1665,3 +1665,77 @@ footer {
   pointer-events: none;
   cursor: default;
 }
+
+/* ================= HAMBURGER DROPDOWN (ELITE) ================= */
+
+body.hamburger-mode .menu-toggle {
+  display: block !important;
+  font-size: 30px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+body.hamburger-mode .menu-toggle:hover {
+  background: rgba(29, 78, 216, 0.1);
+  transform: translateY(-1px);
+}
+
+body.hamburger-mode #nav-links {
+  position: absolute;
+  top: 78px;
+  left: 50%;
+  width: min(96vw, 1080px);
+  transform: translate(-50%, -20px) scale(0.98);
+  transform-origin: top center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #dbe6f5;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 26px 45px rgba(15, 23, 42, 0.18);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 2001;
+}
+
+body.hamburger-mode #nav-links a,
+body.hamburger-mode #nav-links #authArea a {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 8px 14px;
+  background: #f8fbff;
+}
+
+body.hamburger-mode #nav-links #authArea {
+  display: flex;
+  gap: 10px;
+}
+
+body.hamburger-mode.nav-open #nav-links {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+body.hamburger-mode #nav-links.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+@media (max-width: 900px) {
+  body.hamburger-mode #nav-links {
+    width: min(94vw, 560px);
+    justify-content: flex-start;
+  }
+}

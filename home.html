@@ -10,7 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
-<body class="home-page">
+<body class="home-page hamburger-mode">
 
 <header>
   <h1>
@@ -27,6 +27,7 @@
     <a href="tools/">Tools</a>
     <a href="case-studies.html">Case Studies</a>
     <a href="consultation.html">Consultation</a>
+    <a href="tools/console.html">Console</a>
 
     <div id="authArea"></div>
   </nav>
@@ -50,9 +51,14 @@
     <div><strong>120+</strong><span>Assessments delivered</span></div>
   </div>
 
-  <button class="btn" onclick="location.href='consultation.html'">
-    Request Consultation
-  </button>
+  <div class="hero-actions">
+    <button class="btn" onclick="location.href='consultation.html'">
+      Request Consultation
+    </button>
+    <button class="btn-outline" onclick="location.href='index.html'">
+      Back to Landing
+    </button>
+  </div>
 </section>
 
 <section class="home-value">
@@ -119,18 +125,18 @@
   }
 
   .hero-highlights {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-    margin-top: 24px;
-    align-items: center;
+    margin-top: 30px;
+    width: min(100%, 860px);
   }
 
   .hero-highlights div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: min(100%, 320px);
+    width: 100%;
     padding: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
@@ -145,6 +151,27 @@
   .hero-highlights span {
     font-size: 13px;
     opacity: 0.85;
+  }
+
+  .hero-actions {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero-actions .btn,
+  .hero-actions .btn-outline {
+    margin-top: 0;
+    min-width: 220px;
+  }
+
+  @media (max-width: 900px) {
+    .hero-highlights {
+      grid-template-columns: 1fr;
+      width: min(100%, 320px);
+    }
   }
 
   .home-value {
@@ -186,13 +213,27 @@
   }
 
   .home-page .footer-container {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 22px;
+    justify-content: space-between;
+    gap: 40px;
   }
 
   .home-page .footer-column {
-    width: 100%;
+    width: auto;
+    flex: 1;
+    min-width: 220px;
+  }
+
+  @media (max-width: 900px) {
+    .home-page .footer-container {
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .home-page .footer-column {
+      width: 100%;
+    }
   }
 
 </style>
@@ -269,8 +310,7 @@ const modal = document.getElementById("authModal");
 const authArea = document.getElementById("authArea");
 
 function toggleMenu() {
-  const nav = document.getElementById("nav-links");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+  document.body.classList.toggle("nav-open");
 }
 
 function closeModal() {
