@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Kryphex | Enterprise Cybersecurity</title>
@@ -17,10 +17,55 @@
     * { box-sizing: border-box; }
 
     body {
+      position: relative;
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #ffffff;
+      background:
+        radial-gradient(1200px 500px at -6% -8%, #dbeafe 0%, transparent 52%),
+        radial-gradient(980px 420px at 108% 4%, #e0e7ff 0%, transparent 48%),
+        linear-gradient(150deg, #f7faff 0%, #eef3fb 52%, #e6edf8 100%);
       color: var(--dark);
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -18%;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(68px);
+      opacity: 0.75;
+      transform: translate3d(0, 0, 0);
+      will-change: transform, opacity;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle at 22% 30%, rgba(37, 99, 235, 0.35) 0%, transparent 42%),
+        radial-gradient(circle at 80% 70%, rgba(14, 165, 233, 0.28) 0%, transparent 40%);
+      animation: driftA 16s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 74% 24%, rgba(99, 102, 241, 0.28) 0%, transparent 42%),
+        radial-gradient(circle at 30% 78%, rgba(59, 130, 246, 0.24) 0%, transparent 44%);
+      animation: driftB 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftA {
+      0% { transform: translate3d(-3%, -2%, 0) scale(1); opacity: 0.62; }
+      50% { transform: translate3d(2%, 1%, 0) scale(1.06); opacity: 0.82; }
+      100% { transform: translate3d(4%, -3%, 0) scale(1.02); opacity: 0.68; }
+    }
+
+    @keyframes driftB {
+      0% { transform: translate3d(3%, 2%, 0) scale(1); opacity: 0.55; }
+      50% { transform: translate3d(-2%, -1%, 0) scale(1.08); opacity: 0.78; }
+      100% { transform: translate3d(-4%, 3%, 0) scale(1.03); opacity: 0.6; }
     }
 
     /* ===== HEADER ===== */
@@ -208,13 +253,14 @@
     /* ===== HERO ===== */
 
     .hero {
-      height: 100vh;
+      min-height: 86vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 0 80px;
-      background: radial-gradient(circle at 20% 20%, rgba(37,99,235,0.15), transparent 40%),
-                  radial-gradient(circle at 80% 70%, rgba(37,99,235,0.1), transparent 40%);
+      background:
+        radial-gradient(780px 320px at 12% 18%, rgba(37,99,235,0.2), transparent 56%),
+        radial-gradient(680px 280px at 94% 70%, rgba(59,130,246,0.16), transparent 58%);
     }
 
     .hero h1 {
@@ -259,6 +305,94 @@
       text-decoration: none;
       font-weight: 600;
       color: var(--dark);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .overview {
+      padding: 42px 80px 80px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      width: min(1200px, 100%);
+      margin: 0 auto;
+    }
+
+    .panel {
+      border: 1px solid #d7e1f3;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+      padding: 24px;
+    }
+
+    .panel h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #0f2454;
+    }
+
+    .panel p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .index-footer {
+      margin-top: 26px;
+      padding: 56px 80px 28px;
+      border-top: 1px solid rgba(129, 161, 220, 0.35);
+      background:
+        radial-gradient(600px 200px at -8% 18%, rgba(116, 157, 232, 0.22), transparent 72%),
+        radial-gradient(560px 180px at 108% 88%, rgba(118, 176, 255, 0.2), transparent 72%),
+        linear-gradient(165deg, #071a41 0%, #0b2b67 56%, #143b87 100%);
+      color: #dbeafe;
+    }
+
+    .index-footer-grid {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .index-footer .col {
+      border: 1px solid rgba(165, 191, 241, 0.24);
+      background: rgba(8, 34, 84, 0.4);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .index-footer h4 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .index-footer p,
+    .index-footer a {
+      margin: 0;
+      color: #bfdbfe;
+      text-decoration: none;
+      line-height: 1.7;
+    }
+
+    .index-footer a:hover {
+      color: #ffffff;
+    }
+
+    .index-footer-bottom {
+      width: min(1200px, 100%);
+      margin: 20px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(164, 193, 244, 0.28);
+      color: #c7d9f9;
+      font-size: 13px;
     }
 
     /* ===== MOBILE ===== */
@@ -277,6 +411,11 @@
         padding: 0 25px;
       }
 
+      body::before,
+      body::after {
+        filter: blur(48px);
+      }
+
       .hero h1 {
         font-size: 38px;
       }
@@ -289,12 +428,28 @@
         display: none;
       }
 
+      .overview {
+        padding: 22px 25px 48px;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .index-footer {
+        padding: 42px 25px 24px;
+      }
+
+      .index-footer-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
 
   </style>
 </head>
 
-<body>
+<body class="elite-ui page-index">
 
 <header class="header">
   <div class="logo">
@@ -329,6 +484,46 @@
     <a href="auth/login.html" class="btn-secondary" id="enterPlatformBtn">Enter Platform</a>
   </div>
 </section>
+
+<section class="overview">
+  <div class="overview-grid">
+    <article class="panel">
+      <h3>Platform Command Layer</h3>
+      <p>Centralized consultation, tools, and security workflow visibility in one operational interface.</p>
+    </article>
+    <article class="panel">
+      <h3>Threat-Ready Delivery</h3>
+      <p>From pentest to cloud posture and intelligence, each engagement is built for measurable outcomes.</p>
+    </article>
+    <article class="panel">
+      <h3>Built for Execution</h3>
+      <p>Actionable reports, prioritized remediation, and continuous tracking aligned to enterprise teams.</p>
+    </article>
+  </div>
+</section>
+
+<footer class="index-footer">
+  <div class="index-footer-grid">
+    <div class="col">
+      <h4>Kryphex</h4>
+      <p>Enterprise-focused cybersecurity operations and architecture strategy.</p>
+    </div>
+    <div class="col">
+      <h4>Navigation</h4>
+      <p><a href="platform.html">Platform</a></p>
+      <p><a href="security.html">Security</a></p>
+      <p><a href="resources.html">Resources</a></p>
+      <p><a href="pricing.html">Pricing</a></p>
+    </div>
+    <div class="col">
+      <h4>Engage</h4>
+      <p><a href="consultation.html">Request Consultation</a></p>
+      <p><a href="auth/login.html">Login</a></p>
+      <p><a href="auth/signup.html">Create Account</a></p>
+    </div>
+  </div>
+  <div class="index-footer-bottom">© 2026 Kryphex. Enterprise Cybersecurity Solutions.</div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -394,6 +589,7 @@ async function syncIndexAuthUI() {
             </div>
           </div>
           <a href="profile.html" class="auth-action">View Profile</a>
+          <a href="settings/account.html" class="auth-action">Settings</a>
           ${isAdmin ? '<a href="tools/console.html" class="auth-action">Console</a>' : ""}
           <button class="auth-action danger" id="logoutBtn" type="button">Log Out</button>
         </div>
@@ -415,7 +611,24 @@ async function syncIndexAuthUI() {
         profileTrigger.setAttribute("aria-expanded", "false");
       });
     }
-    enterPlatformBtn.href = "home.html";
+    const settingsKey = `kryphex_settings_${data.user.id}`;
+    let preferredLanding = "home";
+    try {
+      const rawSettings = localStorage.getItem(settingsKey);
+      const parsed = rawSettings ? JSON.parse(rawSettings) : {};
+      preferredLanding = parsed.defaultLanding || "home";
+    } catch {
+      preferredLanding = "home";
+    }
+
+    const landingMap = {
+      home: "home.html",
+      services: "services.html",
+      tools: "tools/",
+      consultation: "consultation.html"
+    };
+
+    enterPlatformBtn.href = landingMap[preferredLanding] || "home.html";
     requestConsultationBtn.href = "consultation.html";
 
     document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -445,4 +658,8 @@ syncIndexAuthUI();
 
 </body>
 </html>
+
+
+
+
 

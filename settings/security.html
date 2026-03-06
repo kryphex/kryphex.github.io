@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Security</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+  <main class="shell">
+    <aside class="side">
+      <div class="acct">
+        <div id="settingsAvatar" class="av">U</div>
+        <div><strong id="settingsName">User</strong><span>Personal account</span></div>
+      </div>
+      <div class="grp">
+        <div class="gtitle">Settings</div>
+        
+        <a class="nav" href="account.html">Account</a>
+        <a class="nav" href="appearance.html">Appearance</a>
+        <a class="nav" href="accessibility.html">Accessibility</a>
+        <a class="nav" href="notifications.html">Notifications</a>
+        <a class="nav active" href="security.html">Security</a>
+        <a class="nav" href="sessions.html">Sessions</a>
+        <a class="nav" href="privacy.html">Data & Privacy</a>
+        <a class="nav" href="danger.html">Danger Zone</a>
+      </div>
+    </aside>
+
+    <section class="main">
+      <div class="main-top">
+        <h1>Security</h1>
+        <a class="btn" href="account.html">Back</a>
+      </div>
+
+      <div class="page">
+        <h2>Password Reset</h2>
+        <p class="hint">Send a secure reset link to your account email.</p>
+
+        <div class="row">
+          <label for="securityEmail">Account Email</label>
+          <input id="securityEmail" type="email" readonly>
+        </div>
+
+        <div class="actions">
+          <button id="resetBtn" class="btn primary" type="button">Send Password Reset Link</button>
+        </div>
+        <p id="status" class="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const user = await requireSettingsUser();
+      if (!user) return;
+
+      const emailInput = document.getElementById("securityEmail");
+      const resetBtn = document.getElementById("resetBtn");
+
+      if (emailInput) emailInput.value = user.email || "";
+
+      if (resetBtn) {
+        resetBtn.addEventListener("click", async () => {
+          const { error } = await supabaseClient.auth.resetPasswordForEmail(user.email, {
+            redirectTo: window.location.origin + "/auth/login.html"
+          });
+
+          if (error) {
+            setSettingsStatus("Password reset failed: " + error.message, true);
+            return;
+          }
+
+          setSettingsStatus("Password reset email sent.");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+

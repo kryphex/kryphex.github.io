@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Settings | Notifications</title><link rel="stylesheet" href="common.css"></head>
+<body>
+<main class="shell">
+<aside class="side"><div class="acct"><div id="settingsAvatar" class="av">U</div><div><strong id="settingsName">User</strong><span>Personal account</span></div></div><div class="grp"><div class="gtitle">Settings</div><a class="nav" href="account.html">Account</a><a class="nav" href="appearance.html">Appearance</a><a class="nav" href="accessibility.html">Accessibility</a><a class="nav active" href="notifications.html">Notifications</a><a class="nav" href="security.html">Security</a><a class="nav" href="sessions.html">Sessions</a><a class="nav" href="privacy.html">Data & Privacy</a><a class="nav" href="danger.html">Danger Zone</a></div></aside>
+<section class="main"><div class="main-top"><h1>Notifications</h1><a class="btn" href="account.html">Back</a></div><div class="page"><h2>Alert Preferences</h2><p class="hint">Control notification channels.</p><label class="check"><input id="emailAlerts" type="checkbox"> Email alerts</label><label class="check"><input id="toolUpdates" type="checkbox"> Tool updates</label><label class="check"><input id="securityAdvisories" type="checkbox"> Security advisories</label><div class="row"><label for="emailDigest">Digest frequency</label><select id="emailDigest"><option value="off">Off</option><option value="daily">Daily</option><option value="weekly">Weekly</option></select></div><div class="actions"><button id="saveBtn" class="btn primary" type="button">Save Notifications</button></div><p id="status" class="status"></p></div></section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/auth.js"></script><script src="common.js"></script>
+<script>document.addEventListener('DOMContentLoaded',async()=>{const u=await requireSettingsUser();if(!u)return;const k=settingsKey(u.id);const s=JSON.parse(localStorage.getItem(k)||'{}');emailAlerts.checked=s.emailAlerts!==false;toolUpdates.checked=s.toolUpdates!==false;securityAdvisories.checked=s.securityAdvisories!==false;emailDigest.value=s.emailDigest||'weekly';saveBtn.onclick=()=>{localStorage.setItem(k,JSON.stringify({...s,emailAlerts:emailAlerts.checked,toolUpdates:toolUpdates.checked,securityAdvisories:securityAdvisories.checked,emailDigest:emailDigest.value}));applyStoredUserSettings(u);setSettingsStatus('Notifications saved.');};});</script>
+</body></html>
+
+

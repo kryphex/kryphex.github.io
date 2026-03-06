@@ -5,8 +5,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <style>
+    body.page-services section {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    body.page-services .services-grid {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    body.page-services .services-grid .service-card {
+      width: 100%;
+      max-width: 920px;
+      min-height: 0;
+      margin: 0 auto;
+      padding: 28px 24px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      transform: none !important;
+    }
+
+    body.page-services .services-grid .service-card h3 {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 4.6vw, 58px);
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    body.page-services .services-grid .service-card p {
+      margin: 0;
+      font-size: clamp(15px, 2.1vw, 18px);
+    }
+
+    body.page-services .services-grid .service-card .btn {
+      margin-top: 18px;
+    }
+  </style>
 </head>
-<body class="hamburger-mode subpage-layout services-page">
+<body class="hamburger-mode subpage-layout services-page elite-ui page-services">
 
 <header>
 <h1>
@@ -54,6 +96,28 @@
   </div>
 </section>
 
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Kryphex</h4>
+      <p>Enterprise-focused cybersecurity consultancy delivering structured risk mitigation and zero-trust architecture.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <p>Email: contact.kryphex@gmail.com</p>
+      <p>Business Inquiries: +91 8866553925</p>
+      <p>Region: Global Operations</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <p><a href="home.html">Home</a></p>
+      <p><a href="tools/">Tools</a></p>
+      <p><a href="consultation.html">Consultation</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Kryphex. Enterprise Cybersecurity Solutions.</div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/auth.js"></script>
 <script>
@@ -64,36 +128,42 @@ function toggleMenu() {
   if (navLinks) {
     navLinks.classList.toggle("open", shouldOpen);
   }
+  const toggleBtn = document.getElementById("menuToggleBtn");
+  if (toggleBtn) {
+    toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+  }
 }
 
 window.toggleMenu = toggleMenu;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const header = document.querySelector("header");
-  const navLinks = document.getElementById("nav-links");
-  const toggleBtn = document.getElementById("menuToggleBtn");
+const header = document.querySelector("header");
+const navLinks = document.getElementById("nav-links");
+const toggleBtn = document.getElementById("menuToggleBtn");
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", toggleMenu);
-  }
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", toggleMenu);
+}
 
-  if (navLinks) {
-    navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        document.body.classList.remove("nav-open");
-        navLinks.classList.remove("open");
-      });
+if (navLinks) {
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      document.body.classList.remove("nav-open");
+      navLinks.classList.remove("open");
+      if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
     });
-  }
-
-  document.addEventListener("click", (event) => {
-    if (!document.body.classList.contains("nav-open")) return;
-    if (!header || header.contains(event.target)) return;
-    document.body.classList.remove("nav-open");
-    if (navLinks) navLinks.classList.remove("open");
   });
+}
+
+document.addEventListener("click", (event) => {
+  if (!document.body.classList.contains("nav-open")) return;
+  if (!header || header.contains(event.target)) return;
+  document.body.classList.remove("nav-open");
+  if (navLinks) navLinks.classList.remove("open");
+  if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
 });
 </script>
 
 </body>
 </html>
+
+

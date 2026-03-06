@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Data & Privacy</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+  <main class="shell">
+    <aside class="side">
+      <div class="acct">
+        <div id="settingsAvatar" class="av">U</div>
+        <div><strong id="settingsName">User</strong><span>Personal account</span></div>
+      </div>
+      <div class="grp">
+        <div class="gtitle">Settings</div>
+        
+        <a class="nav" href="account.html">Account</a>
+        <a class="nav" href="appearance.html">Appearance</a>
+        <a class="nav" href="accessibility.html">Accessibility</a>
+        <a class="nav" href="notifications.html">Notifications</a>
+        <a class="nav" href="security.html">Security</a>
+        <a class="nav" href="sessions.html">Sessions</a>
+        <a class="nav active" href="privacy.html">Data & Privacy</a>
+        <a class="nav" href="danger.html">Danger Zone</a>
+      </div>
+    </aside>
+
+    <section class="main">
+      <div class="main-top">
+        <h1>Data & Privacy</h1>
+        <a class="btn" href="account.html">Back</a>
+      </div>
+
+      <div class="page">
+        <h2>Privacy Controls</h2>
+        <p class="hint">Manage tracking and export your account data.</p>
+
+        <label class="check">
+          <input id="analyticsOptOut" type="checkbox">
+          Analytics opt-out
+        </label>
+
+        <label class="check">
+          <input id="personalizedContent" type="checkbox">
+          Personalized recommendations
+        </label>
+
+        <div class="actions">
+          <button id="saveBtn" class="btn primary" type="button">Save Privacy</button>
+          <button id="exportProfileBtn" class="btn" type="button">Export Profile</button>
+          <button id="exportConsultationsBtn" class="btn" type="button">Export Consultations</button>
+        </div>
+        <p id="status" class="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const user = await requireSettingsUser();
+      if (!user) return;
+
+      const storeKey = settingsKey(user.id);
+      const saved = JSON.parse(localStorage.getItem(storeKey) || "{}");
+
+      const analyticsOptOut = document.getElementById("analyticsOptOut");
+      const personalizedContent = document.getElementById("personalizedContent");
+      const saveBtn = document.getElementById("saveBtn");
+      const exportProfileBtn = document.getElementById("exportProfileBtn");
+      const exportConsultationsBtn = document.getElementById("exportConsultationsBtn");
+
+      if (analyticsOptOut) analyticsOptOut.checked = !!saved.analyticsOptOut;
+      if (personalizedContent) personalizedContent.checked = saved.personalizedContent !== false;
+
+      if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+          const next = {
+            ...saved,
+            analyticsOptOut: !!(analyticsOptOut && analyticsOptOut.checked),
+            personalizedContent: !!(personalizedContent && personalizedContent.checked)
+          };
+          localStorage.setItem(storeKey, JSON.stringify(next));
+          setSettingsStatus("Privacy settings saved.");
+        });
+      }
+
+      if (exportProfileBtn) {
+        exportProfileBtn.addEventListener("click", async () => {
+          let profileData = null;
+          let profileError = null;
+          try {
+            const { data, error } = await supabaseClient
+              .from("profiles")
+              .select("*")
+              .eq("id", user.id)
+              .maybeSingle();
+            profileData = data || null;
+            profileError = error || null;
+          } catch (err) {
+            profileError = err;
+          }
+
+          downloadJson("kryphex-profile-" + user.id + ".json", {
+            exported_at: new Date().toISOString(),
+            user: { id: user.id, email: user.email },
+            profile: profileData,
+            local_settings: JSON.parse(localStorage.getItem(storeKey) || "{}"),
+            profile_error: profileError ? String(profileError.message || profileError) : null
+          });
+
+          setSettingsStatus(profileError ? "Profile export generated with fallback." : "Profile export generated.", !!profileError);
+        });
+      }
+
+      if (exportConsultationsBtn) {
+        exportConsultationsBtn.addEventListener("click", async () => {
+          let consultations = [];
+          let fetchError = null;
+
+          try {
+            const { data, error } = await supabaseClient
+              .from("consultations")
+              .select("*")
+              .eq("user_id", user.id)
+              .order("created_at", { ascending: false });
+            consultations = data || [];
+            fetchError = error || null;
+          } catch (err) {
+            fetchError = err;
+          }
+
+          downloadJson("kryphex-consultations-" + user.id + ".json", {
+            exported_at: new Date().toISOString(),
+            user_id: user.id,
+            consultations,
+            fetch_error: fetchError ? String(fetchError.message || fetchError) : null
+          });
+
+          setSettingsStatus(fetchError ? "Consultations export generated with fallback." : "Consultations export generated.", !!fetchError);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+

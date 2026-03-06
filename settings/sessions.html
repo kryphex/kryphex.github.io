@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Sessions</title>
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+  <main class="shell">
+    <aside class="side">
+      <div class="acct">
+        <div id="settingsAvatar" class="av">U</div>
+        <div><strong id="settingsName">User</strong><span>Personal account</span></div>
+      </div>
+      <div class="grp">
+        <div class="gtitle">Settings</div>
+        
+        <a class="nav" href="account.html">Account</a>
+        <a class="nav" href="appearance.html">Appearance</a>
+        <a class="nav" href="accessibility.html">Accessibility</a>
+        <a class="nav" href="notifications.html">Notifications</a>
+        <a class="nav" href="security.html">Security</a>
+        <a class="nav active" href="sessions.html">Sessions</a>
+        <a class="nav" href="privacy.html">Data & Privacy</a>
+        <a class="nav" href="danger.html">Danger Zone</a>
+      </div>
+    </aside>
+
+    <section class="main">
+      <div class="main-top">
+        <h1>Sessions</h1>
+        <a class="btn" href="account.html">Back</a>
+      </div>
+
+      <div class="page">
+        <h2>Current Session</h2>
+        <p class="hint">Review active session details and sign out globally.</p>
+
+        <div class="meta-grid">
+          <div class="meta"><strong>Signed In As</strong><span id="sessionEmail">-</span></div>
+          <div class="meta"><strong>Last Sign In</strong><span id="sessionLastSignIn">-</span></div>
+          <div class="meta"><strong>Provider</strong><span id="sessionProvider">-</span></div>
+          <div class="meta"><strong>User ID</strong><span id="sessionUserId">-</span></div>
+        </div>
+
+        <div class="actions">
+          <button id="logoutAllBtn" class="btn danger" type="button">Logout All Sessions</button>
+        </div>
+        <p id="status" class="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const user = await requireSettingsUser();
+      if (!user) return;
+
+      const sessionEmail = document.getElementById("sessionEmail");
+      const sessionLastSignIn = document.getElementById("sessionLastSignIn");
+      const sessionProvider = document.getElementById("sessionProvider");
+      const sessionUserId = document.getElementById("sessionUserId");
+      const logoutAllBtn = document.getElementById("logoutAllBtn");
+
+      if (sessionEmail) sessionEmail.textContent = user.email || "-";
+      if (sessionLastSignIn) {
+        sessionLastSignIn.textContent = user.last_sign_in_at
+          ? new Date(user.last_sign_in_at).toLocaleString()
+          : "-";
+      }
+      if (sessionProvider) sessionProvider.textContent = (user.app_metadata && user.app_metadata.provider) || "email";
+      if (sessionUserId) sessionUserId.textContent = user.id || "-";
+
+      if (logoutAllBtn) {
+        logoutAllBtn.addEventListener("click", async () => {
+          const { error } = await supabaseClient.auth.signOut({ scope: "global" });
+          if (error) {
+            setSettingsStatus("Global logout failed: " + error.message, true);
+            return;
+          }
+
+          window.location.href = "/index.html";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+

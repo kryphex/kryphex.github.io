@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Settings | Accessibility</title><link rel="stylesheet" href="common.css"></head>
+<body>
+<main class="shell">
+<aside class="side"><div class="acct"><div id="settingsAvatar" class="av">U</div><div><strong id="settingsName">User</strong><span>Personal account</span></div></div><div class="grp"><div class="gtitle">Settings</div><a class="nav" href="account.html">Account</a><a class="nav" href="appearance.html">Appearance</a><a class="nav active" href="accessibility.html">Accessibility</a><a class="nav" href="notifications.html">Notifications</a><a class="nav" href="security.html">Security</a><a class="nav" href="sessions.html">Sessions</a><a class="nav" href="privacy.html">Data & Privacy</a><a class="nav" href="danger.html">Danger Zone</a></div></aside>
+<section class="main"><div class="main-top"><h1>Accessibility</h1><a class="btn" href="account.html">Back</a></div><div class="page"><h2>Accessibility Options</h2><p class="hint">Comfort and readability.</p><label class="check"><input id="highContrast" type="checkbox"> High contrast mode</label><label class="check"><input id="reduceMotion" type="checkbox"> Reduce motion</label><label class="check"><input id="keyboardHints" type="checkbox"> Show keyboard hints</label><label class="check"><input id="largeCursor" type="checkbox"> Large cursor support</label><div class="actions"><button id="saveBtn" class="btn primary" type="button">Save Accessibility</button></div><p id="status" class="status"></p></div></section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/auth.js"></script><script src="common.js"></script>
+<script>document.addEventListener('DOMContentLoaded',async()=>{const u=await requireSettingsUser();if(!u)return;const k=settingsKey(u.id);const s=JSON.parse(localStorage.getItem(k)||'{}');highContrast.checked=!!s.highContrast;reduceMotion.checked=!!s.reduceMotion;keyboardHints.checked=!!s.keyboardHints;largeCursor.checked=!!s.largeCursor;saveBtn.onclick=()=>{localStorage.setItem(k,JSON.stringify({...s,highContrast:highContrast.checked,reduceMotion:reduceMotion.checked,keyboardHints:keyboardHints.checked,largeCursor:largeCursor.checked}));applyStoredUserSettings(u);setSettingsStatus('Accessibility saved.');};});</script>
+</body></html>
+
+

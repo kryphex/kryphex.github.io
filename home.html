@@ -10,7 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
-<body class="home-page hamburger-mode">
+<body class="home-page hamburger-mode elite-ui page-home">
 
 <header>
   <h1>
@@ -31,7 +31,7 @@
   </nav>
   <div id="authArea" class="header-auth"></div>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
 </header>
 
 <main class="home-stack">
@@ -281,6 +281,12 @@ function toggleMenu() {
 
 protectPage("/index.html");
 
+document.addEventListener("DOMContentLoaded", async () => {
+  if (typeof updateAuthArea === "function") {
+    await updateAuthArea();
+  }
+});
+
 function preventReloadOnHomeClick(event) {
   const currentPage = window.location.pathname.split("/").pop() || "home.html";
   if (currentPage === "home.html") {
@@ -301,4 +307,8 @@ if (homeLogoLink) {
 
 </body>
 </html>
+
+
+
+
 
