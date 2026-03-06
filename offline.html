@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kryphex | Offline</title>
+  <style>
+    :root {
+      --bg-1: #04122d;
+      --bg-2: #0a2f75;
+      --text: #e2edff;
+      --muted: #b9c9ea;
+      --line: rgba(186, 209, 255, 0.28);
+      --btn: #2563eb;
+      --btn-hover: #1e4ec0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Segoe UI, system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(680px 380px at 12% -4%, rgba(58, 131, 255, 0.38), transparent 60%),
+        radial-gradient(700px 400px at 104% 110%, rgba(82, 181, 255, 0.3), transparent 56%),
+        linear-gradient(165deg, var(--bg-1), var(--bg-2));
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .wrap {
+      width: min(640px, 100%);
+      border: 1px solid var(--line);
+      background: rgba(6, 24, 62, 0.62);
+      backdrop-filter: blur(8px);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 42px rgba(2, 8, 23, 0.4);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 44px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid rgba(153, 190, 255, 0.48);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fbff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      border-color: rgba(120, 171, 255, 0.68);
+      background: linear-gradient(135deg, var(--btn), #1d4ed8);
+    }
+
+    .btn.primary:hover { background: linear-gradient(135deg, var(--btn-hover), #1e40af); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>You're offline.</h1>
+    <p>Kryphex can't reach the network right now. You can retry, open the landing page, or continue with cached pages.</p>
+    <div class="actions">
+      <button class="btn primary" type="button" onclick="window.location.reload()">Try Again</button>
+      <a class="btn" href="/index.html">Go to Landing</a>
+    </div>
+  </main>
+</body>
+</html>
