@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Settings | Appearance</title><link rel="stylesheet" href="common.css"></head>
 <body>
@@ -9,5 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/auth.js"></script><script src="common.js"></script>
 <script>document.addEventListener('DOMContentLoaded',async()=>{const u=await requireSettingsUser();if(!u)return;const k=settingsKey(u.id);const s=JSON.parse(localStorage.getItem(k)||'{}');themePreference.value=s.themePreference||'system';uiDensity.value=s.uiDensity||'comfortable';fontScale.value=s.fontScale||'default';defaultLanding.value=s.defaultLanding||'home';saveBtn.onclick=()=>{localStorage.setItem(k,JSON.stringify({...s,themePreference:themePreference.value,uiDensity:uiDensity.value,fontScale:fontScale.value,defaultLanding:defaultLanding.value}));applyStoredUserSettings(u);setSettingsStatus('Appearance saved.');};});</script>
 </body></html>
+
 
 

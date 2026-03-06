@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>Kryphex | Enterprise Cybersecurity</title>
   <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -522,7 +524,7 @@
       <p><a href="auth/signup.html">Create Account</a></p>
     </div>
   </div>
-  <div class="index-footer-bottom">� 2026 Kryphex. Enterprise Cybersecurity Solutions.</div>
+  <div class="index-footer-bottom">© 2026 Kryphex. Enterprise Cybersecurity Solutions.</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -531,6 +533,44 @@ const indexSupabase = supabase.createClient(
   "https://xvtnnszvfbirixppbdtl.supabase.co",
   "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
 );
+
+async function handleIndexInstallClick(buttonEl) {
+  if (!buttonEl) return;
+  buttonEl.disabled = true;
+  const original = buttonEl.textContent;
+  buttonEl.textContent = "Opening installer...";
+  try {
+    if (typeof window.kryphexPromptInstall === "function") {
+      const result = await window.kryphexPromptInstall();
+      if (result.ok && result.outcome === "accepted") {
+        buttonEl.textContent = "App Installed";
+        return;
+      }
+      if (result.ok) {
+        buttonEl.textContent = "Install Cancelled";
+        setTimeout(() => {
+          buttonEl.disabled = false;
+          buttonEl.textContent = original;
+        }, 1200);
+        return;
+      }
+    }
+    buttonEl.textContent = "Install Guide";
+    if (typeof window.kryphexShowInstallGuide === "function") {
+      window.kryphexShowInstallGuide();
+    }
+    setTimeout(() => {
+      buttonEl.disabled = false;
+      buttonEl.textContent = original;
+    }, 2200);
+  } catch {
+    buttonEl.textContent = "Install Failed";
+    setTimeout(() => {
+      buttonEl.disabled = false;
+      buttonEl.textContent = original;
+    }, 2200);
+  }
+}
 
 async function syncIndexAuthUI() {
   const authActions = document.getElementById("authActions");
@@ -590,6 +630,7 @@ async function syncIndexAuthUI() {
           </div>
           <a href="profile.html" class="auth-action">View Profile</a>
           <a href="settings/account.html" class="auth-action">Settings</a>
+          <button class="auth-action" id="installAppBtn" type="button">Install App</button>
           ${isAdmin ? '<a href="tools/console.html" class="auth-action">Console</a>' : ""}
           <button class="auth-action danger" id="logoutBtn" type="button">Log Out</button>
         </div>
@@ -599,6 +640,7 @@ async function syncIndexAuthUI() {
     const profileMenu = document.getElementById("authProfileMenu");
     const profileTrigger = document.getElementById("authProfileTrigger");
     const authDropdown = document.getElementById("authDropdown");
+    const installAppBtn = document.getElementById("installAppBtn");
     if (profileTrigger && authDropdown) {
       profileTrigger.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -636,6 +678,12 @@ async function syncIndexAuthUI() {
       location.reload();
     });
 
+    if (installAppBtn) {
+      installAppBtn.addEventListener("click", async () => {
+        await handleIndexInstallClick(installAppBtn);
+      });
+    }
+
     protectedNavLinks.forEach((link) => {
       link.href = link.dataset.protectedHref;
     });
@@ -655,9 +703,12 @@ async function syncIndexAuthUI() {
 
 syncIndexAuthUI();
 </script>
+<script src="js/pwa.js"></script>
 
 </body>
 </html>
+
+
 
 
 

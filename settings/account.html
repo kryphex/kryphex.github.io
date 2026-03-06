@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Settings | Account</title><link rel="stylesheet" href="common.css"></head>
 <body>
@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/auth.js"></script><script src="common.js"></script>
 <script>document.addEventListener('DOMContentLoaded',async()=>{const u=await requireSettingsUser();if(!u)return;accountEmail.textContent=u.email||'-';const k=settingsKey(u.id);const s=JSON.parse(localStorage.getItem(k)||'{}');language.value=s.language||'en';timezone.value=s.timezone||Intl.DateTimeFormat().resolvedOptions().timeZone||'';dateFormat.value=s.dateFormat||'dd-mm-yyyy';timeFormat.value=s.timeFormat||'12h';saveBtn.onclick=()=>{localStorage.setItem(k,JSON.stringify({...s,language:language.value,timezone:timezone.value.trim(),dateFormat:dateFormat.value,timeFormat:timeFormat.value}));applyStoredUserSettings(u);setSettingsStatus('Account settings saved.');};});</script>
 </body></html>
+
 
 
 
