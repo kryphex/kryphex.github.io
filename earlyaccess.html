@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kryphex | Early Access Program</title>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <meta name="google-site-verification" content="zIREGXOj7XWCC5O9V-B55IiUwa1EV3SHu__Sqz1rSFY" />
+
+  <style>
+    /* Your existing CSS – copied verbatim from index.html */
+    :root {
+      --primary: #2563eb;
+      --dark: #0f172a;
+      --muted: #64748b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      position: relative;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(1200px 500px at -6% -8%, #dbeafe 0%, transparent 52%),
+        radial-gradient(980px 420px at 108% 4%, #e0e7ff 0%, transparent 48%),
+        linear-gradient(150deg, #f7faff 0%, #eef3fb 52%, #e6edf8 100%);
+      color: var(--dark);
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -18%;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(68px);
+      opacity: 0.75;
+      transform: translate3d(0, 0, 0);
+      will-change: transform, opacity;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle at 22% 30%, rgba(37, 99, 235, 0.35) 0%, transparent 42%),
+        radial-gradient(circle at 80% 70%, rgba(14, 165, 233, 0.28) 0%, transparent 40%);
+      animation: driftA 16s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 74% 24%, rgba(99, 102, 241, 0.28) 0%, transparent 42%),
+        radial-gradient(circle at 30% 78%, rgba(59, 130, 246, 0.24) 0%, transparent 44%);
+      animation: driftB 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftA {
+      0% { transform: translate3d(-3%, -2%, 0) scale(1); opacity: 0.62; }
+      50% { transform: translate3d(2%, 1%, 0) scale(1.06); opacity: 0.82; }
+      100% { transform: translate3d(4%, -3%, 0) scale(1.02); opacity: 0.68; }
+    }
+
+    @keyframes driftB {
+      0% { transform: translate3d(3%, 2%, 0) scale(1); opacity: 0.55; }
+      50% { transform: translate3d(-2%, -1%, 0) scale(1.08); opacity: 0.78; }
+      100% { transform: translate3d(-4%, 3%, 0) scale(1.03); opacity: 0.6; }
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.85);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .nav {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .auth {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .login {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .signup {
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .signup:hover {
+      background: #1e40af;
+    }
+
+    .auth-profile-menu {
+      position: relative;
+    }
+
+    .auth-profile-trigger {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #dbe6f5;
+      background: #f8fbff;
+      color: var(--dark);
+      border-radius: 12px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .auth-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .auth-avatar.large {
+      width: 42px;
+      height: 42px;
+      font-size: 14px;
+    }
+
+    .auth-identity {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+
+    .auth-identity strong {
+      font-size: 13px;
+    }
+
+    .auth-identity small {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .auth-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: min(90vw, 340px);
+      background: #fff;
+      border: 1px solid #dbe6f5;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+      padding: 12px;
+      z-index: 2100;
+      display: none;
+    }
+
+    .auth-dropdown.open {
+      display: block;
+    }
+
+    .auth-dropdown-head {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e6edf8;
+    }
+
+    .auth-name {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0b2a66;
+    }
+
+    .auth-sub {
+      margin: 3px 0 0;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .auth-action {
+      width: 100%;
+      display: block;
+      text-align: left;
+      text-decoration: none;
+      border: 1px solid #dbe6f5;
+      background: #f8fbff;
+      color: #0b2a66;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .auth-action.danger {
+      color: #b91c1c;
+      border-color: #f3d1d1;
+      background: #fff6f6;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 80px;
+      background:
+        radial-gradient(780px 320px at 12% 18%, rgba(37,99,235,0.2), transparent 56%),
+        radial-gradient(680px 280px at 94% 70%, rgba(59,130,246,0.16), transparent 58%);
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      max-width: 900px;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .hero p {
+      margin-top: 30px;
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    .cta {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .btn-primary {
+      padding: 16px 34px;
+      background: var(--primary);
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s ease;
+      box-shadow: 0 15px 30px rgba(37,99,235,0.3);
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+    }
+
+    .btn-secondary {
+      padding: 16px 34px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--dark);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .overview {
+      padding: 42px 80px 80px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      width: min(1200px, 100%);
+      margin: 0 auto;
+    }
+
+    .panel {
+      border: 1px solid #d7e1f3;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+      padding: 24px;
+    }
+
+    .panel h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #0f2454;
+    }
+
+    .panel p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* Form inside panel */
+    .panel input, .panel select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #d7e1f3;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .panel label {
+      font-weight: 600;
+      font-size: 14px;
+      color: #0f2454;
+    }
+
+    .success-message {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .index-footer {
+      margin-top: 26px;
+      padding: 56px 80px 28px;
+      border-top: 1px solid rgba(129, 161, 220, 0.35);
+      background:
+        radial-gradient(600px 200px at -8% 18%, rgba(116, 157, 232, 0.22), transparent 72%),
+        radial-gradient(560px 180px at 108% 88%, rgba(118, 176, 255, 0.2), transparent 72%),
+        linear-gradient(165deg, #071a41 0%, #0b2b67 56%, #143b87 100%);
+      color: #dbeafe;
+    }
+
+    .index-footer-grid {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .index-footer .col {
+      border: 1px solid rgba(165, 191, 241, 0.24);
+      background: rgba(8, 34, 84, 0.4);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .index-footer h4 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .index-footer p,
+    .index-footer a {
+      margin: 0;
+      color: #bfdbfe;
+      text-decoration: none;
+      line-height: 1.7;
+    }
+
+    .index-footer a:hover {
+      color: #ffffff;
+    }
+
+    .index-footer-bottom {
+      width: min(1200px, 100%);
+      margin: 20px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(164, 193, 244, 0.28);
+      color: #c7d9f9;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .header {
+        padding: 0 25px;
+      }
+      .nav {
+        display: none;
+      }
+      .hero {
+        padding: 0 25px;
+      }
+      .hero h1 {
+        font-size: 38px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+      .overview {
+        padding: 22px 25px 48px;
+      }
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+      .index-footer {
+        padding: 42px 25px 24px;
+      }
+      .index-footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="elite-ui page-early-access">
+
+<header class="header">
+  <div class="logo">
+    <a href="index.html" style="display:flex; align-items:center;">
+      <img src="logo.svg" alt="Kryphex Logo" style="height:28px;">
+    </a>
+  </div>
+
+  <div class="nav">
+    <a href="platform.html" data-protected-href="platform.html" class="protected-nav-link">Platform</a>
+    <a href="security.html" data-protected-href="security.html" class="protected-nav-link">Security</a>
+    <a href="resources.html" data-protected-href="resources.html" class="protected-nav-link">Resources</a>
+    <a href="pricing.html" data-protected-href="pricing.html" class="protected-nav-link">Pricing</a>
+  </div>
+
+  <div class="auth" id="authActions">
+    <a href="auth/login.html" class="login">Login</a>
+    <a href="auth/signup.html" class="signup">Sign Up</a>
+  </div>
+</header>
+
+<!-- EARLY ACCESS HERO SECTION (uses your .hero class) -->
+<section class="hero">
+  <h1>Be the first to secure<br>the future with Kryphex</h1>
+  <p>
+    Join a private group of security leaders, pentesters, and CISOs getting early access to our next-gen threat intelligence platform.
+  </p>
+  <div class="cta">
+    <a href="#waitlist-panel" class="btn-primary">Secure Early Access →</a>
+    <a href="consultation.html" class="btn-secondary">Talk to an expert</a>
+  </div>
+</section>
+
+<!-- BENEFITS SECTION (uses your .overview-grid, .panel classes) -->
+<section class="overview">
+  <div class="overview-grid">
+    <article class="panel">
+      <h3>🛡️ Zero-day detection</h3>
+      <p>AI-powered behavioral analysis catches exploits before signatures exist. Tested against MITRE ATT&CK.</p>
+    </article>
+    <article class="panel">
+      <h3>⚡ Sub‑millisecond response</h3>
+      <p>Edge-deployed sensors block threats in real time without latency. No impact on user experience.</p>
+    </article>
+    <article class="panel">
+      <h3>🔗 Air‑gapped deployment</h3>
+      <p>Run fully offline. Your data never leaves your infrastructure. Perfect for defense, finance, and critical infrastructure.</p>
+    </article>
+    <article class="panel">
+      <h3>📊 CISO dashboard</h3>
+      <p>Executive-level risk scoring, compliance reporting (SOC2, ISO27001, GDPR), and attack surface visualization.</p>
+    </article>
+    <article class="panel">
+      <h3>🎁 Exclusive launch pricing</h3>
+      <p>Lock in 50% off your first year and priority support. Only for early access members.</p>
+    </article>
+    <article class="panel" id="waitlist-panel">
+      <h3>📋 Request early access</h3>
+      <p style="margin-bottom: 16px;">No commitment. We'll contact you within 48h with next steps.</p>
+      <form id="early-access-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+        <label>Full name *</label>
+        <input type="text" name="name" required>
+
+        <label>Work email *</label>
+        <input type="email" name="email" required>
+
+        <label>Company / Organization</label>
+        <input type="text" name="company">
+
+        <label>Role</label>
+        <select name="role">
+          <option value="">Select</option>
+          <option>CISO / Security Director</option>
+          <option>Security Engineer</option>
+          <option>Penetration Tester</option>
+          <option>IT Manager</option>
+          <option>Founder / CEO</option>
+          <option>Other</option>
+        </select>
+
+        <button type="submit" class="btn-primary" style="width:100%; margin-top: 8px;">Secure my spot →</button>
+        <div id="form-success" class="success-message">✅ You're on the list! We'll email you within 48 hours.</div>
+        <p style="font-size: 12px; margin-top: 12px; color: #64748b;">By submitting, you agree to our <a href="/privacy.html" style="color:#2563eb;">Privacy Policy</a>. No spam.</p>
+      </form>
+    </article>
+  </div>
+</section>
+
+<!-- FOOTER (exact copy from index.html) -->
+<footer class="index-footer">
+  <div class="index-footer-grid">
+    <div class="col">
+      <h4>Kryphex</h4>
+      <p>Enterprise-focused cybersecurity operations and architecture strategy.</p>
+    </div>
+    <div class="col">
+      <h4>Navigation</h4>
+      <p><a href="platform.html">Platform</a></p>
+      <p><a href="security.html">Security</a></p>
+      <p><a href="resources.html">Resources</a></p>
+      <p><a href="pricing.html">Pricing</a></p>
+    </div>
+    <div class="col">
+      <h4>Engage</h4>
+      <p><a href="consultation.html">Request Consultation</a></p>
+      <p><a href="auth/login.html">Login</a></p>
+      <p><a href="auth/signup.html">Create Account</a></p>
+    </div>
+  </div>
+  <div class="index-footer-bottom">© 2026 Kryphex. Enterprise Cybersecurity Solutions.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // Your existing Supabase auth logic (from index.html) – required for header/footer consistency
+  const indexSupabase = supabase.createClient(
+    "https://xvtnnszvfbirixppbdtl.supabase.co",
+    "sb_publishable_pQJ3E0t7j34sImItSqxn6Q_jLBGuasq"
+  );
+
+  async function handleIndexInstallClick(buttonEl) {
+    if (!buttonEl) return;
+    buttonEl.disabled = true;
+    const original = buttonEl.textContent;
+    buttonEl.textContent = "Opening installer...";
+    try {
+      if (typeof window.kryphexPromptInstall === "function") {
+        const result = await window.kryphexPromptInstall();
+        if (result.ok && result.outcome === "accepted") {
+          buttonEl.textContent = "App Installed";
+          return;
+        }
+        if (result.ok) {
+          buttonEl.textContent = "Install Cancelled";
+          setTimeout(() => {
+            buttonEl.disabled = false;
+            buttonEl.textContent = original;
+          }, 1200);
+          return;
+        }
+      }
+      buttonEl.textContent = "Install Guide";
+      if (typeof window.kryphexShowInstallGuide === "function") {
+        window.kryphexShowInstallGuide();
+      }
+      setTimeout(() => {
+        buttonEl.disabled = false;
+        buttonEl.textContent = original;
+      }, 2200);
+    } catch {
+      buttonEl.textContent = "Install Failed";
+      setTimeout(() => {
+        buttonEl.disabled = false;
+        buttonEl.textContent = original;
+      }, 2200);
+    }
+  }
+
+  async function syncIndexAuthUI() {
+    const authActions = document.getElementById("authActions");
+    const protectedNavLinks = document.querySelectorAll(".protected-nav-link");
+    const { data } = await indexSupabase.auth.getUser();
+    const isLoggedIn = Boolean(data && data.user);
+
+    if (isLoggedIn) {
+      const storageKey = `kryphex_profile_${data.user.id}`;
+      let localProfile = {};
+      try {
+        const raw = localStorage.getItem(storageKey);
+        localProfile = raw ? JSON.parse(raw) : {};
+      } catch {
+        localProfile = {};
+      }
+
+      const remoteMeta = data.user.user_metadata || {};
+      const displayName = (remoteMeta.name || localProfile.name || data.user.email || "User").trim();
+      const baseRole = (remoteMeta.role || localProfile.role || "Security Member").trim();
+      const displayCompany = (remoteMeta.company || localProfile.company || "Kryphex").trim();
+      const initials = (displayName.match(/\b\w/g) || []).slice(0, 2).join("").toUpperCase() || "U";
+
+      let isAdmin = false;
+      const { data: profile } = await indexSupabase
+        .from("profiles")
+        .select("role")
+        .eq("id", data.user.id)
+        .maybeSingle();
+
+      if (profile && profile.role === "admin") {
+        isAdmin = true;
+      }
+      const displayRole = isAdmin ? "Founder/C.E.O" : baseRole;
+
+      authActions.innerHTML = `
+        <div class="auth-profile-menu" id="authProfileMenu">
+          <button class="auth-profile-trigger" id="authProfileTrigger" type="button" aria-label="Open profile menu" aria-expanded="false">
+            <span class="auth-avatar">${initials}</span>
+            <span class="auth-identity">
+              <strong>${displayName}</strong>
+              <small>${displayCompany}</small>
+            </span>
+          </button>
+          <div class="auth-dropdown" id="authDropdown">
+            <div class="auth-dropdown-head">
+              <div class="auth-avatar large">${initials}</div>
+              <div>
+                <p class="auth-name">${displayName}</p>
+                <p class="auth-sub">${displayRole} | ${displayCompany}</p>
+              </div>
+            </div>
+            <a href="profile.html" class="auth-action">View Profile</a>
+            <a href="settings/account.html" class="auth-action">Settings</a>
+            <button class="auth-action" id="installAppBtn" type="button">Install App</button>
+            ${isAdmin ? '<a href="tools/console.html" class="auth-action">Console</a>' : ""}
+            <button class="auth-action danger" id="logoutBtn" type="button">Log Out</button>
+          </div>
+        </div>
+      `;
+
+      const profileMenu = document.getElementById("authProfileMenu");
+      const profileTrigger = document.getElementById("authProfileTrigger");
+      const authDropdown = document.getElementById("authDropdown");
+      const installAppBtn = document.getElementById("installAppBtn");
+      if (profileTrigger && authDropdown) {
+        profileTrigger.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = authDropdown.classList.toggle("open");
+          profileTrigger.setAttribute("aria-expanded", String(isOpen));
+        });
+        document.addEventListener("click", (event) => {
+          if (!profileMenu || profileMenu.contains(event.target)) return;
+          authDropdown.classList.remove("open");
+          profileTrigger.setAttribute("aria-expanded", "false");
+        });
+      }
+      if (installAppBtn) {
+        installAppBtn.addEventListener("click", async () => {
+          await handleIndexInstallClick(installAppBtn);
+        });
+      }
+
+      document.getElementById("logoutBtn").addEventListener("click", async () => {
+        await indexSupabase.auth.signOut();
+        location.reload();
+      });
+
+      protectedNavLinks.forEach((link) => {
+        link.href = link.dataset.protectedHref;
+      });
+      return;
+    }
+
+    authActions.innerHTML = `
+      <a href="auth/login.html" class="login">Login</a>
+      <a href="auth/signup.html" class="signup">Sign Up</a>
+    `;
+    protectedNavLinks.forEach((link) => {
+      link.href = `auth/login.html?redirect=${encodeURIComponent(link.dataset.protectedHref)}`;
+    });
+  }
+
+  syncIndexAuthUI();
+
+  // Form submission handling for early access form
+  const form = document.getElementById('early-access-form');
+  const successDiv = document.getElementById('form-success');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.reset();
+          successDiv.style.display = 'block';
+          setTimeout(() => { successDiv.style.display = 'none'; }, 6000);
+        } else {
+          alert("Error. Please email hello@kryphex.com directly.");
+        }
+      } catch (err) {
+        alert("Network error. Please try again.");
+      }
+    });
+  }
+</script>
+<script src="js/pwa.js"></script>
+
+</body>
+</html>
